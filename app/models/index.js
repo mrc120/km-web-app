@@ -18,6 +18,6 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
+db.ksiazka_crud = require("./ksiazka.model.js")(sequelize, Sequelize);
 
 module.exports = db;

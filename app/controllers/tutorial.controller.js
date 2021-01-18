@@ -1,26 +1,31 @@
 const db = require("../models");
-const Tutorial = db.tutorials;
+const Ksiazka = db.ksiazka_crud;
 const Op = db.Sequelize.Op;
 
 
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.title) {
+    if (!req.body.imie) {
         res.status(400).send({
-            message: "Content can not be empty!"
+            message: "Treść nie może być pusta!"
         });
         return;
     }
 
-    // Create a Tutorial
-    const tutorial = {
-        title: req.body.title,
-        description: req.body.description,
+    // Tworzenie ksiązki adresowej
+    const ksiazka = {
+        imie: req.body.imie,
+        nazwisko: req.body.nazwisko,
+        adres_email: req.body.adres_email,
+        numer_tel: req.body.numer_tel,
+        numer_stacj: req.body.numer_stacj,
+        numer_pokoju: req.body.numer_pokoju,
+        nazwa_dzialu: req.body.nazwa_dzialu,
         published: req.body.published ? req.body.published : false
     };
 
     // Save Tutorial in the database
-    Tutorial.create(tutorial)
+    Ksiazka.create(ksiazka)
         .then(data => {
             res.send(data);
         })
@@ -33,17 +38,17 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+    const imie = req.query.imie;
+    var condition = imie ? { imie: { [Op.like]: `%${imie}%` } } : null;
   
-    Tutorial.findAll({ where: condition })
+    Ksiazka.findAll({ where: condition })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Wystąpił błąd podczas wydobywania danych."
         });
       });
   };
@@ -51,7 +56,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.findByPk(id)
+    Ksiazka.findByPk(id)
         .then(data => {
             res.send(data);
         })
@@ -65,13 +70,13 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.update(req.body, {
+    Ksiazka.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "dodano tutorial"
+                    message: "Zaktualizowano pozycję"
                 });
             } else {
                 res.send({
@@ -89,17 +94,17 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.destroy({
+    Ksiazka.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial usunięto"
+                    message: "Pozycja usunięta"
                 });
             } else {
                 res.send({
-                    message: 'nie można usunąć id=${id}'
+                    message: 'Nie można usunąć id=${id}'
                 });
             }
         })
@@ -111,30 +116,30 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    Tutorial.destroy({
+    Ksiazka.destroy({
         where: {},
         truncate: false
     })
         .then(nums => {
-            res.send({ message: '${nums} Tutorial usunięty' });
+            res.send({ message: '${nums} Pozycja usunięta' });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Jakiś błąd przy usuwaniu wszystkich rzeczy"
+                    err.message || "Błąd przy usuwaniu wszystkich rzeczy"
             });
         });
 };
 
 exports.findAllPublished = (req, res) => {
-    Tutorial.findAll({ where: { published: true } })
+    Ksiazka.findAll({ where: { published: true } })
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Wystąpił błąd podczas wydobywania danych."
             });
         });
 };
