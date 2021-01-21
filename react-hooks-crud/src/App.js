@@ -6,6 +6,7 @@ import "./App.css";
 import AddEmployee from "./components/AddEmployee";
 import Ksiazka from "./components/Ksiazka";
 import KsiazkaList from "./components/KsiazkaList";
+import KsiazkaTable from "./components/KsiazkaTable";
 
 function App() {
   return (
@@ -25,6 +26,11 @@ function App() {
               Dodaj
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to={"/table"} className="nav-link">
+              Ksiązka adresowa
+            </Link>
+          </li>
         </div>
       </nav>
 
@@ -33,6 +39,7 @@ function App() {
           <Route exact path={["/", "/ksiazka"]} component={KsiazkaList} />
           <Route exact path="/add" component={AddEmployee} />
           <Route path="/ksiazka/:id" component={Ksiazka} />
+          <Route exact path="/table" component={KsiazkaTable} />
         </Switch>
       </div>
     </div>

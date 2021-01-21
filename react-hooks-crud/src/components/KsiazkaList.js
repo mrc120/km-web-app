@@ -53,7 +53,7 @@ const KsiazkaList = () => {
   const findByTitle = () => {
     TutorialDataService.findByTitle(searchTitle)
       .then(response => {
-       setksiazka_crud(response.data);
+        setksiazka_crud(response.data);
         console.log(response.data);
       })
       .catch(e => {
@@ -101,12 +101,12 @@ const KsiazkaList = () => {
             ))}
         </ul>
 
-        <button
+        {<button
           className="m-3 btn btn-sm btn-danger"
           onClick={removeAllTutorials}
         >
           Usun wsyzstko
-        </button>
+        </button>}
       </div>
       <div className="col-md-6">
         {currentKsiazka ? (
@@ -163,11 +163,11 @@ const KsiazkaList = () => {
             </Link>
           </div>
         ) : (
-          <div>
-            <br />
-            <p>Please click on a Tutorial...</p>
-          </div>
-        )}
+            <div>
+              <br />
+              <p>Please click on a Tutorial...</p>
+            </div>
+          )}
       </div>
     </div>
   );
