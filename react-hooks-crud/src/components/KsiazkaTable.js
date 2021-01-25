@@ -1,115 +1,110 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
-import MaterialTable from "material-table";
+//import MaterialTable from "material-table";
 import TutorialDataService from "../services/KsiazkaService"
-// import axios from 'axios';
-//import { Modal, TextField, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
+import { Link } from "react-router-dom";
 
-const columns = [
-  { title: 'Imie', field: 'imie' },
-  { title: 'Nazwisko', field: 'nazwisko' },
-  { title: 'Adres e-mail', field: 'email' },
-  { title: 'Numer telefonu', field: 'numer_tel', type: 'numeric' },
-  { title: 'Numer tel. stacj.', field: 'numer_stacj' },
-  { title: 'Nazwa działu', field: 'nazwa_dzialu' },
-  { title: 'Numer pokoju', field: 'numer_pokoju' }
 
-];
+// const columns = [
+//   { title: 'Imie', field: 'imie' },
+//   { title: 'Nazwisko', field: 'nazwisko' },
+//   { title: 'Adres e-mail', field: 'email' },
+//   { title: 'Numer telefonu', field: 'numer_tel', type: 'numeric' },
+//   { title: 'Numer tel. stacj.', field: 'numer_stacj' },
+//   { title: 'Nazwa działu', field: 'nazwa_dzialu' },
+//   { title: 'Numer pokoju', field: 'numer_pokoju' }
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)'
-  },
-  iconos: {
-    cursor: 'pointer'
-  },
-  inputMaterial: {
-    width: '100%'
-  }
-}));
+// ];
 
-function KsiazkaTable() {
-  const styles = useStyles();
-  // const [ksiazka_crud, setksiazka_crud] = useState([]);
-  const [ksiazka_crud, setksiazka_crud]=useState({
-    imie: "",
-    nazwisko: "",
-    email: "",
-    numer_tel: "",
-    numer_stacj: "",
-    nazwa_dzialu: "",
-    numer_pokoju: ""
-  })
-  // const [currentKsiazka, setCurrentKsiazka] = useState(null);
-  // const [currentIndex, setCurrentIndex] = useState(-1);
-  // const [searchTitle, setSearchTitle] = useState("");
+// const useStyles = makeStyles((theme) => ({
+//   modal: {
+//     position: 'absolute',
+//     width: 400,
+//     backgroundColor: theme.palette.background.paper,
+//     border: '2px solid #000',
+//     boxShadow: theme.shadows[5],
+//     padding: theme.spacing(2, 4, 3),
+//     top: '50%',
+//     left: '50%',
+//     transform: 'translate(-50%, -50%)'
+//   },
+//   iconos: {
+//     cursor: 'pointer'
+//   },
+//   inputMaterial: {
+//     width: '100%'
+//   }
+// }));
+
+const KsiazkaTable = () => {
+  //const styles = useStyles();
+  const [ksiazka_emp, setksiazka_emp] = useState([]);
 
   useEffect(() => {
     retrieveKsiazka();
-  }, [])
-
-  // const onChangeSearchTitle = e => {
-  //   const searchTitle = e.target.value;
-  //   setSearchTitle(searchTitle);
-  // };
-
-
-  // const handleChange=e=>{
-  //   const {name, value}=e.target;
-  //   setArtistaSeleccionado(prevState=>({
-  //     ...prevState,
-  //     [name]: value
-  //   }));
-  // }
+    //loadUsers();
+  }, []);
 
   const retrieveKsiazka = () => {
     TutorialDataService.getAll()
       .then(response => {
-        setksiazka_crud(response.ksiazka_crud);
-        console.log(response.ksiazka_crud);
+        setksiazka_emp(response.data);
+        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
       });
   };
 
-
-  // const findByTitle = () => {
-  //   TutorialDataService.findByTitle(searchTitle)
-  //     .then(response => {
-  //      setksiazka_crud(response.data);
-  //       console.log(response.data);
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
+  // const loadUsers = () => {
+  //   const result = axios.get("http://localhost:8080/ksiazka");
+  //   setksiazka_emp(result.data.reverse());
+  // };
+  // const deleteUser = async id => {
+  //   await axios.delete(`http://localhost:8080/ksiazka/${id}`);
+  //   loadUsers();
   // };
 
-
   return (
-    
-    <div className="KsiazkaTable">
-      <MaterialTable
-        columns={columns}
-        ksiazka_crud={ksiazka_crud}
-        title="Książka adresowa"
-        options={{
-          search: false
-        }}
-       
-      
-      />
+    <div className="container">
+      <div className="py-4">
+        <h1>Home Page</h1>
+        <table class="table border shadow">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ksiazka_emp.map((ksiazka_emp, index) => (
+              <tr>
+                <th scope="row">{index + 1}</th>
+                <td>{ksiazka_emp.imie}</td>
+                <td>{ksiazka_emp.nazwisko}</td>
+                <td>
+                  <Link class="btn btn-primary mr-2" to={``}>
+                    View
+                  </Link>
+                  <Link
+                    class="btn btn-outline-primary mr-2"
+                    to={`/users/edit/${ksiazka_emp.id}`}
+                  >
+                    Edit
+                  </Link>
+                 
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-}
+};
 
 export default KsiazkaTable;

@@ -65,7 +65,7 @@ const KsiazkaList = () => {
     <div className="list row">
       <div className="col-md-8">
         <div className="input-group mb-3">
-          <input
+        <input
             type="text"
             className="form-control"
             placeholder="Szukaj po imieniu"

@@ -70,7 +70,7 @@ const AddEmployee = () => {
       ) : (
         <div>
          <div className="form-group">
-            <label htmlFor="imie">Imie</label>
+            <label htmlFor="imie">Imasde</label>
             <input
               type="text"
               className="form-control"

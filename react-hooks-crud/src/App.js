@@ -28,7 +28,7 @@ function App() {
           </li>
           <li className="nav-item">
             <Link to={"/table"} className="nav-link">
-              Ksiązka adresowa
+              Książka adresowa
             </Link>
           </li>
         </div>
