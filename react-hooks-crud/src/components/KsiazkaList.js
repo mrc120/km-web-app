@@ -39,16 +39,6 @@ const KsiazkaList = () => {
     setCurrentIndex(index);
   };
 
-  const removeAllTutorials = () => {
-    TutorialDataService.removeAll()
-      .then(response => {
-        console.log(response.data);
-        refreshList();
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
 
   const findByTitle = () => {
     TutorialDataService.findByTitle(searchTitle)
@@ -101,20 +91,15 @@ const KsiazkaList = () => {
             ))}
         </ul>
 
-        {<button
-          className="m-3 btn btn-sm btn-danger"
-          onClick={removeAllTutorials}
-        >
-          Usun wsyzstko
-        </button>}
+        
       </div>
       <div className="col-md-6">
         {currentKsiazka ? (
           <div>
-            <h4>Ksiazki</h4>
+            <h4>Osoba</h4>
             <div>
               <label>
-                <strong>Tytul:</strong>
+                <strong>Imię:</strong>
               </label>{" "}
               {currentKsiazka.imie}
             </div>
@@ -126,25 +111,37 @@ const KsiazkaList = () => {
             </div>
             <div>
               <label>
-                <strong>cs:</strong>
-              </label>{" "}
-              {currentKsiazka.numer_tel}
-            </div>
-            <div>
-              <label>
-                <strong>Tytul:</strong>
-              </label>{" "}
-              {currentKsiazka.nazwa_dzialu}
-            </div>
-            <div>
-              <label>
-                <strong>Tytul:</strong>
+                <strong>Adres e-mail:</strong>
               </label>{" "}
               {currentKsiazka.adres_email}
             </div>
             <div>
               <label>
-                <strong>Tytul:</strong>
+                <strong>Numer tel kom.:</strong>
+              </label>{" "}
+              {currentKsiazka.numer_tel}
+            </div>
+            <div>
+              <label>
+                <strong>Numer tel stacj.:</strong>
+              </label>{" "}
+              {currentKsiazka.numer_stacj}
+            </div>
+            <div>
+              <label>
+                <strong>Nazwa działu/funkcji:</strong>
+              </label>{" "}
+              {currentKsiazka.nazwa_dzialu}
+            </div>
+            <div>
+              <label>
+                <strong>Symbol działu:</strong>
+              </label>{" "}
+              {currentKsiazka.symbol_dzialu}
+            </div>
+            <div>
+              <label>
+                <strong>Numer pokoju:</strong>
               </label>{" "}
               {currentKsiazka.numer_pokoju}
             </div>
@@ -152,7 +149,7 @@ const KsiazkaList = () => {
               <label>
                 <strong>Status:</strong>
               </label>{" "}
-              {currentKsiazka.published ? "Published" : "Pending"}
+              {currentKsiazka.published ? "Widoczny" : "Ukryty"}
             </div>
 
             <Link

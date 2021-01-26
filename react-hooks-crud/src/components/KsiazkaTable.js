@@ -1,55 +1,91 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
-//import MaterialTable from "material-table";
 import TutorialDataService from "../services/KsiazkaService"
-import axios from 'axios';
 import { Link } from "react-router-dom";
 
+import { forwardRef } from 'react';
+//import Avatar from 'react-avatar';
+import Grid from '@material-ui/core/Grid'
 
-// const columns = [
-//   { title: 'Imie', field: 'imie' },
-//   { title: 'Nazwisko', field: 'nazwisko' },
-//   { title: 'Adres e-mail', field: 'email' },
-//   { title: 'Numer telefonu', field: 'numer_tel', type: 'numeric' },
-//   { title: 'Numer tel. stacj.', field: 'numer_stacj' },
-//   { title: 'Nazwa działu', field: 'nazwa_dzialu' },
-//   { title: 'Numer pokoju', field: 'numer_pokoju' }
+import MaterialTable from "material-table";
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
+import Alert from '@material-ui/lab/Alert';
+import axios from 'axios';
 
-// ];
 
-// const useStyles = makeStyles((theme) => ({
-//   modal: {
-//     position: 'absolute',
-//     width: 400,
-//     backgroundColor: theme.palette.background.paper,
-//     border: '2px solid #000',
-//     boxShadow: theme.shadows[5],
-//     padding: theme.spacing(2, 4, 3),
-//     top: '50%',
-//     left: '50%',
-//     transform: 'translate(-50%, -50%)'
-//   },
-//   iconos: {
-//     cursor: 'pointer'
-//   },
-//   inputMaterial: {
-//     width: '100%'
-//   }
-// }));
+const tableIcons = {
+  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+  DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+  SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+};
 
-const KsiazkaTable = () => {
-  //const styles = useStyles();
-  const [ksiazka_emp, setksiazka_emp] = useState([]);
+function KsiazkaTable() {
+  const [data, setData] = useState([]); //table data
+  //for error handling
+  const [iserror, setIserror] = useState(false)
+  const [errorMessages, setErrorMessages] = useState([])
 
+  var columns = [
+    { title: 'Lp.', field: 'id'},
+    { title: 'Imie', field: 'imie' },
+    { title: 'Nazwisko', field: 'nazwisko' },
+    { title: 'Adres e-mail', field: 'adres_email' },
+    { title: 'Numer telefonu', field: 'numer_tel', type: 'numeric' },
+    { title: 'Numer tel. stacj.', field: 'numer_stacj' },
+    { title: 'Nazwa działu', field: 'nazwa_dzialu' },
+    { title: 'Symbol działu', field: 'symbol_dzialu' },
+    { title: 'Numer pokoju', field: 'numer_pokoju' }, ]
+  // const loadUsers = () => {
+  //   const result = axios.get("http://localhost:8080/ksiazka");
+  //   setksiazka_emp(result.data.reverse());
+  // const api = axios.create({
+  //   baseURL: `http://localhost:8080/api`
+  // })
   useEffect(() => {
+    // api.get("/ksiazka")
+    // .then(res => {
+    //   setData(res.data.data)
+    // })
+    // // .catch(error=>{
+    // //   setErrorMessage(["Cannot load user data"])
+    // //   setIserror(true)
+    // // })
     retrieveKsiazka();
-    //loadUsers();
-  }, []);
+}, [])
+
 
   const retrieveKsiazka = () => {
     TutorialDataService.getAll()
       .then(response => {
-        setksiazka_emp(response.data);
+        setData(response.data);
         console.log(response.data);
       })
       .catch(e => {
@@ -57,54 +93,49 @@ const KsiazkaTable = () => {
       });
   };
 
-  // const loadUsers = () => {
-  //   const result = axios.get("http://localhost:8080/ksiazka");
-  //   setksiazka_emp(result.data.reverse());
-  // };
-  // const deleteUser = async id => {
-  //   await axios.delete(`http://localhost:8080/ksiazka/${id}`);
-  //   loadUsers();
-  // };
-
   return (
-    <div className="container">
-      <div className="py-4">
-        <h1>Home Page</h1>
-        <table class="table border shadow">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">User Name</th>
-              <th scope="col">Email</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ksiazka_emp.map((ksiazka_emp, index) => (
-              <tr>
-                <th scope="row">{index + 1}</th>
-                <td>{ksiazka_emp.imie}</td>
-                <td>{ksiazka_emp.nazwisko}</td>
-                <td>
-                  <Link class="btn btn-primary mr-2" to={``}>
-                    View
-                  </Link>
-                  <Link
-                    class="btn btn-outline-primary mr-2"
-                    to={`/users/edit/${ksiazka_emp.id}`}
-                  >
-                    Edit
-                  </Link>
-                 
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div className="ksiazkatable">
+
+      <Grid container spacing={3}>
+        <Grid item xs={5}></Grid>
+        <Grid item xs={12}>
+        <div>
+            {iserror && 
+              <Alert severity="error">
+                  {errorMessages.map((msg, i) => {
+                      return <div key={i}>{msg}</div>
+                  })}
+              </Alert>
+            }       
+          </div>
+          <MaterialTable
+            title="Książka Adresowa"
+              columns={columns}
+              data={data}
+            icons={tableIcons}
+  //           data={query =>
+  //             new Promise((resolve, reject) => {
+  //               let url = 'http://localhost:8080/ksiazka?'
+  //               url += 'per_page=' + query.pageSize
+  //               url += '&page=' + (query.page + 1)
+  //               fetch(url)
+  //                 .then(response => response.json())
+  //                 .then(result => {
+  //                   resolve({
+  //                     data: result.data,
+  //                     page: result.page - 1,
+  //                     totalCount: result.total,
+  //         })
+  //       })
+  //   })
+  // }
+/>
+       
+        </Grid>
+        <Grid item xs={5}></Grid>
+      </Grid>
     </div>
   );
-};
+}
 
 export default KsiazkaTable;

@@ -28,8 +28,9 @@ const AddEmployee = () => {
       adres_email: ksiazka.adres_email,
       numer_tel: ksiazka.numer_tel,
       numer_stacj: ksiazka.numer_stacj,
-      numer_pokoju: ksiazka.numer_pokoju,
-      nazwa_dzialu: ksiazka.nazwa_dzialu
+      nazwa_dzialu: ksiazka.nazwa_dzialu,
+      symbol_dzialu: ksiazka.symbol_dzialu,
+      numer_pokoju: ksiazka.numer_pokoju
     };
 
     TutorialDataService.create(data)
@@ -42,6 +43,7 @@ const AddEmployee = () => {
           numer_tel: response.data.numer_tel,
           numer_stacj: response.data.numer_stacj,
           nazwa_dzialu: response.data.nazwa_dzialu,
+          symbol_dzialu: response.data.symbol_dzialu,
           numer_pokoju: response.data.numer_pokoju,
           published: response.data.published
         });
@@ -70,7 +72,7 @@ const AddEmployee = () => {
       ) : (
         <div>
          <div className="form-group">
-            <label htmlFor="imie">Imasde</label>
+            <label htmlFor="imie">Imię</label>
             <input
               type="text"
               className="form-control"
@@ -141,6 +143,18 @@ const AddEmployee = () => {
               value={ksiazka.nazwa_dzialu}
               onChange={handleInputChange}
               name="nazwa_dzialu"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="symbol_dzialu">Symbol działu</label>
+            <input
+              type="text"
+              className="form-control"
+              id="symbol_dzialu"
+              required
+              value={ksiazka.symbol_dzialu}
+              onChange={handleInputChange}
+              name="symbol_dzialu"
             />
           </div>
           <div className="form-group">

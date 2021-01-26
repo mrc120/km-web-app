@@ -45,6 +45,7 @@ const Ksiazka = props => {
       numer_tel: currentKsiazka.numer_tel,
       numer_stacj: currentKsiazka.numer_stacj,
       nazwa_dzialu: currentKsiazka.nazwa_dzialu,
+      symbol_dzialu: currentKsiazka.symbol_dzialu,
       numer_pokoju: currentKsiazka.numer_pokoju,
       published: status
     };
@@ -178,7 +179,17 @@ const Ksiazka = props => {
                 onChange={handleInputChange}
               />
             </div>
-
+            <div className="form-group">
+              <label htmlFor="symbol_dzialu">Symbol działu</label>
+              <input
+                type="text"
+                className="form-control"
+                id="symbol_dzialu"
+                name="symbol_dzialu"
+                value={currentKsiazka.symbol_dzialu}
+                onChange={handleInputChange}
+              />
+            </div>
             <div className="form-group">
               <label>
                 <strong>Widoczność</strong>

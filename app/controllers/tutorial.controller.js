@@ -21,7 +21,7 @@ exports.create = (req, res) => {
         numer_stacj: req.body.numer_stacj,
         numer_pokoju: req.body.numer_pokoju,
         nazwa_dzialu: req.body.nazwa_dzialu,
-        published: req.body.published ? req.body.published : false
+      
     };
 
     // Save Tutorial in the database
