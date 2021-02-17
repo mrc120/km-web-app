@@ -12,18 +12,12 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import AdminLayout from "layouts/Admin.js";
 
-import * as serviceWorker from "./serviceWorker";
-
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-    <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Redirect from="/" to="/admin/table" />
-          <App />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
 );
-
-
-serviceWorker.unregister();

@@ -4,9 +4,6 @@ module.exports = (sequelize, Sequelize) => {
         imie:{
             type: Sequelize.STRING
         },
-        nazwisko:{
-            type: Sequelize.STRING
-        },
         numer_tel:{
             type: Sequelize.INTEGER
         },
