@@ -3,20 +3,7 @@
     display: inline-block;
     font-size: 14px;
 }
-/*.fixed-plugin .button-container .github-btn .gh-btn,
-.fixed-plugin .button-container .github-btn .gh-count{
-    padding: 5px 7px 5px 7px;
-}*/
-.fixed-plugin .SocialMediaShareButton{
-    display: inline-block;
-    margin: 0 2px;
-}
-.fixed-plugin li > a,
-.fixed-plugin .badge{
-    transition: all .34s;
-    -webkit-transition: all .34s;
-    -moz-transition: all .34s;
-}
+
 
 .all-icons [class*="pe-"]{
     font-size: 40px;

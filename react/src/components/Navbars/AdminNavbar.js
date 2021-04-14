@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
-
+import SearchBar from "material-ui-search-bar";
 import routes from "routes.js";
 
 function Header() {
@@ -19,6 +19,7 @@ function Header() {
     document.body.appendChild(node);
   };
 
+  
   const getBrandText = () => {
     for (let i = 0; i < routes.length; i++) {
       if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
@@ -48,16 +49,17 @@ function Header() {
         </div>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="nav mr-auto" navbar>
-            <Nav.Item>
+            {/* <Nav.Item>
               <Nav.Link
                 className="m-0"
-                
+                 
+
                 href="#pablo"
                 onClick={(e) => e.preventDefault()}>
                 <i className="nc-icon nc-zoom-split"></i>
                 <span className="d-lg-block">Szukajka</span>
               </Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
           </Nav>
 
           <Nav navbar>

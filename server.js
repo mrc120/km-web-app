@@ -1,10 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-//
+//wrzuca folder views
 const path = __dirname + '/app/views/';
 const app = express();
-//
 app.use(express.static(path));
 
 var corsOptions = {
@@ -18,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 
+//sync sequelize
 db.sequelize.sync();
 
 // simple routes
@@ -30,5 +30,5 @@ require("./app/routes/ksiazka.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Serwer działa na porcie ${PORT}.`);
 });

@@ -11,6 +11,7 @@ import sidebarImage from "assets/img/loglclr.png";
 
 function Admin() {
   const [image] = React.useState(sidebarImage);
+  const [color] = React.useState("azure");
   const [hasImage] = React.useState(true);
   const location = useLocation();
   const mainPanel = React.useRef(null);
@@ -47,8 +48,7 @@ function Admin() {
   return (
     <>
       <div className="wrapper">
-        //sidebar
-        <Sidebar image={hasImage ? image : ""} routes={routes} />
+        <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
         <div className="main-panel" ref={mainPanel}>
           <AdminNavbar />
           <div className="content">
@@ -57,6 +57,7 @@ function Admin() {
           <Footer />
         </div>
       </div>
+      
     </>
   );
 }

@@ -1,83 +1,78 @@
-.table{
-    .table-container{
-        margin-top: 20px;
-        padding: 13px;
-        background-color: aqua;
-        max-height: 50px;
-      }
-   .radio,
-   .checkbox{
-        position: relative;
-        height: 20px;
-        display: block;
-        width: 20px;
-        padding: 0px 0px;
-        margin: 0px 5px;
-        text-align: center;
 
-        .icons{
-            left: 5px;
-        }
-   }
-   > thead > tr > th,
-   > tbody > tr > th,
-   > tfoot > tr > th,
-   > thead > tr > td,
-   > tbody > tr > td,
-   > tfoot > tr > td{
-       padding: 12px 8px;
-       vertical-align: middle;
-   }
+//       }
+//    .radio,
+//    .checkbox{
+//         position: relative;
+//         height: 20px;
+//         display: block;
+//         width: 20px;
+//         padding: 0px 0px;
+//         margin: 0px 5px;
+//         text-align: center;
 
-    > thead > tr > th{
-        border-bottom-width: 1px;
-        font-size: $font-size-small;
-        text-transform: uppercase;
-        color: $dark-gray;
-        font-weight: $font-weight-normal;
-        padding-bottom: 5px;
-        border-top: none !important;
-        border-bottom: none;
-        text-align: left !important;
-    }
+//         .icons{
+//             left: 5px;
+//         }
+//    }
+//    > thead > tr > th,
+//    > tbody > tr > th,
+//    > tfoot > tr > th,
+//    > thead > tr > td,
+//    > tbody > tr > td,
+//    > tfoot > tr > td{
+//        padding: 12px 8px;
+//        vertical-align: middle;
+//    }
 
-   .td-actions .btn{
-        @include opacity(0.36);
+//     > thead > tr > th{
+//         border-bottom-width: 1px;
+//         font-size: $font-size-small;
+//         text-transform: uppercase;
+//         color: $dark-gray;
+//         font-weight: $font-weight-normal;
+//         padding-bottom: 5px;
+//         border-top: none !important;
+//         border-bottom: none;
+//         text-align: left !important;
+//     }
 
-        &.btn-xs{
-            padding-left: 3px;
-            padding-right: 3px;
-        }
-    }
-    .td-actions{
-        min-width: 90px;
-    }
+//    .td-actions .btn{
+//         @include opacity(0.36);
 
-    > tbody > tr{
-        position: relative;
+//         &.btn-xs{
+//             padding-left: 3px;
+//             padding-right: 3px;
+//         }
+//     }
+//     .td-actions{
+//         min-width: 90px;
+//     }
 
-        &:hover{
-            .td-actions .btn{
-                @include opacity(1);
-            }
-        }
-    }
+//     > tbody > tr{
+//         position: relative;
 
-    .btn:focus{
-        box-shadow: none !important;
-    }
-}
-.table-upgrade{
-    .table{
-        tr{
-            td{
-                width: 100%
-            }
-        }
-    }
-}
+//         &:hover{
+//             .td-actions .btn{
+//                 @include opacity(1);
+//             }
+//         }
+//     }
 
-.table .form-check .form-check-sign, .table .form-check .form-check-sign:after, .table .form-check .form-check-sign:before {
-    margin-top: -16px;
-}
+//     .btn:focus{
+//         box-shadow: none !important;
+//     }
+// }
+// .table-upgrade{
+//     .table{
+//         tr{
+//             td{
+//                 width: 100%
+//             }
+//         }
+//     }
+// }
+
+// .table .form-check .form-check-sign, .table .form-check .form-check-sign:after, .table .form-check .form-check-sign:before {
+//     margin-top: -16px;
+// }
 

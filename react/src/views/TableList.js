@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import TutorialDataService from "../services/KsiazkaService"
+import { fade, makeStyles } from '@material-ui/core/styles';
 
 import { forwardRef } from 'react';
 import MaterialTable from "material-table";
@@ -19,9 +20,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-
-
-
+import { useTheme } from "@material-ui/core/styles"
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -44,31 +43,95 @@ const tableIcons = {
 
 function KsiazkaTable() {
   const [data, setData] = useState([]);
+  const theme = useTheme();
 
   var columns = [
     {
       title: 'Lp.', field: 'id',
-      headerStyle: { paddingLeft: "8px",  marginLeft: "50px" },
+      cellStyle: {
+        width: 120,
+        minWidth: 0
+      },
     },
     {
       title: 'Nazwa', field: 'imie',
-      headerStyle: { paddingRight: "120px"  }
-  
+      cellStyle: {
+        width: 220,
+        minWidth: 220,
+        paddingLeft: "2px"
+      },
+      headerStyle: {
+        width: 220,
+        minWidth: 220,
+        paddingLeft: "2px"
+      },
     },
     {
       title: 'Adres e-mail', field: 'adres_email', type: 'string',
-      
+      cellStyle: {
+        width: 120,
+        minWidth: 10,
+        paddingRight: "0px"
+      },
+      headerStyle: {
+        width: 120,
+        minWidth: 10
+      },
     },
-    { 
-      title: 'Numer telefonu', field: 'numer_tel', type: 'numeric',
-      headerStyle: { paddingLeft: "5px" },
-      cellStyle: { paddingLeft: "10px" } },
-    { title: 'Numer tel. stacj.', field: 'numer_stacj' },
-    { title: 'Dział', field: 'nazwa_dzialu' },
-    { title: 'Numer pokoju', field: 'numer_pokoju',
-    headerStyle: { paddingLeft: "0px" },
-    cellStyle: { paddingLeft: "0px" }}]
-  
+    {
+      title: 'Numer tel. kom.', field: 'numer_tel', type: 'string',
+      cellStyle: {
+        paddingLeft: "20px",
+        width: 220,
+        minWidth: 130
+
+      }
+    },
+    {
+      title: 'Numer tel. stacj.', field: 'numer_stacj',
+      cellStyle: {
+        width: 220,
+        minWidth: 130
+      },
+
+    },
+    {
+      title: 'Dział', field: 'nazwa_dzialu',
+      cellStyle: {
+        width: 120,
+        minWidth: 220
+      },
+    },
+
+    {
+      title: 'Numer pokoju', field: 'numer_pokoju',
+
+    }]
+
+
+  var customStyle = {
+
+    width: "350%",
+    // title: 'szukaj',
+    label: "gowno",
+    height: 50,
+    display: 'flex',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    position: 'realtive',
+    searchFieldAlignment: 'left',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    // alignItems: 'center',
+    float: 'center',
+    textAlign: 'center',
+    // justifyContent: 'center',
+    // position: 'realtive'
+
+  };
 
   const retrieveKsiazka = () => {
     TutorialDataService.getAll()
@@ -91,9 +154,25 @@ function KsiazkaTable() {
         columns={columns}
         data={data}
         icons={tableIcons}
+        localization={{
+          toolbar: { 
+          searchPlaceholder: 'Wyszukaj...' },
+          pagination: {
+            labelDisplayedRows: '{from}-{to} z {count}',
+            labelRowsSelect: 'pozycji'
+         
+          },
+        }}
+
+
         options={{
-          search: false,
-          pageSize: 20
+          searchFieldAlignment: "left",
+          searchFieldVariant: "outlined",
+
+          pageSize: 20,
+          searchFieldStyle: customStyle,
+
+
         }}
       />
     </div>
@@ -102,3 +181,4 @@ function KsiazkaTable() {
   );
 }
 export default KsiazkaTable;
+
