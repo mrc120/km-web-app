@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TutorialDataService from "../services/KsiazkaService";
+import { Alert } from 'reactstrap';
 import {
   Button,
   Card,
@@ -8,6 +9,8 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+
+
 
 
 const UserProfile = () => {
@@ -59,34 +62,38 @@ const UserProfile = () => {
       });
   };
 
+  
+
 
   return (
     <>
+    <div class="mainpanel">
       <Container fluid>
         <Row>
           <Col md="8">
             <Card>
+              
               <Card.Header>
-                <Card.Title as="h3">Dodaj użytkownika</Card.Title>
+                <Card.Title as="h3">Dodaj nowego pracownika</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
                   
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>Nazwa</label>
                         <Form.Control
                           type="text"
                           id="imie"
-                          placeholder="Imię i nazwisko"
+                          placeholder="Nazwa lub imię i nazwisko"
                           value={ksiazka.imie}
                           onChange={handleInputChange}
                           name="imie"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="4">
+                    <Col className="pl-1" md="6">
                       <Form.Group>
                         <label htmlFor="exampleInputEmail1">
                           Adres e-mail
@@ -140,7 +147,7 @@ const UserProfile = () => {
                     </Col>
                   </Row>
                   <Row>
-                    <Col className="pr-1" md="4">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>Symbol działu</label>
                         <Form.Control
@@ -154,7 +161,7 @@ const UserProfile = () => {
                       </Form.Group>
                   
                     </Col>
-                    <Col className="pr-1" md="4">
+                    <Col className="pr-12" md="6">
                       <Form.Group>
                         <label>Numer pokoju</label>
                         <Form.Control
@@ -169,8 +176,8 @@ const UserProfile = () => {
                     </Col>              
                   </Row>
                   
-                  <Button
-                    className="btn-fill pull-right"
+                  <Button block onClick={() => notify("tc")}
+                    className="btn-fill btn-padding"
                     variant="info"
                     onClick={saveEmployee}
                   >
@@ -183,6 +190,7 @@ const UserProfile = () => {
           </Col>
         </Row>
       </Container>
+      </div>
     </>
   );
 }

@@ -4,12 +4,12 @@ import { Container } from "react-bootstrap";
 class Footer extends Component {
   render() {
     return (
-      <footer className="footer px-0 px-lg-3">
+      <footer className="footer px-2 px-lg-3">
         <Container fluid>
           <nav>
             <ul className="footer-menu">
               <li>
-              <a href = "mailto: krzysztof.mikolajczyk@kmplock.eu">
+              <a href = "mailto: piotr.lewandowski@kmplock.eu">
                   Zgłoś błąd
                 </a>
               </li>

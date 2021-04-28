@@ -52,13 +52,11 @@ function KsiazkaTable() {
   var columns = [
     {
       title: 'Lp.', field: 'id',
-      cellStyle: {
-        minWidth: 20,
-        maxWidth: 450,
+      cellStyle: {   
+        maxWidth: 2,
       },
       headerStyle: {
-        minWidth: 20,
-        maxWidth: 450,
+        maxWidth: 2,
       }
 
     },
@@ -182,6 +180,7 @@ paddingLeft: 10
             <div id="toolbartab" style={{
               display: "flex",
               overflow: "Hidden",
+              padding: "5px",
               justifyContent: "center",
             }}>
               <MTableToolbar {...props} />

@@ -23,11 +23,6 @@
     -ms-transform: rotate(360deg); } }
 
 
-    .table-resize{
-      margin-top: 10px;
-      max-height: 300px;
-      overflow: auto;
-    }
 /*           Font Smoothing      */
 body,
 h1, .h1,

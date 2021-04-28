@@ -3,6 +3,7 @@
     background-color: $white-color;
     margin-bottom: 30px;
 
+
     .card-image{
         width: 100%;
         overflow: hidden;
@@ -47,15 +48,22 @@
     }
     .card-header{
         padding: 15px 15px 0;
+
         background-color: $white-color;
         border-bottom: none !important;
-
+    }
+    .card-header-helpdesk{
+        padding: 15px 15px 0;
+        margin-bottom: 10px;
+        background-color: $white-color;
+        border-bottom: none !important;
     }
     .card-category,
     label{
         font-size: $font-size-base;
         font-weight: $font-weight-normal;
         color: $dark-gray;
+        margin-top: 5px;
         margin-bottom: 0px;
 
         i{
@@ -74,13 +82,7 @@
         color: $black-color;
         font-weight: $font-weight-light;
     }
-    .avatar{
-        width: 30px;
-        height: 30px;
-        overflow: hidden;
-        border-radius: 50%;
-        margin-right: 5px;
-    }
+
     .description{
         font-size: $font-size-base;
         color: #333;
@@ -88,7 +90,8 @@
     .card-footer{
         padding-top: 0;
         background-color: $transparent-bg;
-        line-height: 30px;
+        //druga zakladka naprawilo
+        line-height: 50px;
         border-top: none !important;
         font-size: 14px;
 
@@ -250,5 +253,6 @@
 
     .card-header{
         background-color: transparent !important;
+
     }
 }

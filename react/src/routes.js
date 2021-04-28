@@ -1,6 +1,8 @@
 
 import UserProfile from "views/UserProfile.js";
 import TableList from "views/TableList.js";
+import Legend from "views/Legend.js";
+import Helpdesk from "views/Helpdesk.js";
 
 
 const navbarRoutes = [
@@ -19,6 +21,20 @@ const navbarRoutes = [
     component: TableList,
     layout: "/admin",
   },
+  {
+  path: "/legend",
+  name: "Legenda",
+  icon: "nc-icon nc-bulb-63",
+  component: Legend,
+  layout: "/admin",
+  },
+  {
+    path: "/helpdesk",
+    name: "Helpdesk",
+    icon: "nc-icon nc-support-17",
+    component: Helpdesk,
+    layout: "/admin",
+    }
 ];
 
 export default navbarRoutes;

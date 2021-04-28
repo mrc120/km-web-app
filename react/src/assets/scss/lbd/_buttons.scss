@@ -2,7 +2,7 @@
     border-width: $border-thick;
     background-color: $transparent-bg;
     font-weight: $font-weight-normal;
-
+ 
     @include opacity(.8);
     padding: $padding-base-vertical $padding-base-horizontal;
 
@@ -14,16 +14,7 @@
         outline: 0 !important;
         box-shadow: none;
     }
-    &:active,
-    &.active,
-    .open > &.dropdown-toggle {
-         @include box-shadow(none);
-         outline: 0 !important;
-    }
 
-    &.btn-icon{
-        padding: $padding-base-vertical;
-    }
 
 }
 
@@ -94,7 +85,23 @@
 .btn-wd {
     min-width: 140px;
 }
+.btn-wd-l {
+    max-width: 120px;
+}
 
+.btn-wd-2 {
+    max-width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 10px;
+
+}
+
+.btn-login{
+      color: $default-color;
+}
 .btn-group.select{
     width: 100%;
 }
@@ -107,26 +114,8 @@
     margin-top: -1px;
     right: 8px;
 }
-.btn-social{
-    opacity: 0.85;
-}
 
-.btn-twitter{
-    border-color: $social-twitter;
-    color: $social-twitter;
-    &:hover{
-        opacity: 1 !important;
-        border-color: $social-twitter;
-        color: $social-twitter;
-    }
-}
-.btn-facebook{
-    border-color: $social-facebook;
-    color: $social-facebook;
-
-    &:hover{
-        opacity: 1 !important;
-        border-color: $social-facebook;
-        color: $social-facebook;
-    }
+.btn-margin{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

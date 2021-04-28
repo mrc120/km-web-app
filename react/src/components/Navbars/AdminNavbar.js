@@ -1,12 +1,14 @@
 
 import React, { Component } from "react";
 import { useLocation } from "react-router-dom";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
-import SearchBar from "material-ui-search-bar";
+import { Navbar, Container, Nav, Button, Modal, Form, Row, Col, } from "react-bootstrap";
 import routes from "routes.js";
 
 function Header() {
+  const [showModal, setShowModal] = React.useState(false);
   const location = useLocation();
+
+  //odpala hamburgera na ekranach mobilnych
   const mobileSidebarToggle = (e) => {
     e.preventDefault();
     document.documentElement.classList.toggle("nav-open");
@@ -19,7 +21,7 @@ function Header() {
     document.body.appendChild(node);
   };
 
-  
+  //pobiera tekst wyswietlany w rogu routesa
   const getBrandText = () => {
     for (let i = 0; i < routes.length; i++) {
       if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
@@ -28,6 +30,7 @@ function Header() {
     }
     return "Okno";
   };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -42,39 +45,89 @@ function Header() {
           <Navbar.Brand
             href="#home"
             onClick={(e) => e.preventDefault()}
-            className="mr-2"
-          >
+            className="mr-2">
             {getBrandText()}
           </Navbar.Brand>
         </div>
+
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="nav mr-auto" navbar>
-            {/* <Nav.Item>
-              <Nav.Link
-                className="m-0"
-                 
 
+            {/* { <Nav.Item>
+              <Nav.Link
+                className="MTableToolbar"
                 href="#pablo"
                 onClick={(e) => e.preventDefault()}>
                 <i className="nc-icon nc-zoom-split"></i>
                 <span className="d-lg-block">Szukajka</span>
               </Nav.Link>
-            </Nav.Item> */}
+            </Nav.Item> } */}
           </Nav>
 
           <Nav navbar>
             <Nav.Item>
-              <Nav.Link
-                className="m-0"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}>
+              <Button
+                className="btn-wd-l"
+                href="#login"
+                variant="info"
+                onClick={() => setShowModal(true)}>
                 <span className="no-icon">Logowanie</span>
-              </Nav.Link>
+              </Button>
 
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>
+      {/* Mini Modal */}
+      <Modal
+        className="modal-mini modal-primary"
+        show={showModal}
+        onHide={() => setShowModal(false)}>
+
+        <Modal.Header className="justify-content-center">
+          <img src={require("assets/img/logokmclear.png").default}
+            alt="..." width="62px" height="38px" />
+          <h3 className="modal-title">Zaloguj się</h3>
+          {/* <div className="modal-profile">
+            <i className="nc-icon nc-bulb-63"></i>
+          </div>
+        */}
+        </Modal.Header>
+        <Modal.Body>
+          <div className="justify-content-center">
+         
+            <Form.Group>
+              <label>Login</label>
+              <Form.Control
+                type="email"
+                id="imie"
+                placeholder="Adres e-mail"
+                name="mail"
+              ></Form.Control>
+
+              <label>Hasło</label>
+              <Form.Control
+                placeholder="********"
+                type="password"
+              ></Form.Control>
+            </Form.Group>
+         
+          </div>
+        </Modal.Body>
+   
+        <Button block onClick={() => notify("tc")}
+          className="btn-fill btn-wd-2"
+          variant="info" >
+          Zaloguj
+          </Button>
+        <Button
+          className="btn-simple"
+          type="button"
+          variant="link"
+          onClick={() => setShowModal(false)}>
+          Zamknij
+            </Button>
+      </Modal>
     </Navbar>
   );
 }

@@ -3,6 +3,7 @@ body > .navbar-collapse{
     position: absolute;
     top: 0;
     bottom: 0;
+   
     left: 0;
     width: 260px;
     display: block;
@@ -34,48 +35,10 @@ body > .navbar-collapse{
         background-position: center center;
     }
 
-    .logo{
-        padding: 10px 15px 9px 15px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        position: relative;
-        z-index: 4;
 
-        p{
-            float: left;
-            font-size: 20px;
-            margin: 10px 10px;
-            color: $white-color;
-            line-height: 20px;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
 
-        .simple-text{
-            text-transform: capitalize;
-            padding: $padding-small-vertical $padding-zero;
-            display: block;
-            font-size: $font-size-large;
-            color: $white-color;
-            text-align: center;
-            font-weight: $font-weight-normal;
-            line-height: 30px;
-        }
-    }
 
-    .logo-tim{
-        border-radius: 50%;
-        border: 1px solid #333;
-        display: block;
-        height: 61px;
-        width: 61px;
-        float: left;
-        overflow: hidden;
-
-        img{
-            width: 60px;
-            height: 60px;
-        }
-    }
-
+//routes
     .nav{
         margin-top: 20px;
         float: none;
@@ -171,6 +134,7 @@ body > .navbar-collapse{
     .logo{
         padding: $navbar-padding-a;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        max-height: 65px;
 
         p{
             float: left;
@@ -183,6 +147,7 @@ body > .navbar-collapse{
 
         .simple-text{
             text-transform: capitalize;
+            font-family: roboto;
             padding: $padding-small-vertical $padding-zero;
             display: block;
             font-size: $font-size-large;
@@ -236,26 +201,9 @@ body > .navbar-collapse{
         opacity: .77;
     }
 
-    &[data-color="black"]:after{
-        @include icon-gradient($default-states-color, $default-states-color);
-    }
-    &[data-color="blue"]:after{
-        @include icon-gradient($new-dark-blue, $blue-color-bottom);
-    }
+   
     &[data-color="azure"]:after{
         @include icon-gradient($new-blue, $azure-color-bottom);
-    }
-    &[data-color="green"]:after{
-        @include icon-gradient($new-green, $green-color-bottom);
-    }
-    &[data-color="orange"]:after{
-        @include icon-gradient($new-orange, $orange-color-bottom);
-    }
-    &[data-color="red"]:after{
-        @include icon-gradient($new-red, $red-color-bottom);
-    }
-    &[data-color="purple"]:after{
-        @include icon-gradient($new-purple, $purple-color-bottom);
     }
 }
 
@@ -268,7 +216,7 @@ body > .navbar-collapse{
     min-height: 100%;
 
     > .content{
-        padding: 30px 15px;
+        padding: 0px 0px;
         min-height: calc(100% - 123px);
     }
 
@@ -307,7 +255,7 @@ body > .navbar-collapse{
     }
     &.modal-mini{
         .modal-dialog{
-            max-width: 255px;
+            max-width: 25\5px;
             margin: 0 auto;
         }
     }
