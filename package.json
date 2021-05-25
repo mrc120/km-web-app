@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node server.js",
-    "fe": "cd react && npm start",
-    "dev": "concurrently \"nodemon server.js\" \"npm run fe\""
+    "react": "cd react && npm start",
+    "dev": "concurrently \"nodemon server.js\" \"npm run react\""
   },
   "keywords": [],
   "author": "Krzysztof Mikołajczyk",

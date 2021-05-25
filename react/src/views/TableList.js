@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
 import TutorialDataService from "../services/KsiazkaService"
-import { fade, makeStyles } from '@material-ui/core/styles';
-
 import { forwardRef } from 'react';
 import MaterialTable, { MTableToolbar } from "material-table";
+
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+//import MuiThemeProvider from "material-table";
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import Check from '@material-ui/icons/Check';
@@ -20,10 +20,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import { useTheme } from "@material-ui/core/styles"
-import { FixedScaleAxis } from 'chartist';
-import { Hidden } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
+
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -46,113 +43,8 @@ const tableIcons = {
 };
 
 function KsiazkaTable() {
+  
   const [data, setData] = useState([]);
-  const theme = useTheme();
-
-  var columns = [
-    {
-      title: 'Lp.', field: 'id',
-      cellStyle: {   
-        maxWidth: 2,
-      },
-      headerStyle: {
-        maxWidth: 2,
-      }
-
-    },
-
-    {
-      title: 'Nazwa', field: 'imie',
-      cellStyle: {
-        paddingLeft: '0px',
-        width: 220,
-        minWidth: 220
-      },
-
-
-      headerStyle: {
-        width: 220,
-        minWidth: 220,
-        paddingLeft: "0px"
-      }
-    },
-
-    {
-      title: 'Stanowisko', field: 'blank',
-paddingLeft: 10
-
-    },
-    {
-      title: 'Adres e-mail', field: 'adres_email', type: 'string',
-      cellStyle: {
-        width: 150,
-        maxWidth: 270,
-        whiteSpace: "normal",
-        wordWrap: "break-word",
-        overflow: 'wrap',
-        paddingLeft: '5px'
-      },
-      headerStyle: {
-        width: 130,
-        whiteSpace: "normal",
-        wordWrap: "break-word",
-
-        maxWidth: 220,
-        paddingLeft: '0px'
-      },
-    },
-    {
-      title: 'Numer kom.', field: 'numer_tel', type: 'string',
-      cellStyle: {
-        width: 340,
-        minWidth: 140
-      },
-      headerStyle: {
-        width: 320,
-        maxWidth: 360
-      }
-    },
-    {
-      title: 'Numer stacj.', field: 'numer_stacj',
-      cellStyle: {
-        width: 320,
-        minWidth: 120
-      },
-      headerStyle: {
-        width: 340,
-        maxWidth: 350
-      }
-    },
-    {
-      title: 'Numer pokoju', field: 'numer_pokoju',
-    },
-
-    {
-      title: 'Dział', field: 'nazwa_dzialu',
-      cellStyle: {
-        width: 120,
-        minWidth: 250,
-        paddingRight: '30px'
-      },
-      headerStyle: {
-        paddingLeft: '0px'
-      },
-    },
-    {
-      title: 'Symbol', field: 'symbol_dzialu',
-      cellStyle: {
-        width: 50,
-        minWidth: 40
-      },
-    },]
-
-
-  var customStyle = {
-    width: "850px",
-    position: "relative"
-
-  };
-
 
   const retrieveKsiazka = () => {
     TutorialDataService.getAll()
@@ -164,58 +56,178 @@ paddingLeft: 10
         console.log(e);
       });
   };
+
+  const updateKsiazka = () => {
+    TutorialDataService.update()
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
   useEffect(() => {
     retrieveKsiazka();
+    updateKsiazka();
   }, [])
 
-  return (
-    <div className="table-container">
-      <MaterialTable
-        title={null}
-        columns={columns}
-        data={data}
-        icons={tableIcons}
-        components={{
-          Toolbar: props => (
-            <div id="toolbartab" style={{
-              display: "flex",
-              overflow: "Hidden",
-              padding: "5px",
-              justifyContent: "center",
-            }}>
-              <MTableToolbar {...props} />
-            </div>
-          )
-        }}
-        localization={{
-          toolbar: {
-            searchPlaceholder: 'Wyszukaj...',
-            searchTooltip: 'Szukaj'
-          },
-          pagination: {
-            labelDisplayedRows: '{from}-{to} z {count}',
-            labelRowsSelect: 'pozycji'
-          },
-        }}
+  var columns = [
+    {
+      title: 'Lp.', field: 'id',
+      cellStyle: {
+        minWidth: 2,
+      }, headerStyle: { paddingRight: '0px', minWidth: 2, }
+    },
+    {
+      title: 'Nazwa', field: 'nazwa',
+      cellStyle: {
+        paddingLeft: '0px',
+        minWidth: 200
+      }, headerStyle: { paddingLeft: "0px" }
+    },
+    {
+      title: 'Stanowisko', field: 'stanowisko',
+      headerStyle: { paddingLeft: 0 },
+      cellStyle: {
+        paddingLeft: 0,
+        minWidth: 170,
+      }
+    },
+    {
+      title: 'Adres e-mail', field: 'adres_email', type: 'string',
+      cellStyle: {
+        width: 170,
+        maxWidth: 240,
+        whiteSpace: "normal",
+        wordWrap: "break-word",
+        overflow: 'wrap',
+        paddingLeft: '0px'
+      }, headerStyle: {
+        whiteSpace: "normal",
+        wordWrap: "break-word",
+        paddingLeft: '0px'
+      },
+    },
+    {
+      title: 'Numer kom.', field: 'numer_tel', type: 'string',
+      cellStyle: {
+        minWidth: 110,
+        paddingLeft: '0px'
+      }, headerStyle: { paddingLeft: "0px" }
+    },
+    {
+      title: 'Numer stacj.', field: 'numer_stacj',
+      cellStyle: {
+        minWidth: 120,
+        paddingLeft: "0px"
+      }, headerStyle: { paddingLeft: "0px", }
+    },
+    {
+      title: 'Dział', field: 'nazwa_dzialu',
+      cellStyle: {
+        minWidth: 200,
+        paddingLeft: '0px'
+      }, headerStyle: { paddingLeft: '0px' },
+    },
+    {
+      title: 'Symbol', field: 'symbol_dzialu',
+      cellStyle: {
+        paddingLeft: 15,
+        minWidth: 0
+      }, headerStyle: { paddingLeft: '0px' },
+    },
+    {
+      title: 'Numer pokoju', field: 'numer_pokoju',
+      headerStyle: { paddingLeft: "0px" }, cellStyle: { paddingLeft: "0px" }
+    },]
 
-        options={{
-          rowStyle: {
-            fontSize: 15,
-            padding: 2
-          },
-          cellStyle: {
-            padding: 8,
-          },
-          searchFieldAlignment: "left",
-          searchFieldVariant: "outlined",
-          borderColor: "green",
-          pageSize: 30,
-          pageSizeOptions: [10, 20, 30, 40, 50],
-          searchFieldStyle: customStyle,
-        }}
-      />
+  var customStyle = {
+    width: "450px",
+    height: "50px",
+    left: "300px",
+    position: "absolute",
+    marginTop: "-95px",
+  };
+
+  const theme = createMuiTheme({
+    overrides: {
+      MuiTableCell: {
+        root: {
+          padding: 12,
+        }
+      }
+    }
+  });
+
+  return (
+    <div className="main-ov">
+      <MuiThemeProvider theme={theme}>
+        <MaterialTable
+          title={null}
+          columns={columns}
+          data={data}
+          icons={tableIcons}
+          components={{
+            Toolbar: props => (
+              <div style={{
+                position: "absolute",
+              }}>
+                <MTableToolbar {...props} />
+              </div>)
+          }}
+          localization={{
+            toolbar: {
+              searchPlaceholder: 'Wyszukaj...',
+              searchTooltip: 'Szukaj'
+            },
+            pagination: {
+              labelDisplayedRows: '{from}-{to} z {count}',
+              labelRowsSelect: 'pozycji'
+            },
+          }}
+          options={{
+            rowStyle: {
+              padding: 5,
+              fontSize: '15',
+            },
+            headerStyle: {
+              padding: 12,
+            },
+            searchFieldAlignment: "left",
+            searchFieldVariant: "outlined",
+            doubleHorizontalScroll: true,
+            pageSize: 30,
+            pageSizeOptions: [10, 20, 30, 40, 50],
+            searchFieldStyle: customStyle,
+          }}
+          editable={{
+            onBulkUpdate: changes => 
+            new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    setData([...data, newData]);
+                    resolve();
+                }, 1000);
+            }),
+            onRowUpdate: (newData, oldData) =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  const dataUpdate = data;
+                  const index = oldData.tableData.id;
+                  dataUpdate[index] = newData;
+                  setData([...dataUpdate]);
+
+                  resolve();
+                }, 1000);
+              }),
+          }}
+
+        />
+
+      </MuiThemeProvider>
     </div>
   );
+
 }
+
 export default KsiazkaTable;
 

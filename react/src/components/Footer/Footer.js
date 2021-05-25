@@ -15,7 +15,7 @@ class Footer extends Component {
               </li>
             </ul>
             <p className="copyright text-center">
-              © {new Date().getFullYear()}{" "}
+              ©{new Date().getFullYear()}{" "}
               <a href = "mailto:krzysztof.mikolajczyk@kmplock.eu">Krzysztof Mikołajczyk</a>, dla KM Płock Sp. z o.o.
             </p>
           </nav>

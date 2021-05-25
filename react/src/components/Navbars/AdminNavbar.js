@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Button, Modal, Form, Row, Col, } from "react-bootstrap";
 import routes from "routes.js";
 
+
 function Header() {
   const [showModal, setShowModal] = React.useState(false);
   const location = useLocation();
@@ -75,6 +76,8 @@ function Header() {
               </Button>
 
             </Nav.Item>
+      
+           
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -94,18 +97,19 @@ function Header() {
         */}
         </Modal.Header>
         <Modal.Body>
-          <div className="justify-content-center">
+          <div className="justify-content-center autocenter">
          
-            <Form.Group>
-              <label>Login</label>
+            <Form.Group class="marbot">
+              <label>Login:</label>
               <Form.Control
                 type="email"
                 id="imie"
                 placeholder="Adres e-mail"
                 name="mail"
               ></Form.Control>
-
-              <label>Hasło</label>
+            </Form.Group>
+            <Form.Group class="marbot">
+              <label>Hasło:</label>
               <Form.Control
                 placeholder="********"
                 type="password"

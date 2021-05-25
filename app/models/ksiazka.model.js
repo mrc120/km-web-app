@@ -1,11 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
     const Ksiazka = sequelize.define("ksiazka", 
     {
-        imie:{
+        nazwa:{
+            type: Sequelize.STRING
+        },
+        stanowisko:{
             type: Sequelize.STRING
         },
         numer_tel:{
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         numer_stacj:{
             type: Sequelize.STRING

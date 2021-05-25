@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.imie) {
+    if (!req.body.nazwa) {
         res.status(400).send({
             message: "Treść nie może być pusta!"
         });
@@ -14,14 +14,15 @@ exports.create = (req, res) => {
 
     // Tworzenie ksiązki adresowej
     const ksiazka = {
-        imie: req.body.imie,
-        nazwisko: req.body.nazwisko,
+        nazwa: req.body.nazwa,
+        stanowisko: req.body.stanowisko,
         adres_email: req.body.adres_email,
         numer_tel: req.body.numer_tel,
         numer_stacj: req.body.numer_stacj,
         numer_pokoju: req.body.numer_pokoju,
+        symbol_dzialu: req.body.symbol_dzialu,
         nazwa_dzialu: req.body.nazwa_dzialu,
-      
+
     };
 
     // Save Tutorial in the database
@@ -38,20 +39,20 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    const imie = req.query.imie;
-    var condition = imie ? { imie: { [Op.like]: `%${imie}%` } } : null;
-  
+    const nazwa = req.query.nazwa;
+    var condition = nazwa ? { nazwa: { [Op.like]: `%${nazwa}%` } } : null;
+
     Ksiazka.findAll({ where: condition })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Wystąpił błąd podczas wydobywania danych."
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Wystąpił błąd podczas wydobywania danych."
+            });
         });
-      });
-  };
+};
 
 exports.findOne = (req, res) => {
     const id = req.params.id;
@@ -76,7 +77,7 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Zaktualizowano pozycję"
+                    message: "Zaaktualizowano pozycję"
                 });
             } else {
                 res.send({
@@ -143,3 +144,4 @@ exports.findAllPublished = (req, res) => {
             });
         });
 };
+

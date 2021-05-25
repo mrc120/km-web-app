@@ -1,15 +1,52 @@
 .mainpanel
 {
     padding: 10px 10px 10px 10px;
-}
+            
+    flex-shrink: 0;
+    flex-basis: 35%;
+    
+    flex: 0 0 35%;
 
+    
+}
+.main-ov{
+    overflow-x: scroll;
+}
+.MTableCell-row{
+  padding:12px;
+  
+
+}
 .login{
     padding-right: 20px;
 }
 
 .modal-title
 {
-    margin-left: 10px;
+    margin-left: 15px;
+    margin-top: -3px;
     font-weight: 400;
-   
 }
+.marbot
+{
+    Margin-bottom: 30px;
+}
+.autocenter
+{
+    width: 80%;
+    align-items: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+    
+}
+
+  .MuiTableCell-root{
+      padding:55px;
+
+  }
+
+  .rna-container{
+    padding:21
+
+  }

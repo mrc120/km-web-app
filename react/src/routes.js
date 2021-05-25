@@ -7,11 +7,11 @@ import Helpdesk from "views/Helpdesk.js";
 
 const navbarRoutes = [
   {
-    path: "/user",
+    path: "/add",
     name: "Dodaj użytkownika",
     icon: "nc-icon nc-circle-09",
     component: UserProfile,
-    layout: "/admin",
+    layout: "/u",
   
   },
   {
@@ -19,21 +19,21 @@ const navbarRoutes = [
     name: "Książka",
     icon: "nc-icon nc-notes",
     component: TableList,
-    layout: "/admin",
+    layout: "/u",
   },
   {
   path: "/legend",
   name: "Legenda",
   icon: "nc-icon nc-bulb-63",
   component: Legend,
-  layout: "/admin",
+  layout: "/u",
   },
   {
     path: "/helpdesk",
     name: "Helpdesk",
     icon: "nc-icon nc-support-17",
     component: Helpdesk,
-    layout: "/admin",
+    layout: "/u",
     }
 ];
 
