@@ -12,8 +12,8 @@ var bcrypt = require("bcryptjs");
 exports.signup = (req, res) => {
     //Save user to database
     User.create({
-        auth_email: req.body.auth_email,
-        auth_password: bcrypt.hashSync(req.body.auth_password, 7)
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password, 7)
     })
         .then(user => {
             if (req.body.roles) {
@@ -45,7 +45,7 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
     User.findOne({
         where: {
-            auth_email: req.body.auth_email
+            email: req.body.email
         }
     })
         .then(user => {
@@ -53,8 +53,8 @@ exports.signin = (req, res) => {
                 return res.status(400).send({ message: "Użytkownik nie istnieje" });
             }
             var passwordIsValid = bcrypt.compareSync(
-                req.body.auth_password,
-                user.auth_password
+                req.body.password,
+                user.password
             );
 
             if (!passwordIsValid) {
@@ -75,7 +75,7 @@ exports.signin = (req, res) => {
                 }
                 res.status(200).send({
                     id: user.id,
-                    auth_email: user.auth_email,
+                    email: user.email,
                     roles: authorises,
                     accessToken: token
                 });

@@ -9,14 +9,16 @@
 
     
 }
-.main-ov{
-    overflow-x: scroll;
+.main-olv{
+        position: absolute;
+        overflow-x: scroll;
         flex: 1;
         height: 92vh;
 }
+
 .MTableCell-row{
   padding:12px;
-  
+
 
 }
 .login{

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import TutorialDataService from "../services/KsiazkaService"
 import { forwardRef } from 'react';
+import KsiazkaDataService from '../services/KsiazkaService'
 import MaterialTable, { MTableToolbar } from "material-table";
-
+import axios from 'axios';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-//import MuiThemeProvider from "material-table";
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import Check from '@material-ui/icons/Check';
@@ -20,7 +19,6 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -42,34 +40,118 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
+const URL = "http://localhost:8080/api/ksiazka/";
+
 function KsiazkaTable() {
-  
-  const [data, setData] = useState([]);
+  const [entries, setEntries] = useState({
+    data: [
+      {
+        id: "",
+        nazwa: "",
+        stanowisko: "",
+        adres_email: "",
+        numer_tel: "",
+        numer_stacj: "",
+        numer_pokoju: "",
+        symbol_dzialu: "",
+        nazwa_dzialu: "",
+      }
+    ]
+  });
 
-  const retrieveKsiazka = () => {
-    TutorialDataService.getAll()
-      .then(response => {
-        setData(response.data);
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  const [state] = React.useState({
+    columns: [{
+        title: 'ID.', field: 'id', type: 'numeric', hidden: false
+      },
+      {
+        title: 'Nazwa', field: 'nazwa',
+        cellStyle: {
+          paddingLeft: '0px',
+          minWidth: 200
+        }, headerStyle: { paddingLeft: "0px" }
+      },
+      {
+        title: 'Stanowisko', field: 'stanowisko',
+        headerStyle: { paddingLeft: 0 },
+        cellStyle: {
+          paddingLeft: 0,
+          minWidth: 170,
+        }
+      },
+      {
+        title: 'Adres e-mail', field: 'adres_email', type: 'string',
+        cellStyle: {
+          width: 170,
+          maxWidth: 240,
+          whiteSpace: "normal",
+          wordWrap: "break-word",
+          overflow: 'wrap',
+          paddingLeft: '0px'
+        }, headerStyle: {
+          whiteSpace: "normal",
+          wordWrap: "break-word",
+          paddingLeft: '0px'
+        },
+      },
+      {
+        title: 'Numer kom.', field: 'numer_tel', type: 'string',
+        cellStyle: {
+          minWidth: 110,
+          paddingLeft: '0px'
+        }, headerStyle: { paddingLeft: "0px" }
+      },
+      {
+        title: 'Numer stacj.', field: 'numer_stacj',
+        cellStyle: {
+          minWidth: 120,
+          paddingLeft: "0px"
+        }, headerStyle: { paddingLeft: "0px", }
+      },
+      {
+        title: 'Dział', field: 'nazwa_dzialu',
+        cellStyle: {
+          minWidth: 200,
+          paddingLeft: '0px'
+        }, headerStyle: { paddingLeft: '0px' },
+      },
+      {
+        title: 'Symbol', field: 'symbol_dzialu',
+        cellStyle: {
+          paddingLeft: 15,
+          minWidth: 0
+        }, headerStyle: { paddingLeft: '0px' },
+      },
+      {
+        title: 'Numer pokoju', field: 'numer_pokoju',
+        headerStyle: { paddingLeft: "0px" }, cellStyle: { paddingLeft: "0px" }
+      },]
+  });
 
-  const updateKsiazka = () => {
-    TutorialDataService.update()
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
   useEffect(() => {
-    retrieveKsiazka();
-    updateKsiazka();
-  }, [])
+    axios
+      .get("http://localhost:8080/api/ksiazka")
+      .then(response => {
+        let data = [];
+        response.data.forEach(el => {
+          data.push({
+            id: el.id,
+            nazwa: el.nazwa,
+            stanowisko: el.stanowisko,
+            adres_email: el.stanadres_emailwisko,
+            numer_tel: el.numer_tel,
+            numer_stacj: el.numer_stacj,
+            numer_pokoju: el.numer_pokoju,
+            symbol_dzialu: el.symbol_dzialu,
+            nazwa_dzialu: el.nazwa_dzialu,
+
+          });
+        });
+        setEntries({ data: data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   var columns = [
     {
@@ -145,7 +227,7 @@ function KsiazkaTable() {
     width: "450px",
     height: "50px",
     left: "300px",
-    position: "absolute",
+
     marginTop: "-95px",
   };
 
@@ -156,7 +238,7 @@ function KsiazkaTable() {
           padding: 12,
         }
       }
-    }
+    },
   });
 
   return (
@@ -164,8 +246,8 @@ function KsiazkaTable() {
       <MuiThemeProvider theme={theme}>
         <MaterialTable
           title={null}
-          columns={columns}
-          data={data}
+          columns={state.columns}
+          data={entries.data}
           icons={tableIcons}
           components={{
             Toolbar: props => (
@@ -184,6 +266,14 @@ function KsiazkaTable() {
               labelDisplayedRows: '{from}-{to} z {count}',
               labelRowsSelect: 'pozycji'
             },
+            body: {
+              editTooltip: "Edytuj",
+              deleteTooltip: "Usuń"
+            },
+            header: {
+              actions: "Akcje"
+            }
+
           }}
           options={{
             rowStyle: {
@@ -201,33 +291,36 @@ function KsiazkaTable() {
             searchFieldStyle: customStyle,
           }}
           editable={{
-            onBulkUpdate: changes => 
-            new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    setData([...data, newData]);
-                    resolve();
-                }, 1000);
-            }),
             onRowUpdate: (newData, oldData) =>
-              new Promise((resolve, reject) => {
+              new Promise(resolve => {
                 setTimeout(() => {
-                  const dataUpdate = data;
-                  const index = oldData.tableData.id;
-                  dataUpdate[index] = newData;
-                  setData([...dataUpdate]);
-
                   resolve();
-                }, 1000);
+                  const data = [...entries.data];
+                  data[data.indexOf(oldData)] = newData;
+                  axios.put(URL + newData.id, newData, {
+                  }).then((res) => console.log(res.data));
+                  setEntries({ ...entries, data });
+                }, 600);
               }),
+              onRowDelete: oldData =>
+              new Promise(resolve => {
+                  setTimeout(() => {
+                  resolve();
+                  const data = [...entries.data];
+                  data.splice(data.indexOf(oldData), 1);
+                  axios.delete(URL+ oldData.id, {
+
+                      })
+                      .then(res => console.log(res.data));
+                  setEntries({ ...entries, data });
+              }, 600);
+          })
           }}
 
         />
-
       </MuiThemeProvider>
     </div>
   );
-
 }
-
 export default KsiazkaTable;
 

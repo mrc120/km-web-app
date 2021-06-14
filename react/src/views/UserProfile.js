@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TutorialDataService from "../services/KsiazkaService";
+import KsiazkaDataService from "../services/KsiazkaService";
 import NotificationAlert from "react-notification-alert";
 import {
   Alert,
@@ -65,7 +65,7 @@ const UserProfile = () => {
       nazwa_dzialu: ksiazka.nazwa_dzialu
     };
 
-    TutorialDataService.create(data)
+    KsiazkaDataService.create(data)
       .then(response => {
         setEmployee({
           id: response.data.id,

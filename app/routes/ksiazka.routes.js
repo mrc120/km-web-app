@@ -1,29 +1,16 @@
 module.exports = app => {
-    app.use(function(req, res, next) {
-        res.header(
-          "Access-Control-Allow-Headers",
-          "x-access-token, Origin, Content-Type, Accept"
-        );
-        next();
-      });
-   
-    const ksiazka_crud = require("../controllers/tutorial.controller.js");
+  const ksiazka = require("../controllers/ksiazka.controller.js");
+  var router = require("express").Router();
 
-    var router = require("express").Router();
+  router.post("/", ksiazka.create);
 
-    router.post("/", ksiazka_crud.create);
+  router.get("/", ksiazka.findAll);
 
-    router.get("/", ksiazka_crud.findAll)
+  router.get("/:id", ksiazka.findOne);
 
-    router.get("/published", ksiazka_crud.findAllPublished);
+  router.put("/:id", ksiazka.update);
 
-    router.get("/:id", ksiazka_crud.findOne);
+  router.delete("/:id", ksiazka.delete);
 
-    router.put("/:id", ksiazka_crud.update);
-
-    router.delete("/:id", ksiazka_crud.delete);
-
-    router.delete("/", ksiazka_crud.deleteAll);
-
-    app.use("111.111.111.122/api/ksiazka", router);
+  app.use("/api/ksiazka", router);
 }
