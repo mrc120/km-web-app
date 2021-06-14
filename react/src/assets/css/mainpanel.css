@@ -11,6 +11,8 @@
 }
 .main-ov{
     overflow-x: scroll;
+        flex: 1;
+        height: 92vh;
 }
 .MTableCell-row{
   padding:12px;
