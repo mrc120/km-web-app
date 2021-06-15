@@ -5,7 +5,6 @@ const User = db.user;
 const Role = db.role;
 const Op = db.Sequelize.Op;
 
-// testuj zmiane na let zamiast var jak ci powiadal samuraj
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 

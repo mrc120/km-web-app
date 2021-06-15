@@ -3,6 +3,7 @@ import UserProfile from "views/UserProfile.js";
 import TableList from "views/TableList.js";
 import Legend from "views/Legend.js";
 import Helpdesk from "views/Helpdesk.js";
+import Profile from "components/Profile.js";
 
 
 const navbarRoutes = [
@@ -11,6 +12,14 @@ const navbarRoutes = [
     name: "Dodaj użytkownika",
     icon: "nc-icon nc-circle-09",
     component: UserProfile,
+    layout: "/u",
+  
+  },
+  {
+    path: "/profile",
+    name: "profil",
+    icon: "nc-icon nc-circle-09",
+    component: Profile,
     layout: "/u",
   
   },

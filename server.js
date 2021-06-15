@@ -37,17 +37,17 @@ const Role = db.role;
 //   initial();
 // });
 
-// function initial() {
-//   Role.create({
-//     id: 1,
-//     name: "user"
-//   });
+function initial() {
+  Role.create({
+    id: 1,
+    name: "user"
+  });
 
-//   Role.create({
-//     id: 2,
-//     name: "admin"
-//   });
-// }
+  Role.create({
+    id: 2,
+    name: "admin"
+  });
+}
 
 // simple routes
 app.get("/", function (req, res)  {
