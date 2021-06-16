@@ -17,14 +17,10 @@ function Sidebar({ color, image, routes }) {
       />
       <div className="sidebar-wrapper">
         <div className="logo d-flex align-items-center justify-content-start">
-          <a
-            href="/table"
-            className="simple-text logo-mini mx-1"
-          >
+          <a href="/table"
+            className="simple-text logo-mini mx-1">
             <div className="logo-img">
-              <img
-                src={require("assets/img/logo-clear-inverted.png").default}
-                alt="..."
+              <img src={require("assets/img/logo-clear-inverted.png").default}
               />
             </div>
           </a>

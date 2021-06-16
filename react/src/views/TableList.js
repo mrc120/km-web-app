@@ -58,107 +58,9 @@ function KsiazkaTable() {
       }
     ]
   });
-
   const [state] = React.useState({
     columns: [{
-        title: 'ID.', field: 'id', type: 'numeric', hidden: false
-      },
-      {
-        title: 'Nazwa', field: 'nazwa',
-        cellStyle: {
-          paddingLeft: '0px',
-          minWidth: 200
-        }, headerStyle: { paddingLeft: "0px" }
-      },
-      {
-        title: 'Stanowisko', field: 'stanowisko',
-        headerStyle: { paddingLeft: 0 },
-        cellStyle: {
-          paddingLeft: 0,
-          minWidth: 170,
-        }
-      },
-      {
-        title: 'Adres e-mail', field: 'adres_email', type: 'string',
-        cellStyle: {
-          width: 170,
-          maxWidth: 240,
-          whiteSpace: "normal",
-          wordWrap: "break-word",
-          overflow: 'wrap',
-          paddingLeft: '0px'
-        }, headerStyle: {
-          whiteSpace: "normal",
-          wordWrap: "break-word",
-          paddingLeft: '0px'
-        },
-      },
-      {
-        title: 'Numer kom.', field: 'numer_tel', type: 'string',
-        cellStyle: {
-          minWidth: 110,
-          paddingLeft: '0px'
-        }, headerStyle: { paddingLeft: "0px" }
-      },
-      {
-        title: 'Numer stacj.', field: 'numer_stacj',
-        cellStyle: {
-          minWidth: 120,
-          paddingLeft: "0px"
-        }, headerStyle: { paddingLeft: "0px", }
-      },
-      {
-        title: 'Dział', field: 'nazwa_dzialu',
-        cellStyle: {
-          minWidth: 200,
-          paddingLeft: '0px'
-        }, headerStyle: { paddingLeft: '0px' },
-      },
-      {
-        title: 'Symbol', field: 'symbol_dzialu',
-        cellStyle: {
-          paddingLeft: 15,
-          minWidth: 0
-        }, headerStyle: { paddingLeft: '0px' },
-      },
-      {
-        title: 'Numer pokoju', field: 'numer_pokoju',
-        headerStyle: { paddingLeft: "0px" }, cellStyle: { paddingLeft: "0px" }
-      },]
-  });
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/ksiazka")
-      .then(response => {
-        let data = [];
-        response.data.forEach(el => {
-          data.push({
-            id: el.id,
-            nazwa: el.nazwa,
-            stanowisko: el.stanowisko,
-            adres_email: el.stanadres_emailwisko,
-            numer_tel: el.numer_tel,
-            numer_stacj: el.numer_stacj,
-            numer_pokoju: el.numer_pokoju,
-            symbol_dzialu: el.symbol_dzialu,
-            nazwa_dzialu: el.nazwa_dzialu,
-
-          });
-        });
-        setEntries({ data: data });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
-
-  var columns = [
-    {
-      title: 'Lp.', field: 'id',
-      cellStyle: {
-        minWidth: 2,
-      }, headerStyle: { paddingRight: '0px', minWidth: 2, }
+      title: 'ID.', field: 'id', type: 'numeric', hidden: false
     },
     {
       title: 'Nazwa', field: 'nazwa',
@@ -222,12 +124,37 @@ function KsiazkaTable() {
       title: 'Numer pokoju', field: 'numer_pokoju',
       headerStyle: { paddingLeft: "0px" }, cellStyle: { paddingLeft: "0px" }
     },]
+  });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/ksiazka")
+      .then(response => {
+        let data = [];
+        response.data.forEach(el => {
+          data.push({
+            id: el.id,
+            nazwa: el.nazwa,
+            stanowisko: el.stanowisko,
+            adres_email: el.stanadres_emailwisko,
+            numer_tel: el.numer_tel,
+            numer_stacj: el.numer_stacj,
+            numer_pokoju: el.numer_pokoju,
+            symbol_dzialu: el.symbol_dzialu,
+            nazwa_dzialu: el.nazwa_dzialu,
+          });
+        });
+        setEntries({ data: data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   var customStyle = {
     width: "450px",
     height: "50px",
     left: "300px",
-
     marginTop: "-95px",
   };
 
@@ -236,9 +163,7 @@ function KsiazkaTable() {
       MuiTableCell: {
         root: {
           padding: 12,
-        }
-      }
-    },
+        }}},
   });
 
   return (
@@ -268,12 +193,13 @@ function KsiazkaTable() {
             },
             body: {
               editTooltip: "Edytuj",
-              deleteTooltip: "Usuń"
+              deleteTooltip: "Usuń",
+              editRow: { deleteText: "Jesteś pewny, że chcesz usunąć tą pozycję?" },
+              editRow: { deleteText: "Anuluj" }
             },
             header: {
               actions: "Akcje"
             }
-
           }}
           options={{
             rowStyle: {
@@ -302,21 +228,19 @@ function KsiazkaTable() {
                   setEntries({ ...entries, data });
                 }, 600);
               }),
-              onRowDelete: oldData =>
+            onRowDelete: oldData =>
               new Promise(resolve => {
-                  setTimeout(() => {
+                setTimeout(() => {
                   resolve();
                   const data = [...entries.data];
                   data.splice(data.indexOf(oldData), 1);
-                  axios.delete(URL+ oldData.id, {
-
-                      })
-                      .then(res => console.log(res.data));
+                  axios.delete(URL + oldData.id, {
+                  })
+                    .then(res => console.log(res.data));
                   setEntries({ ...entries, data });
-              }, 600);
-          })
+                }, 600);
+              })
           }}
-
         />
       </MuiThemeProvider>
     </div>

@@ -1,7 +1,7 @@
 
-import React, { useRef,useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useLocation, Switch, Route, Link } from "react-router-dom";
-import { Navbar, Container, Nav, Button, Modal, Table } from "react-bootstrap";
+import { Navbar, Container, Nav, Button, Modal,} from "react-bootstrap";
 import routes from "routes.js";
 import Input from "react-validation/build/input";
 import Form from "react-validation/build/form";
@@ -70,7 +70,7 @@ const AdminNavbar = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(email, password).then(
         () => {
-          //props.history.push("/table");
+          //props.history.push("/profile");
           window.location.reload();
         },
         (error) => {
@@ -134,84 +134,59 @@ const AdminNavbar = (props) => {
           </Navbar.Brand>
         </div>
         <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-       
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to={"/home"} className="nav-link">
-              Home
-            </Link>
-          </li>
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
+
+            <div className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link to={"/home"} className="nav-link">
+                  Home
+                </Link>
+              </li>
 
 
-          {showAdminBoard && (
-            <li className="nav-item">
-              <Link to={"/admin"} className="nav-link">
-                Admin Board
-              </Link>
-            </li>
-          )}
+              {showAdminBoard && (
+                <li className="nav-item">
+                  <Link to={"/admin"} className="nav-link">
+                    Admin Board
+                  </Link>
+                </li>
+              )}
+            </div>
 
-          {/* {currentUser && (
-            <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
-                User
-              </Link>
-            </li>
-          )} */}
+          </nav>
+
+          <div className="container mt-3">
+            <Switch>
+              <Route exact path="/" component={Profile} />
+              { 
+          <Route exact path="/home" component={Profile} />
+         
+          }
+            </Switch>
+          </div>
         </div>
-
-        {currentUser ? (
-          <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={"/profile"} className="nav-link">
-                {currentUser.username}
-              </Link>
-            </li>
-            <li className="nav-item">
-              <a href="/login" className="nav-link" onClick={logOut}>
-                LogOut
-              </a>
-            </li>
-          </div>
-        ) : (
-          <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={"/login"} className="nav-link">
-                Login
-              </Link>
-            </li>
-
-            
-          </div>
-        )}
-      </nav>
-
-      <div className="container mt-3">
-        <Switch>
-          <Route exact path="/" component={Profile} />
-          {/* //<Route exact path="/login" component={Login} />
-         // <Route exact path="/register" component={Register} />
-          //<Route exact path="/profile" component={Profile} />
-          //<Route path="/user" component={BoardUser} />
-          /<Route path="/mod" component={BoardModerator} />
-          <Route path="/admin" component={BoardAdmin} /> */}
-        </Switch>
-      </div>
-    </div>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="nav mr-auto" navbar>
           </Nav>
-
           <Nav navbar>
             <Nav.Item>
-              <Button
-                className="btn-wd-l"
-                href="#login"
-                variant="info"
-                onClick={() => setShowModal(true)}>
-                <span className="no-icon">Logowanie</span>
-              </Button>
+              {currentUser ? (
+                <Button
+                  className="btn-wd-l"
+                  href="/table"
+                  variant="info"
+                  onClick={logOut}>
+                  <span className="no-icon">Wyloguj</span>
+                </Button>
+              ) : (
+                <Button
+                  className="navbar-nav ml-auto"
+                  href="#login" className="btn-wd-l"
+                  onClick={() => setShowModal(true)}>
+                  <span className="no-icon">Logowanie</span>
+                </Button>
+              )}
+
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
