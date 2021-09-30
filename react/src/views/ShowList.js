@@ -13,20 +13,25 @@ import {
 
 const ShowList = () => {
 
-  // let imagesPreview = function(input, placeToInsertImagePreview) {
-  //   if (input.files) {
-  //     let filesAmount = input.files.length;
-  //     for (i = 0; i < filesAmount; i++) {
-  //       let reader = new FileReader();
-  //       reader.onload = function(event) {
-  //         $($.parseHTML("<img>"))
-  //           .attr("src", event.target.result)
-  //           .appendTo(placeToInsertImagePreview);
-  //       };
-  //       reader.readAsDataURL(input.files[i]);
-  //     }
-  //   }
-  // };
+  const [entries, setEntries] = useState({ data: [] });
+
+  const lista = [
+    {
+      name: '',
+      url: ''
+    }
+  ]
+
+  const URL = "http://localhost:8080/files/"
+
+  useEffect(() => {
+    axios.get(URL).then(response => {
+      let data = response.data
+      setEntries({ data: data });
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }, []);
 
   return (
     <>
@@ -43,10 +48,10 @@ const ShowList = () => {
                     <Row>
                       <div class="row">
                         <div class="col-sm-8 mt-3">
-                          <form action="/multiple-upload" method="POST" enctype="multipart/form-data">
+                          <form action="/upload" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                               <label for="example-input-file"> </label>
-                              <input type="file" name="multi-files" multiple id="input-multi-files" class="form-control-file border" />
+                              <input type="file" name="multi-files" class="form-control-file border" />
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                           </form>
@@ -56,17 +61,25 @@ const ShowList = () => {
                       {/* <div class="row">
                         <div class="col-sm-12">
                           {/* <div class="preview-images"></div> */}
-                     
+
                     </Row>
-                    {/* <Button
-                      onClick={() => {
-                        notify();
-                        saveEmployee();
-                      }}
-                      className="btn-fill btn-padding btn-fix"
-                      variant="info">
-                      Dodaj
-                    </Button> */}
+                    <Row>
+                      <h4>SHOW LIST</h4>
+                      <ul>
+                        {
+                          entries.data.map((poz, index) => {
+                            console.log(poz);
+                            return (
+                              <Card>
+                              <div>
+                                <h2 className='poz'>{poz.name}</h2>
+                                <h5 className="poz_title">{poz.url}</h5>
+                              </div>
+                          </Card>
+                            )
+                          })}
+                      </ul>
+                    </Row>
                     <div className="clearfix"></div>
                   </Form>
                 </Card.Body>

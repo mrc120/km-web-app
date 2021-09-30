@@ -23,7 +23,6 @@ const UserProfile = () => {
     numer_pokoju: "",
     stanowiskoIdStan: null,
     dzialIdDzialu: null,
-
   };
 
   const URLd = "http://localhost:8080/api/dzial"
