@@ -1,4 +1,7 @@
 const dbConfig = require("../config/db.config.js");
+const Ksiazka = require("../models/ksiazka.model.js")
+const Dzial = require("../models/dzial.model.js")
+const Stanowisko = require("../models/stanowisko.model.js")
 
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD,
@@ -14,15 +17,22 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD,
     define: {  timestamps: false }
   });
 
+  //laczy wszystkie modele/tabele do bazy do DB objektu
+  //wszystko jest dostepne przezp obranie jednego objektu db = kmdb for me i guess
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.ksiazkas = require("./ksiazka.model.js")(sequelize, Sequelize);
-db.user = require("../models/user.model.js")(sequelize, Sequelize);
-db.role = require("../models/role.model.js")(sequelize, Sequelize);
+//modele,tabele
+db.osoba = require("./ksiazka.model.js")(sequelize, Sequelize);
+db.user = require("./user.model.js")(sequelize, Sequelize);
+db.role = require("./role.model.js")(sequelize, Sequelize);
+db.dzial = require("./dzial.model.js")(sequelize, Sequelize);
+db.stanowisko = require("./stanowisko.model.js")(sequelize, Sequelize);
 
+
+//Relacje roles,
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",
@@ -33,7 +43,13 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId"
 });
-
 db.ROLES = ["user", "admin"];
+
+
+//associations, relacje pomiedzy
+db.dzial.hasOne(db.osoba);
+db.osoba.belongsTo(db.dzial);
+db.stanowisko.hasOne(db.osoba);
+db.osoba.belongsTo(db.stanowisko);
 
 module.exports = db;

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import KsiazkaDataService from "../services/KsiazkaService";
 import NotificationAlert from "react-notification-alert";
+import 'react-dropdown/style.css';
+import axios from "axios";
 import {
-  Alert,
   Button,
   Card,
   Form,
@@ -11,23 +12,45 @@ import {
   Col,
 } from "react-bootstrap";
 
-
 const UserProfile = () => {
   const initialTutorialState = {
     id: null,
     nazwa: "",
-    stanowisko: "",
     adres_email: "",
     numer_tel: "",
     numer_stacj: "",
     symbol_dzialu: "",
-    nazwa_dzialu: "",
     numer_pokoju: "",
-    published: false
+    stanowiskoIdStan: null,
+    dzialIdDzialu: null,
+
   };
+
+  const URLd = "http://localhost:8080/api/dzial"
+  const URLdstan = "http://localhost:8080/api/stanowisko"
 
   const [ksiazka, setEmployee] = useState(initialTutorialState);
   const notificationAlertRef = React.useRef(null);
+  const [getDzial, setDzial] = useState({ data: [] });
+  const [getStan, setStan] = useState({ data2: [] });
+
+  useEffect(() => {
+    axios.get(URLd)
+      .then(res => {
+        let data = res.data
+        setDzial({ data: data })
+        console.log(res.data)
+      }).catch(err => { console.log(err) })
+  }, []);
+
+  useEffect(() => {
+    axios.get(URLdstan)
+      .then(res => {
+        let data2 = res.data
+        setDzial({ data: data2 })
+        console.log(res.data)
+      }).catch(err => { console.log(err) })
+  }, []);
 
   const notify = () => {
     var options = {};
@@ -35,11 +58,7 @@ const UserProfile = () => {
       type: 'info',
       place: 'tc',
       message: (
-        <div>
-          <div>
-            <b>Dodano pomyślnie nowego pracownika!</b>
-        </div>
-        </div>
+        <div><b>Dodano pomyślnie nowego pracownika!</b></div>
       ),
       icon: "nc-icon nc-bell-55",
       autoDismiss: 55,
@@ -47,11 +66,70 @@ const UserProfile = () => {
     notificationAlertRef.current.notificationAlert(options);
   };
 
+  const dzial = [
+    { value: '0', label: 'Wybierz dział' },
+    { value: '1', label: 'Zarząd' },
+    { value: '2', label: 'Sekretariat' },
+    { value: '3', label: 'Dyrektor' },
+    { value: '4', label: 'Dział Przewozów' },
+    { value: '6', label: 'Koordynator ds. Rozwoju Transportu' },
+    { value: '7', label: 'Dział promocji i Komunikacji Społecznej' },
+    { value: '8', label: 'Dział Polityki Kadrowej i Płacowej' },
+    { value: '9', label: 'Dział Sprzedaży' },
+    { value: '10', label: 'Dział Marketingu' },
+    { value: '11', label: 'Dział Sprzedaży' },
+    { value: '12', label: 'Dział Finansowo Księgowy' },
+    { value: '13', label: 'Biuro Obsługi Zarządu' },
+    { value: '14', label: 'Kontroling' },
+    { value: '15', label: 'Dział Utrzymania Infrastruktury' },
+    { value: '16', label: 'Dzial Obsługi i Napraw Taboru' },
+    { value: '17', label: 'Dział Zaopatrzenia i Magazynów' },
+    { value: '18', label: 'Sekcja Nadzoru Technicznego' },
+    { value: '19', label: 'Dział bezpieczeństwa i Higieny Pracy' },
+    { value: '20', label: 'Strefa Płatnego Parkowania' },
+    { value: '21', label: 'Dział Utrzymania Infrastruktury Sprzedaży' },
+    { value: '22', label: 'Dział Informatyczny' },
+  ];
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
-    setEmployee({ ...ksiazka, [name]: value });
-  };
+  const stanowisko = [
+    { value: '36', label: 'Wybierz stanowisko' },
+    { value: '0', label: 'Prezes' },
+    { value: '1', label: 'Wiceprezes' },
+    { value: '2', label: 'Asystent Zarządu' },
+    { value: '3', label: 'Dyrektor' },
+    { value: '4', label: 'Kierownik' },
+    { value: '6', label: 'Nadzór ruchu' },
+    { value: '7', label: 'Dyspozytor-Planista' },
+    { value: '8', label: 'Dyspozytor' },
+    { value: '9', label: 'Samodzielny Specjalista' },
+    { value: '10', label: 'Samodzielny Specjalista-Koordynator' },
+    { value: '11', label: 'Specjalista ds. Windykacji' },
+    { value: '12', label: 'Kontrolerzy Biletów' },
+    { value: '13', label: 'BOK - Jachowicza 42' },
+    { value: '14', label: 'BOK - Przemysłowa 17' },
+    { value: '15', label: 'Starsza Księgowa' },
+    { value: '16', label: 'Księgowa' },
+    { value: '17', label: 'Samodzielny Specjalista ds. Kontrolingu i Likwidacji Szkód ' },
+    { value: '18', label: 'Specjalista ds. Technicznych' },
+    { value: '19', label: 'Referent' },
+    { value: '20', label: 'Hydraulik' },
+    { value: '21', label: 'Elektryk' },
+    { value: '22', label: 'Konserwator' },
+    { value: '23', label: 'Myjnia wewnętrzna' },
+    { value: '24', label: 'Portiernia' },
+    { value: '25', label: 'Mistrzówka Hala 1 ' },
+    { value: '26', label: 'Mistrzówka Hala 2 ' },
+    { value: '27', label: 'Mistrz' },
+    { value: '28', label: 'Linia OC' },
+    { value: '29', label: 'Magazyn Techniczny' },
+    { value: '30', label: 'Stacja Kontroli Pojazdów' },
+    { value: '31', label: 'Starszy Specjalista ds. BHP' },
+    { value: '32', label: 'Inspektor ds. BHP' },
+    { value: '33', label: 'Kierownik' },
+    { value: '34', label: 'Biuro SPP - Kolegialna 3' },
+    { value: '35', label: 'Kontroler' },
+
+  ];
 
   const saveEmployee = () => {
     var data = {
@@ -62,7 +140,9 @@ const UserProfile = () => {
       numer_stacj: ksiazka.numer_stacj,
       symbol_dzialu: ksiazka.symbol_dzialu,
       numer_pokoju: ksiazka.numer_pokoju,
-      nazwa_dzialu: ksiazka.nazwa_dzialu
+      nazwa_dzialu: ksiazka.nazwa_dzialu,
+      dzialIdDzialu: ksiazka.dzialIdDzialu,
+      stanowiskoIdStan: ksiazka.stanowiskoIdStan
     };
 
     KsiazkaDataService.create(data)
@@ -76,20 +156,25 @@ const UserProfile = () => {
           numer_stacj: response.data.numer_stacj,
           nazwa_dzialu: response.data.nazwa_dzialu,
           symbol_dzialu: response.data.symbol_dzialu,
-          numer_pokoju: response.data.numer_pokoju
-
+          numer_pokoju: response.data.numer_pokoju,
+          dzialIdDzialu: response.data.dzialIdDzialu,
+          stanowiskoIdStan: response.data.stanowiskoIdStan
         });
         console.log(response.data);
-      })
-      .catch(e => {
+      }).catch(e => {
         console.log(e);
       });
   };
 
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setEmployee({ ...ksiazka, [name]: value });
+
+  };
   return (
     <>
       <div className="mainpanel">
-          <NotificationAlert ref={notificationAlertRef} />
+        <NotificationAlert ref={notificationAlertRef} />
         <Container fluid>
           <Row>
             <Col md="8">
@@ -103,21 +188,21 @@ const UserProfile = () => {
                       <Col className="pr-1" md="6">
                         <Form.Group>
                           <label>Nazwa</label>
-                          <Form.Control
+                          <Form.Control className="form"
                             type="text"
                             id="nazwa"
-                            placeholder="Nazwa lub imię i nazwisko"
+                            placeholder="Imię i nazwisko pracownika"
                             value={ksiazka.nazwa}
                             onChange={handleInputChange}
                             name="nazwa"
                           ></Form.Control>
                         </Form.Group>
                       </Col>
-                      <Col className="pl-1" md="6">
+                      <Col className="pr-1" md="6">
                         <Form.Group>
-                          <label htmlFor="exampleInputEmail1">
+                          <label>
                             Adres e-mail
-                        </label>
+                          </label>
                           <Form.Control
                             placeholder="Adres E-mail"
                             type="email"
@@ -134,18 +219,20 @@ const UserProfile = () => {
                         <Form.Group>
                           <label>Numer telefonu komórkowego</label>
                           <Form.Control
+                            placeholder="Przykład. xxx xxx xxx"
                             id="numer_stacj"
-                            value={ksiazka.numer_stacj}
                             onChange={handleInputChange}
+                            value={ksiazka.numer_stacj}
                             name="numer_stacj"
                             type="text"
                           ></Form.Control>
                         </Form.Group>
                       </Col>
-                      <Col className="pl-1" md="6">
+                      <Col className="pr-1" md="6">
                         <Form.Group>
                           <label>Numer telefonu stacjonarnego</label>
                           <Form.Control
+                            placeholder="Przykład. xxx-xx-xx"
                             id="numer_tel"
                             value={ksiazka.numer_tel}
                             onChange={handleInputChange}
@@ -156,65 +243,60 @@ const UserProfile = () => {
                       </Col>
                     </Row>
                     <Row>
-                      <Col md="12">
-                        <Form.Group>
-                          <label>Nazwa działu</label>
-                          <Form.Control
-                            type="text"
-                            placeholder="np. Dział IT"
-                            id="nazwa_dzialu"
-                            value={ksiazka.nazwa_dzialu}
-                            onChange={handleInputChange}
-                            name="nazwa_dzialu"
-                          ></Form.Control>
-          
-                       
-                          <label>Stanowisko</label>
-                          <Form.Control
-                            type="text"
-                            id="stanowisko"
-                            value={ksiazka.stanowisko}
-                            onChange={handleInputChange}
-                            name="stanowisko"
-                          ></Form.Control>
-                                        </Form.Group>
-                      </Col>
-                    </Row>
-                    <Row>
                       <Col className="pr-1" md="6">
-                        <Form.Group>
-                          <label>Symbol działu</label>
-                          <Form.Control
-                            type="text"
-                            id="symbol_dzialu"
-                            value={ksiazka.symbol_dzialu}
-                            onChange={handleInputChange}
-                            name="symbol_dzialu"
-                          ></Form.Control>
-                        </Form.Group>
+                        <label>Nazwa działu</label>
+                        <select
+                          value={ksiazka.dzialIdDzialu}
+                          onChange={handleInputChange}
+                          className="Dropdown-c"
+                          name="dzialIdDzialu"
+                          id="dzialIdDzialu"
+                          variant="primary">
+                          {dzial.map(({ value, label }, index) =>
+                            <option value={value}>{label}</option>)}
+                        </select>
                       </Col>
-                      <Col className="pr-12" md="6">
+                      <Col className="pr-1" md="3">
                         <Form.Group>
                           <label>Numer pokoju</label>
                           <Form.Control
-                            type="text"
+                            placeholder="Przykład. 210"
                             id="numer_pokoju"
                             value={ksiazka.numer_pokoju}
                             onChange={handleInputChange}
                             name="numer_pokoju"
+                            type="text"
                           ></Form.Control>
                         </Form.Group>
                       </Col>
                     </Row>
+                    <Row>
+                      <Col className="pr-1" md="6">
+                      
+                        <label>Nazwa stanowiska</label>
+                        <select
+                          value={ksiazka.stanowiskoIdStan}
+                          onChange={handleInputChange}
+                          className="Dropdown-c"
+                          name="stanowiskoIdStan"
+                          id="stanowiskoIdStan"
+                          variant="primary">
+                          {stanowisko.map(({ value, label }, index) =>
+                            <option value={value}>{label}</option>)}
+                        </select>
+                        
+                      </Col>
+                      
+                    </Row>
                     <Button
                       onClick={() => {
-                      notify();
-                      saveEmployee();}}
-                      className="btn-fill btn-padding"
-                      variant="info"
-                      >
+                        notify();
+                        saveEmployee();
+                      }}
+                      className="btn-fill btn-padding btn-fix"
+                      variant="info">
                       Dodaj
-                  </Button>
+                    </Button>
                     <div className="clearfix"></div>
                   </Form>
                 </Card.Body>

@@ -1,24 +1,13 @@
-.mainpanel
-{
-    padding: 10px 10px 10px 10px;
-            
+.mainpanel{
+    padding: 10px 10px 10px 10px; 
     flex-shrink: 0;
     flex-basis: 35%;
-    
-    flex: 0 0 35%;
+    flex: 0 0 35%;  
+}
 
-    
-}
-.main-olv{
-        position: absolute;
-        overflow-x: scroll;
-        flex: 1;
-        height: 92vh;
-}
 
 .MTableCell-row{
   padding:12px;
-
 
 }
 .login{
@@ -34,23 +23,65 @@
 .marbot
 {
     Margin-bottom: 30px;
+    width: 260px;
 }
-.autocenter
-{
-    width: 80%;
-    align-items: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto
+
+.btn-modal-login{
+    width: 160px;
+    justify-content: center;
+}
+.autocenter{
+   padding-left: "22px";
+   text-align: center;
+   
+}
     
+.form-group {
+    width:90%;
 }
+
+.frodo {
+    margin-left: 50px;
+    width:50%;
+}
+
+.Dropdown-c {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #495057;
+    cursor: default;
+    outline: none;
+    padding: 8px 52px 8px 10px;
+    transition: all 200ms ease;
+    width: 90%
+  }
+
+.left{
+     padding-right: 46%
+ }
 
   .MuiTableCell-root{
       padding:55px;
-
   }
 
   .rna-container{
     padding:21
-
   }
+
+  .borderidea{
+    border: 1px solid #3b85ab;
+    border-radius: 4px;
+    color: #565656;
+    padding: 8px 12px;
+    height: 40px;
+  }
+
+.btn-fix{
+    margin-top: 20px;
+    margin-left: 70px;
+    width: 80%;
+}

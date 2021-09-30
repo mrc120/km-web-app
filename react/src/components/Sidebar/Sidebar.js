@@ -1,8 +1,30 @@
-import React, { Component } from "react";
-import { useLocation, NavLink } from "react-router-dom";
+import React, { Component, useEffect, useState } from "react";
+import { useLocation, NavLink, Link, Route, Switch } from "react-router-dom";
 import { Nav } from "react-bootstrap";
+import AuthService from "../../services/auth.service.js";
+import UserProfile from "views/UserProfile.js";
+
 
 function Sidebar({ color, image, routes }) {
+
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  useEffect(() => {
+    loggedUser();
+
+  }, []);
+
+  const logOut = () => {
+    AuthService.logout();
+  };
+
+  const loggedUser = () => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    }
+  }
   const location = useLocation();
   const activeRoute = (routeName) => {
     return location.pathname.indexOf(routeName) > -1 ? "active" : "";
@@ -29,8 +51,19 @@ function Sidebar({ color, image, routes }) {
           </a>
         </div>
         <Nav>
-          {routes.map((prop, key) => {
-            if (!prop.redirect)
+        {/* <Switch>
+        {showAdminBoard && (
+            <li className="nav-item">
+              <Route path="u/add"
+               component={UserProfile}
+               className="nav-link">
+                Dodawanie pracownika
+              </Route>
+            </li>
+          )}
+      </Switch> */}
+        {routes.map((prop, key) => {
+            if(prop.invisible) return null;
               return (
                 <li
                   className={
@@ -48,8 +81,10 @@ function Sidebar({ color, image, routes }) {
                     <i className={prop.icon} />
                     <p>{prop.name}</p>
                   </NavLink>
+
                 </li>
               );
+
             return null;
           })}
         </Nav>
@@ -57,5 +92,6 @@ function Sidebar({ color, image, routes }) {
     </div>
   );
 }
+
 
 export default Sidebar;

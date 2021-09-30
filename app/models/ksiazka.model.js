@@ -1,17 +1,16 @@
 module.exports = (sequelize, Sequelize) => {
-    const Ksiazka = sequelize.define("ksiazka",
+    const Ksiazka = sequelize.define("osoba",
         {
             id: {
                 type:Sequelize.INTEGER,
-                primaryKey: true
+                autoIncrement: true,
+                primaryKey: true,
+                
             },
-            
             nazwa: {
                 type: Sequelize.STRING
             },
-            stanowisko: {
-                type: Sequelize.STRING
-            },
+
             numer_tel: {
                 type: Sequelize.STRING
             },
@@ -21,17 +20,23 @@ module.exports = (sequelize, Sequelize) => {
             adres_email: {
                 type: Sequelize.STRING
             },
-            nazwa_dzialu: {
-                type: Sequelize.STRING
-            },
-            symbol_dzialu: {
-                type: Sequelize.STRING
-            },
+
             numer_pokoju: {
                 type: Sequelize.STRING
             },
-             
+
+            dzialIdDzialu:{
+                type: Sequelize.INTEGER
+            },
+            stanowiskoIdStan:{
+                type: Sequelize.INTEGER
+            },
+            sum_all:{
+                type: Sequelize.INTEGER
+            },
+
 });
 
-    return Ksiazka;
+
+return Ksiazka;
 }

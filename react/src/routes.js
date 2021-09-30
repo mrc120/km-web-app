@@ -4,25 +4,38 @@ import TableList from "views/TableList.js";
 import Legend from "views/Legend.js";
 import Helpdesk from "views/Helpdesk.js";
 import Profile from "components/Profile.js";
-
+import ShowList from "views/ShowList";
 
 const navbarRoutes = [
+
   {
     path: "/add",
     name: "Dodaj użytkownika",
     icon: "nc-icon nc-circle-09",
     component: UserProfile,
     layout: "/u",
-  
+    invisible: true,
   },
+
+  {
+    path: "/add_document",
+    name: "Dodaj uchwałę",
+    icon: "nc-icon nc-single-copy-04",
+    component: ShowList,
+    layout: "/u",
+   
+  },
+
   {
     path: "/profile",
-    name: "profil",
+    name: "Profil",
     icon: "nc-icon nc-circle-09",
     component: Profile,
     layout: "/u",
-  
+    invisible: true,
   },
+
+
   {
     path: "/table",
     name: "Książka",
@@ -31,11 +44,11 @@ const navbarRoutes = [
     layout: "/u",
   },
   {
-  path: "/legend",
-  name: "Legenda",
-  icon: "nc-icon nc-bulb-63",
-  component: Legend,
-  layout: "/u",
+    path: "/legend",
+    name: "Legenda",
+    icon: "nc-icon nc-bulb-63",
+    component: Legend,
+    layout: "/u",
   },
   {
     path: "/helpdesk",
@@ -43,7 +56,16 @@ const navbarRoutes = [
     icon: "nc-icon nc-support-17",
     component: Helpdesk,
     layout: "/u",
-    }
+  },
+
+  {
+    path: "/uchwaly",
+    name: "Uchwały",
+    icon: "nc-icon nc-single-copy-04",
+    component: ShowList,
+    layout: "/u",
+  },
 ];
 
 export default navbarRoutes;
+

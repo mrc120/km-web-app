@@ -1,15 +1,15 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { useLocation, Switch, Route, Link } from "react-router-dom";
-import { Navbar, Container, Nav, Button, Modal,} from "react-bootstrap";
+import { Navbar, Container, Nav, Button, Modal, } from "react-bootstrap";
 import routes from "routes.js";
 import Input from "react-validation/build/input";
 import Form from "react-validation/build/form";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../../services/auth.service.js";
-
-import BoardUser from "../../components/BoardUser";
-import Profile from "components/Profile.js";
+import Table from "../../views/TableList.js";
+import UserProfile from "../../views/UserProfile.js";
+import ShowList from "../../views/ShowList.js";
 
 const AdminNavbar = (props) => {
   const form = useRef();
@@ -24,20 +24,24 @@ const AdminNavbar = (props) => {
   const [message, setMessage] = useState("");
 
   const [showAdminBoard, setShowAdminBoard] = useState(false);
+
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
+    loggedUser();
 
-    if (user) {
-      setCurrentUser(user);
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-    }
   }, []);
 
   const logOut = () => {
     AuthService.logout();
   };
 
+  const loggedUser = () => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    }
+  }
 
   const required = (value) => {
     if (!value) {
@@ -64,7 +68,6 @@ const AdminNavbar = (props) => {
 
     setMessage("");
     setLoading(true);
-
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
@@ -89,7 +92,6 @@ const AdminNavbar = (props) => {
       setLoading(false);
     }
   };
-
 
   //odpala hamburgera na ekranach mobilnych
   const mobileSidebarToggle = (e) => {
@@ -116,143 +118,142 @@ const AdminNavbar = (props) => {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Container fluid>
 
-        <div className="d-flex justify-content-center align-items-center ml-2 ml-lg-0">
-          <Button
-            variant="dark"
-            className="d-lg-none btn-fill d-flex justify-content-center align-items-center rounded-circle p-2"
-            onClick={mobileSidebarToggle}
-          >
-            <i className="fas fa-ellipsis-v"></i>
-          </Button>
-          <Navbar.Brand
-            href="#home"
-            onClick={(e) => e.preventDefault()}
-            className="mr-2">
-            {getBrandText()}
-          </Navbar.Brand>
-        </div>
+
+      <div className="d-flex justify-content-center align-items-center ml-2 ml-lg-0">
+        <Button
+          variant="dark"
+          className="d-lg-none btn-fill d-flex justify-content-center align-items-center rounded-circle p-2"
+          onClick={mobileSidebarToggle}
+        >
+          <i className="fas fa-ellipsis-v"></i>
+        </Button>
+        <Navbar.Brand
+          href="#home"
+          onClick={(e) => e.preventDefault()}
+          className="mr-2">
+          {getBrandText()}
+        </Navbar.Brand>
+      </div>
+      <div>
         <div>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-
-            <div className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  Home
-                </Link>
-              </li>
-
-
-              {showAdminBoard && (
-                <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link">
-                    Admin Board
-                  </Link>
-                </li>
-              )}
-            </div>
-
-          </nav>
-
+          <div className="navbar-nav mr-auto">
+          </div>
           <div className="container mt-3">
             <Switch>
-              <Route exact path="/" component={Profile} />
-              { 
-          <Route exact path="/home" component={Profile} />
-         
-          }
+              <Route exact path="/" component={Table} />
+              <Route exact path="/add" component={UserProfile} />
+              <Route exact path="/add_document" component={ShowList} />
             </Switch>
           </div>
         </div>
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="nav mr-auto" navbar>
-          </Nav>
-          <Nav navbar>
-            <Nav.Item>
-              {currentUser ? (
-                <Button
-                  className="btn-wd-l"
-                  href="/table"
-                  variant="info"
-                  onClick={logOut}>
-                  <span className="no-icon">Wyloguj</span>
-                </Button>
-              ) : (
-                <Button
-                  className="navbar-nav ml-auto"
-                  href="#login" className="btn-wd-l"
-                  onClick={() => setShowModal(true)}>
-                  <span className="no-icon">Logowanie</span>
+      </div>
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="nav mr-auto" navbar>
+        </Nav>
+        <Nav navbar>
+        <Nav.Item>
+            {showAdminBoard && (
+                <Button 
+                  className="btn-primary"
+                  variant="success"
+                  href="/u/add_document">
+                    Dodaj uchwałę
                 </Button>
               )}
+          </Nav.Item>
+          <Nav.Item>
+            {showAdminBoard && (
+                <Button 
+                  className="btn-danger"
+                  variant="info"
+                  href="/u/add">
+                    Dodaj nowego użytkownika
+                </Button>
+              )}
+          </Nav.Item>
+        <Nav.Item>
+          {currentUser ? (
+            <Button
+              className="btn-wd-l"
+              href="/table"
+              variant="info"
+              onClick={logOut}>
+              <span className="no-icon">Wyloguj</span>
+            </Button>
+          ) : (
+            <Button
+              className=""
+              href="#login" className="btn-wd-l"
+              onClick={() => setShowModal(true)}>
+              <span className="no-icon">Logowanie</span>
+            </Button>
+          )}
+        </Nav.Item>
+        </Nav>
+      </Navbar.Collapse>
 
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-
-
-      {/* Mini Modal */}
-      <Modal
-        className="modal-mini modal-primary"
-        show={showModal}
-        onHide={() => setShowModal(false)}>
-
-        <Modal.Header className="justify-content-center">
-          <img src={require("assets/img/logokmclear.png").default}
-            width="62px" height="38px" />
-          <h3 className="modal-title">Zaloguj się</h3>
-
-        </Modal.Header>
-        <Modal.Body>
-
-          <Form onSubmit={handleLogin} ref={form}>
-            <label htmlFor="email">E-mail:</label>
-            <Input
-              type="text"
-              className="marbot"
-              value={email}
-              name="email"
-              placeholder="Adres e-mail"
-              onChange={onChangeUsername}
-              validations={[required]}
-            />
-
+     
+  <Modal
+    className="modal-mini modal-primary"
+    show={showModal}
+    onHide={() => setShowModal(false)}>
+    <Modal.Header className="justify-content-center">
+      <img src={require("assets/img/logokmclear.png").default}
+        width="62px" height="38px" />
+      <h3 className="modal-title">Zaloguj się</h3>
+    </Modal.Header>
+    <Modal.Body>
+      <div className="autocenter">
+        <Form onSubmit={handleLogin} ref={form}>
+          <div className="left">
+            <label className="email">E-mail:</label>
+          </div>
+          <Input
+            type="text"
+            className="marbot borderidea"
+            value={email}
+            name="email"
+            placeholder="Adres e-mail"
+            onChange={onChangeUsername}
+            validations={[required]}
+          />
+          <div className="left">
             <label htmlFor="password">Hasło:</label>
-            <Input
-              placeholder="********"
-              name="password"
-              className="marbot"
-              type="password"
-              onChange={onChangePassword}
-              validations={[required]}
-            />
-
-
-            <div className="form-group">
-              <button className="btn btn-primary btn-block" disabled={loading}>
-                {loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
-                )}
-                <span>Login</span>
-              </button>
+          </div>
+          <Input
+            placeholder="********"
+            name="password"
+            className="marbot borderidea"
+            type="password"
+            onChange={onChangePassword}
+            validations={[required]}
+          />
+          <div className="btn-wd-2 form-group ">
+            <button className="btn-fill btn btn-info btn-group btn-modal-login" disabled={loading}>
+              {loading && (
+                <span className="spinner-border spinner-border-sm "></span>
+              )}
+              <span>Zaloguj</span>
+            </button>
+          </div>
+          {message && (
+            <div className="alert alert-danger" role="alert">
+              {message}
             </div>
-
-            {message && (
-              <div className="form-group">
-                <div className="alert alert-danger" role="alert">
-                  {message}
-                </div>
-              </div>
-            )}
-            <CheckButton style={{ display: "none" }} ref={checkBtn} />
-          </Form>
-
-
-        </Modal.Body>
-
-      </Modal>
+          )}
+          <CheckButton style={{ display: "none" }} ref={checkBtn} />
+        </Form>
+        <Button
+          className="btn-simple2"
+          type="button"
+          variant="link"
+          onClick={() => setShowModal(false)}>
+          Zamknij
+        </Button>
+      </div>
+    </Modal.Body>
+  </Modal>
     </Navbar >
   );
 }

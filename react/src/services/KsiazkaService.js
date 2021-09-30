@@ -5,9 +5,15 @@ class KsiazkaDataService {
   getAll() {
     return http.get("/ksiazka");
   }
-
+  
+  getAll() {
+    return http.get("/dzial");
+  }
   get(id) {
     return http.get(`/ksiazka/${id}`);
+  }
+  get(id_dzialu) {
+    return http.get(`/dzial/${id_dzialu}`);
   }
   create(data) {
     return http.post("/ksiazka", data);

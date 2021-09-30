@@ -19,6 +19,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import AuthService from "../services/auth.service.js";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -43,21 +44,21 @@ const tableIcons = {
 const URL = "http://localhost:8080/api/ksiazka/";
 
 function KsiazkaTable() {
-  const [entries, setEntries] = useState({
-    data: [
-      {
-        id: "",
-        nazwa: "",
-        stanowisko: "",
-        adres_email: "",
-        numer_tel: "",
-        numer_stacj: "",
-        numer_pokoju: "",
-        symbol_dzialu: "",
-        nazwa_dzialu: "",
-      }
-    ]
-  });
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  useEffect(() => {
+    loggedUser();
+  }, []);
+
+  const loggedUser = () => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    }
+  }
+
+  const [entries, setEntries] = useState([])
   const [state] = React.useState({
     columns: [{
       title: 'ID.', field: 'id', type: 'numeric', hidden: false
@@ -70,35 +71,47 @@ function KsiazkaTable() {
       }, headerStyle: { paddingLeft: "0px" }
     },
     {
-      title: 'Stanowisko', field: 'stanowisko',
-      headerStyle: { paddingLeft: 0 },
-      cellStyle: {
-        paddingLeft: 0,
-        minWidth: 170,
-      }
+      title: 'Nazwa stanowiska', field: 'stanowisko.nazwa_stan'
     },
     {
-      title: 'Adres e-mail', field: 'adres_email', type: 'string',
-      cellStyle: {
-        width: 170,
-        maxWidth: 240,
-        whiteSpace: "normal",
-        wordWrap: "break-word",
-        overflow: 'wrap',
-        paddingLeft: '0px'
-      }, headerStyle: {
-        whiteSpace: "normal",
-        wordWrap: "break-word",
-        paddingLeft: '0px'
-      },
+      title: 'symbol', field: 'dzial.symbol'
     },
     {
-      title: 'Numer kom.', field: 'numer_tel', type: 'string',
+      title: 'Nazwa działu', field: 'dzial.nazwa_dzialu',
       cellStyle: {
-        minWidth: 110,
+        minWidth: 200,
         paddingLeft: '0px'
-      }, headerStyle: { paddingLeft: "0px" }
+      }, headerStyle: { paddingLeft: '0px' },
     },
+    {
+      title: 'md', field: 'dzial.md'
+    },
+    {
+      title: 'sum_all', field: 'sum_all'
+    },
+    // {
+    //   title: 'Adres e-mail', field: 'adres_email', type: 'string',
+    //   cellStyle: {
+    //     width: 170,
+    //     maxWidth: 240,
+    //     whiteSpace: "normal",
+    //     wordWrap: "break-word",
+    //     overflow: 'wrap',
+    //     paddingLeft: '0px'
+    //   }, headerStyle: {
+    //     whiteSpace: "normal",
+    //     wordWrap: "break-word",
+    //     paddingLeft: '0px'
+    //   },
+    // },
+    // {
+    //   title: 'Numer kom.', field: 'numer_tel', type: 'string',
+    //   cellStyle: {
+    //     minWidth: 110,
+    //     paddingLeft: '0px'
+    //   }, headerStyle: { paddingLeft: "0px" }
+    // },
+  
     {
       title: 'Numer stacj.', field: 'numer_stacj',
       cellStyle: {
@@ -106,49 +119,29 @@ function KsiazkaTable() {
         paddingLeft: "0px"
       }, headerStyle: { paddingLeft: "0px", }
     },
-    {
-      title: 'Dział', field: 'nazwa_dzialu',
-      cellStyle: {
-        minWidth: 200,
-        paddingLeft: '0px'
-      }, headerStyle: { paddingLeft: '0px' },
-    },
-    {
-      title: 'Symbol', field: 'symbol_dzialu',
-      cellStyle: {
-        paddingLeft: 15,
-        minWidth: 0
-      }, headerStyle: { paddingLeft: '0px' },
-    },
+
+    // {
+    //   title: 'Symbol', field: 'symbol_dzialu',
+    //   cellStyle: {
+    //     paddingLeft: 15,
+    //     minWidth: 0
+    //   }, headerStyle: { paddingLeft: '0px' },
+    // },
     {
       title: 'Numer pokoju', field: 'numer_pokoju',
       headerStyle: { paddingLeft: "0px" }, cellStyle: { paddingLeft: "0px" }
-    },]
+    },
+    ],
+
   });
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/ksiazka")
-      .then(response => {
-        let data = [];
-        response.data.forEach(el => {
-          data.push({
-            id: el.id,
-            nazwa: el.nazwa,
-            stanowisko: el.stanowisko,
-            adres_email: el.stanadres_emailwisko,
-            numer_tel: el.numer_tel,
-            numer_stacj: el.numer_stacj,
-            numer_pokoju: el.numer_pokoju,
-            symbol_dzialu: el.symbol_dzialu,
-            nazwa_dzialu: el.nazwa_dzialu,
-          });
-        });
-        setEntries({ data: data });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    axios.get(URL).then(response => {
+      let data = response.data
+      setEntries({ data: data });
+    }).catch(function (error) {
+      console.log(error);
+    });
   }, []);
 
   var customStyle = {
@@ -163,7 +156,9 @@ function KsiazkaTable() {
       MuiTableCell: {
         root: {
           padding: 12,
-        }}},
+        }
+      }
+    },
   });
 
   return (
@@ -194,8 +189,10 @@ function KsiazkaTable() {
             body: {
               editTooltip: "Edytuj",
               deleteTooltip: "Usuń",
-              editRow: { deleteText: "Jesteś pewny, że chcesz usunąć tą pozycję?" },
-              editRow: { deleteText: "Anuluj" }
+              editRow: {
+                deleteText: "Jesteś pewny, że chcesz usunąć tą pozycję?",
+                cancelTooltip: "Anuluj", saveTooltip: "Zapisz"
+              },
             },
             header: {
               actions: "Akcje"
@@ -211,14 +208,15 @@ function KsiazkaTable() {
             },
             searchFieldAlignment: "left",
             searchFieldVariant: "outlined",
-            doubleHorizontalScroll: true,
+            // doubleHorizontalScroll: true,
             pageSize: 30,
             pageSizeOptions: [10, 20, 30, 40, 50],
             searchFieldStyle: customStyle,
           }}
-          editable={{
+          editable={showAdminBoard && {
             onRowUpdate: (newData, oldData) =>
               new Promise(resolve => {
+                { showAdminBoard }
                 setTimeout(() => {
                   resolve();
                   const data = [...entries.data];
@@ -230,21 +228,23 @@ function KsiazkaTable() {
               }),
             onRowDelete: oldData =>
               new Promise(resolve => {
+                { showAdminBoard }
                 setTimeout(() => {
                   resolve();
                   const data = [...entries.data];
                   data.splice(data.indexOf(oldData), 1);
                   axios.delete(URL + oldData.id, {
-                  })
-                    .then(res => console.log(res.data));
+                  }).then(res => console.log(res.data));
                   setEntries({ ...entries, data });
                 }, 600);
               })
           }}
         />
+
       </MuiThemeProvider>
     </div>
   );
 }
+
 export default KsiazkaTable;
 

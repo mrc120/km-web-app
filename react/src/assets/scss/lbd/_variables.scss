@@ -24,9 +24,9 @@ $default-color:              #888888 !default;
 $default-bg:                 #888888 !default;
 $default-states-color:       #777777 !default;
 
-$primary-color:              #3472F7 !default;
-$primary-bg:                 #3472F7 !default;
-$primary-states-color:       #1D62F0 !default;
+$primary-color:              #3b85ab !default;
+$primary-bg:                 #050505 !default;
+$primary-states-color:       #3b85ab !default;
 
 $success-color:              #87CB16 !default;
 $success-bg:                 #87CB16 !default;
@@ -216,18 +216,7 @@ $pink-color-bottom: 	            #ff2e2e;
 $black-color-top:	 	            #787878;
 $black-color-bottom: 	            #343434;
 
-$social-facebook: 			#3b5998;
-$social-twitter: 			#55acee;
-$social-pinterest: 			#cc2127;
-$social-google: 			#dd4b39;
-$social-linkedin: 			#0976b4;
-$social-dribbble: 			#ea4c89;
-$social-github: 			#333333;
-$social-youtube: 			#e52d27;
-$social-stumbleupon: 		#eb4924;
-$social-reddit: 			#ff4500;
-$social-tumblr: 			#35465c;
-$social-behance: 			#1769ff;
+
 
 
 $filter-blue:         darken($primary-color, 10%);
@@ -237,7 +226,7 @@ $filter-orange:       darken($warning-color, 10%);
 $filter-red:          darken($danger-color, 10%);
 
 
-$new-blue:            #3f859afc;
+$new-blue:            #3b85ab;
 $new-purple:          #9368E9;
 $new-red:             #FB404B;
 $new-green:           #87CB16;

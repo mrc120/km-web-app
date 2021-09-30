@@ -51,6 +51,7 @@ function Admin() {
         <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
         <div className="main-panel" ref={mainPanel}>
           <AdminNavbar />
+          <navbarRoutes />
           <div className="content">
             <Switch>{getRoutes(routes)}</Switch>
           </div>

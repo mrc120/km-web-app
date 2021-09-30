@@ -1,16 +1,16 @@
 module.exports = app => {
-  const ksiazka = require("../controllers/ksiazka.controller.js");
+  const Ksiazka = require("../controllers/ksiazka.controller.js");
   var router = require("express").Router();
 
-  router.post("/", ksiazka.create);
+  router.post("/", Ksiazka.create);
+  
+  router.get("/", Ksiazka.findAll);
+  
+  router.get("/:id", Ksiazka.findOne);
 
-  router.get("/", ksiazka.findAll);
+  router.put("/:id", Ksiazka.update);
 
-  router.get("/:id", ksiazka.findOne);
-
-  router.put("/:id", ksiazka.update);
-
-  router.delete("/:id", ksiazka.delete);
+ router.delete("/:id", Ksiazka.delete);
 
   app.use("/api/ksiazka", router);
 }
