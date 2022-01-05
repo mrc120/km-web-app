@@ -184,7 +184,7 @@ const UserProfile = () => {
                 <Card.Body>
                   <Form>
                     <Row>
-                      <Col className="pr-1" md="6">
+                      <Col className="pr-2" md="6">
                         <Form.Group>
                           <label>Nazwa</label>
                           <Form.Control className="form"

@@ -18,7 +18,7 @@
 {
     margin-left: 15px;
     margin-top: -3px;
-    font-weight: 400;
+    font-weight: 600;
 }
 .marbot
 {
@@ -81,7 +81,54 @@
   }
 
 .btn-fix{
-    margin-top: 20px;
-    margin-left: 70px;
-    width: 80%;
+    width:70%;
+    margin-left:15%;
+    margin-right:15%;
+}
+
+.btn-nav{
+    height: 41px;
+    
+}
+.size-up{
+    font-size: 20px;
+   }
+
+.size-up-down{
+    margin-left: -8px;
+    margin-top:32px;
+    font-size: 35px;
+    font-weight: 600;
+   }
+
+.Row-fix{
+    margin-left: 30px;
+    padding-bottom: 2em;
+    margin-right: 30px;
+}
+
+.btn-show{
+    margin-top: -2px;
+    margin-left: -26px;
+    height: 125px;
+    width: 55px;
+    font-weight: 600;
+    border-radius:4px;
+}
+
+.tekst{
+    margin-left: 2px;
+    margin-top: 2px;
+    width: auto;
+  
+}
+.ojej{
+    height:125px;
+    border: 2px solid #629dbc;
+    width: 325px;
+    background-color: #cde1ec;
+
+}
+.custom-file-input:lang(en)~.custom-file-label::after {
+    content: "Dodaj plik";
 }

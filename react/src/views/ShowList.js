@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import NotificationAlert from "react-notification-alert";
-
 import axios from "axios";
 import {
   Button,
@@ -10,19 +9,13 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import { CardBody } from "reactstrap";
 
 const ShowList = () => {
 
   const [entries, setEntries] = useState({ data: [] });
 
-  const lista = [
-    {
-      name: '',
-      url: ''
-    }
-  ]
-
-  const URL = "http://localhost:8080/files/"
+  const URL = "http://localhost:8080/api/files/"
 
   useEffect(() => {
     axios.get(URL).then(response => {
@@ -33,55 +26,67 @@ const ShowList = () => {
     });
   }, []);
 
+  function base64ToArrayBuffer(data) {
+    const bString = window.atob(data);
+    const bLength = bString.length;
+    const bytes = new Uint8Array(bLength);
+    for (let i = 0; i < bLength; i++) {
+        bytes[i] = bString.charCodeAt(i);
+    }
+    return bytes;
+  }
+  function base64toPDF(base64EncodedData, fileName = 'file') {
+    const bufferArray = base64ToArrayBuffer(base64EncodedData);
+    const blobStore = new Blob([bufferArray], { type: 'application/pdf' });
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(blobStore);
+        return;
+    }
+    const data = window.URL.createObjectURL(blobStore);
+    const link = document.createElement('a');
+    document.body.appendChild(link);
+    link.href = data;
+    link.download = `${fileName}.pdf`;
+    link.click();
+    window.URL.revokeObjectURL(data);
+    link.remove();
+  }
+
   return (
     <>
       <div className="mainpanel">
         <Container fluid>
           <Row>
-            <Col md="8">
+            <Col md="12">
               <Card>
-                <Card.Header>
-                  <Card.Title as="h3">Dodaj plik</Card.Title>
-                </Card.Header>
                 <Card.Body>
-                  <Form>
-                    <Row>
-                      <div class="row">
-                        <div class="col-sm-8 mt-3">
-                          <form action="/upload" method="POST" enctype="multipart/form-data">
-                            <div class="form-group">
-                              <label for="example-input-file"> </label>
-                              <input type="file" name="multi-files" class="form-control-file border" />
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                          </form>
-                        </div>
-                      </div>
-                      <hr />
-                      {/* <div class="row">
-                        <div class="col-sm-12">
-                          {/* <div class="preview-images"></div> */}
-
-                    </Row>
-                    <Row>
-                      <h4>SHOW LIST</h4>
-                      <ul>
-                        {
-                          entries.data.map((poz, index) => {
-                            console.log(poz);
-                            return (
-                              <Card>
+                  <ul>
+                    <Row >
+                      {entries.data.map((poz, index) => {
+                        console.log(poz);
+                        return (
+                          <Col
+                            md={{ span: 4 }}>
+                            <Card className="ojej">
                               <div>
-                                <h2 className='poz'>{poz.name}</h2>
-                                <h5 className="poz_title">{poz.url}</h5>
+                                <div class="row">
+                                  <div class="col-sm-10 tekst">
+                                    <td>{poz.title}</td>
+                                  </div>
+                                  <div class="col-sm-1">
+                                    <Button className="btn-show" target= "_blank" onChange={open} href={URL + poz.name} >
+                                      <i class="nc-icon nc-cloud-download-93  size-up-down" ></i>
+                                    </Button>
+                                  </div>
+                                </div>
                               </div>
-                          </Card>
-                            )
-                          })}
-                      </ul>
+                            </Card>
+                          </Col>
+                        )
+                      })}
                     </Row>
-                    <div className="clearfix"></div>
-                  </Form>
+                  </ul>
+                  <div className="clearfix"></div>
                 </Card.Body>
               </Card>
             </Col>

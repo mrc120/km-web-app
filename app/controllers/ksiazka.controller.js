@@ -30,8 +30,6 @@ Ksiazka.create(ksiazka)
 });
 };
 
-
-
 exports.findAll = (req, res) => {
   Ksiazka.findAll({
     include: {

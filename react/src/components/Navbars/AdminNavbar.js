@@ -9,7 +9,7 @@ import CheckButton from "react-validation/build/button";
 import AuthService from "../../services/auth.service.js";
 import Table from "../../views/TableList.js";
 import UserProfile from "../../views/UserProfile.js";
-import ShowList from "../../views/ShowList.js";
+import AddFile from "../../views/AddFile";
 
 const AdminNavbar = (props) => {
   const form = useRef();
@@ -28,7 +28,6 @@ const AdminNavbar = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
     loggedUser();
-
   }, []);
 
   const logOut = () => {
@@ -65,7 +64,6 @@ const AdminNavbar = (props) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
     setMessage("");
     setLoading(true);
     form.current.validateAll();
@@ -118,8 +116,6 @@ const AdminNavbar = (props) => {
 
   return (
     <Navbar bg="light" expand="lg">
-
-
       <div className="d-flex justify-content-center align-items-center ml-2 ml-lg-0">
         <Button
           variant="dark"
@@ -143,7 +139,7 @@ const AdminNavbar = (props) => {
             <Switch>
               <Route exact path="/" component={Table} />
               <Route exact path="/add" component={UserProfile} />
-              <Route exact path="/add_document" component={ShowList} />
+              <Route exact path="/upload_file" component={AddFile} />
             </Switch>
           </div>
         </div>
@@ -152,108 +148,110 @@ const AdminNavbar = (props) => {
         <Nav className="nav mr-auto" navbar>
         </Nav>
         <Nav navbar>
-        <Nav.Item>
+          <Nav.Item>
             {showAdminBoard && (
-                <Button 
-                  className="btn-primary"
-                  variant="success"
-                  href="/u/add_document">
-                    Dodaj uchwałę
-                </Button>
-              )}
+              <Button
+                title="Dodaj nowy plik"
+                className="btn-nav"
+                variant="danger"
+                href="/u/upload_file">
+                <i class="nc-icon nc-cloud-upload-94  size-up"></i>
+              </Button>
+            )}
           </Nav.Item>
           <Nav.Item>
             {showAdminBoard && (
-                <Button 
-                  className="btn-danger"
-                  variant="info"
-                  href="/u/add">
-                    Dodaj nowego użytkownika
-                </Button>
-              )}
+              <Button
+                title="Dodaj nowego pracownika"
+                className="btn-nav"
+                variant="success"
+                href="/u/add">
+                <i className="nc-icon nc-circle-09 size-up"></i>
+              </Button>
+            )}
           </Nav.Item>
-        <Nav.Item>
-          {currentUser ? (
-            <Button
-              className="btn-wd-l"
-              href="/table"
-              variant="info"
-              onClick={logOut}>
-              <span className="no-icon">Wyloguj</span>
-            </Button>
-          ) : (
-            <Button
-              className=""
-              href="#login" className="btn-wd-l"
-              onClick={() => setShowModal(true)}>
-              <span className="no-icon">Logowanie</span>
-            </Button>
-          )}
-        </Nav.Item>
+          <Nav.Item>
+            {currentUser ? (
+              <Button
+                className="btn-wd-l"
+                href="/table"
+                variant="info"
+                onClick={logOut}>
+                <span className="no-icon">Wyloguj</span>
+              </Button>
+            ) : (
+              <Button
+                className=""
+                href="#login" className="btn-wd-l"
+                onClick={() => setShowModal(true)}>
+                <span className="no-icon">Logowanie</span>
+              </Button>
+            )}
+          </Nav.Item>
         </Nav>
       </Navbar.Collapse>
 
-     
-  <Modal
-    className="modal-mini modal-primary"
-    show={showModal}
-    onHide={() => setShowModal(false)}>
-    <Modal.Header className="justify-content-center">
-      <img src={require("assets/img/logokmclear.png").default}
-        width="62px" height="38px" />
-      <h3 className="modal-title">Zaloguj się</h3>
-    </Modal.Header>
-    <Modal.Body>
-      <div className="autocenter">
-        <Form onSubmit={handleLogin} ref={form}>
-          <div className="left">
-            <label className="email">E-mail:</label>
-          </div>
-          <Input
-            type="text"
-            className="marbot borderidea"
-            value={email}
-            name="email"
-            placeholder="Adres e-mail"
-            onChange={onChangeUsername}
-            validations={[required]}
-          />
-          <div className="left">
-            <label htmlFor="password">Hasło:</label>
-          </div>
-          <Input
-            placeholder="********"
-            name="password"
-            className="marbot borderidea"
-            type="password"
-            onChange={onChangePassword}
-            validations={[required]}
-          />
-          <div className="btn-wd-2 form-group ">
-            <button className="btn-fill btn btn-info btn-group btn-modal-login" disabled={loading}>
-              {loading && (
-                <span className="spinner-border spinner-border-sm "></span>
+
+      <Modal
+        className="modal-mini modal-primary"
+        show={showModal}
+        onHide={() => setShowModal(false)}>
+        <Modal.Header className="justify-content-center">
+          <img src={require("assets/img/logokmclear.png").default}
+            width="62px" height="38px" />
+          <h3 className="modal-title">Zaloguj się</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="autocenter">
+            <Form onSubmit={handleLogin} ref={form}>
+              <div className="left">
+                <label className="email">E-mail:</label>
+              </div>
+              <Input
+                type="text"
+                className="marbot borderidea"
+                value={email}
+                name="email"
+                placeholder="Adres e-mail"
+                onChange={onChangeUsername}
+                validations={[required]}
+              />
+              <div className="left">
+                <label htmlFor="password">Hasło:</label>
+              </div>
+              <Input
+                placeholder="********"
+                name="password"
+                className="marbot borderidea"
+                type="password"
+                onChange={onChangePassword}
+                validations={[required]}
+              />
+              <div className="btn-wd-2 form-group ">
+                <button className="btn-fill btn btn-info btn-group btn-modal-login" disabled={loading}>
+                  {loading && (
+                    <span className="spinner-border spinner-border-sm "></span>
+                  )}
+                  <span>Zaloguj</span>
+                </button>
+              </div>
+              {message && (
+                <div className="alert alert-danger" role="alert">
+                  {message}
+                </div>
               )}
-              <span>Zaloguj</span>
-            </button>
+              <CheckButton style={{ display: "none" }} ref={checkBtn} />
+            </Form>
+            <Button
+              className="btn-simple2"
+              type="button"
+              variant="link"
+              onClick={() => setShowModal(false)}>
+              Zamknij
+            </Button>
           </div>
-          {message && (
-            <div className="alert alert-danger" role="alert">
-              {message}
-            </div>
-          )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        </Form>
-        <Button
-          className="btn-simple2"
-          type="button"
-          variant="link"
-          onClick={() => setShowModal(false)}>
-          Zamknij
-        </Button>
-      </div>
-    </Modal.Body>
-  </Modal>
+        </Modal.Body>
+      </Modal>
     </Navbar >
   );
 }

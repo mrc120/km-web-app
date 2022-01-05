@@ -60,79 +60,76 @@ function KsiazkaTable() {
 
   const [entries, setEntries] = useState([])
   const [state] = React.useState({
-    columns: [{
-      title: 'ID.', field: 'id', type: 'numeric', hidden: false
-    },
-    {
-      title: 'Nazwa', field: 'nazwa',
-      cellStyle: {
-        paddingLeft: '0px',
-        minWidth: 200
-      }, headerStyle: { paddingLeft: "0px" }
-    },
-    {
-      title: 'Nazwa stanowiska', field: 'stanowisko.nazwa_stan'
-    },
-    {
-      title: 'symbol', field: 'dzial.symbol'
-    },
-    {
-      title: 'Nazwa działu', field: 'dzial.nazwa_dzialu',
-      cellStyle: {
-        minWidth: 200,
-        paddingLeft: '0px'
-      }, headerStyle: { paddingLeft: '0px' },
-    },
-    {
-      title: 'md', field: 'dzial.md'
-    },
-    {
-      title: 'sum_all', field: 'sum_all'
-    },
-    // {
-    //   title: 'Adres e-mail', field: 'adres_email', type: 'string',
-    //   cellStyle: {
-    //     width: 170,
-    //     maxWidth: 240,
-    //     whiteSpace: "normal",
-    //     wordWrap: "break-word",
-    //     overflow: 'wrap',
-    //     paddingLeft: '0px'
-    //   }, headerStyle: {
-    //     whiteSpace: "normal",
-    //     wordWrap: "break-word",
-    //     paddingLeft: '0px'
-    //   },
-    // },
-    // {
-    //   title: 'Numer kom.', field: 'numer_tel', type: 'string',
-    //   cellStyle: {
-    //     minWidth: 110,
-    //     paddingLeft: '0px'
-    //   }, headerStyle: { paddingLeft: "0px" }
-    // },
+
+    columns: [ 
+
+      {
+        title: 'Nazwa', field: 'nazwa',
+        cellStyle: {
+          paddingLeft: '14px',
+          maxWidth: 150,
+        },
+        headerStyle: { paddingLeft: "14px" }
+      },
+      {
+        title: 'Stanowisko', field: 'stanowisko.nazwa_stan',
+        headerStyle: { paddingLeft: 0 },
+        cellStyle: {
+          paddingLeft: 0,
+          maxWidth: 160,
+        }
+      },
+      {
+        title: 'Adres e-mail', field: 'adres_email', type: 'string',
+        cellStyle: {
+          
+          maxWidth: 160,
+          whiteSpace: "normal",
+          wordWrap: "break-word",
+          overflow: 'wrap',
+          paddingLeft: '0px'
+        }, headerStyle: {
+          whiteSpace: "normal",
+          wordWrap: "break-word",
+          paddingLeft: '0px'
+        },
+      },
+      {
+        title: 'Numer kom.', field: 'numer_tel', type: 'string',
+        cellStyle: {
+          minWidth: 110,
+          paddingLeft: '0px'
+        }, headerStyle: { paddingLeft: "0px" }
+      },
+      {
+        title: 'Numer stacj.', field: 'numer_stacj',
+        cellStyle: {
+          maxWidth: 150,
+          paddingLeft: "0px"
+        }, headerStyle: { paddingLeft: "0px", }
+      },
+      {
+        title: 'Dział', field: 'dzial.nazwa_dzialu',
+        cellStyle: {
+          maxWidth: 150,
+          paddingLeft: '0px'
+        }, headerStyle: { paddingLeft: '0px' },
+      },
+      {
+        title: 'Sym.', field: 'dzial.symbol',
+        cellStyle: {
+          paddingLeft: '15px',
+          maxWidth: '100px'
   
-    {
-      title: 'Numer stacj.', field: 'numer_stacj',
-      cellStyle: {
-        minWidth: 120,
-        paddingLeft: "0px"
-      }, headerStyle: { paddingLeft: "0px", }
-    },
-
-    // {
-    //   title: 'Symbol', field: 'symbol_dzialu',
-    //   cellStyle: {
-    //     paddingLeft: 15,
-    //     minWidth: 0
-    //   }, headerStyle: { paddingLeft: '0px' },
-    // },
-    {
-      title: 'Numer pokoju', field: 'numer_pokoju',
-      headerStyle: { paddingLeft: "0px" }, cellStyle: { paddingLeft: "0px" }
-    },
-    ],
-
+        }, headerStyle: { paddingLeft: '0px', paddingRight: "0px", minWidth: '250px',
+                maxWidth: '250px'  },
+      },
+      {
+        title: 'Numer pokoju', field: 'numer_pokoju',
+        headerStyle: { paddingLeft: "0px" }, cellStyle: { paddingLeft: "5px"}
+      },]
+  
+      
   });
 
   useEffect(() => {
@@ -201,7 +198,7 @@ function KsiazkaTable() {
           options={{
             rowStyle: {
               padding: 5,
-              fontSize: '15',
+              fontSize: 15,
             },
             headerStyle: {
               padding: 12,

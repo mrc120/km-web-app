@@ -3,11 +3,10 @@ import UserProfile from "views/UserProfile.js";
 import TableList from "views/TableList.js";
 import Legend from "views/Legend.js";
 import Helpdesk from "views/Helpdesk.js";
-import Profile from "components/Profile.js";
-import ShowList from "views/ShowList";
+import ShowList from "views/ShowList.js";
+import AddFile from "views/AddFile.js";
 
 const navbarRoutes = [
-
   {
     path: "/add",
     name: "Dodaj użytkownika",
@@ -15,26 +14,16 @@ const navbarRoutes = [
     component: UserProfile,
     layout: "/u",
     invisible: true,
-  },
 
+  },
   {
-    path: "/add_document",
-    name: "Dodaj uchwałę",
+    path: "/upload_file",
+    name: "Dodaj plik",
     icon: "nc-icon nc-single-copy-04",
-    component: ShowList,
-    layout: "/u",
-   
-  },
-
-  {
-    path: "/profile",
-    name: "Profil",
-    icon: "nc-icon nc-circle-09",
-    component: Profile,
+    component: AddFile,
     layout: "/u",
     invisible: true,
   },
-
 
   {
     path: "/table",
@@ -42,6 +31,7 @@ const navbarRoutes = [
     icon: "nc-icon nc-notes",
     component: TableList,
     layout: "/u",
+
   },
   {
     path: "/legend",

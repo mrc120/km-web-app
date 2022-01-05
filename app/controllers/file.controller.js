@@ -1,22 +1,36 @@
-const uploadFile = require("../middleware/upload");
-const fs = require('fs');
-const baseUrl = "http://localhost:8080/files/";
+const fs = require("fs");
+const { title } = require("process");
+const request = require('request');
 
-const upload = async (req, res) => {
+const db = require("../models");
+const File = db.file;
+const baseUrl = "http://localhost:8080/api/files"
+
+const uploadFiles = async (req, res) => {
   try {
-    await uploadFile(req, res);
+    console.log(req.file);
 
     if (req.file == undefined) {
-      return res.status(400).send({ message: "Please upload a file!" });
+      return res.send(`Musisz wybrac plik.`);
     }
 
-    res.status(200).send({
-      message: "Uploaded the file successfully: " + req.file.originalname,
+    File.create({
+      title: req.body.title,
+      name: req.file.originalname,
+      data: fs.readFileSync(
+        __basedir + "/app/resources/static/assets/uploads/" + req.file.filename
+      ),
+    }).then((file) => {
+      fs.writeFileSync(
+        __basedir + "/app/resources/static/assets/tmp/" + file.name,
+        file.data
+      );
+
+      return res.send(`Plik został wysłany.`);
     });
-  } catch (err) {
-    res.status(500).send({
-      message: `Could not upload the file: ${req.file.originalname}. ${err}`,
-    });
+  } catch (error) {
+    console.log(error);
+    return res.send(`Błąd podczas wysyłki pliku do serwera: ${error}`);
   }
 };
 
@@ -26,38 +40,44 @@ const getListFiles = (req, res) => {
   fs.readdir(directoryPath, function (err, files) {
     if (err) {
       res.status(500).send({
-        message: "Unable to scan files!",
+        message: "Błąd w wydobyciu plików!",
       });
     }
 
-    let fileInfos = [];
-
-    files.forEach((file) => {
-      fileInfos.push({
-        name: file,
-        url: baseUrl + file,
+    File.findAll()
+      .then(state => {
+        res.send(state);
+        let fileInfos = [];
+        files.forEach((file) => {
+          fileInfos.push({
+            url: baseUrl + file,
+          });
+        });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Wystąpił błąd podczas wydobywania danych."
+        });
       });
-    });
 
-    res.status(200).send(fileInfos);
   });
 };
 
-const download = (req, res) => {
+const openFile = (req, res) => {
   const fileName = req.params.name;
   const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
-
-  res.download(directoryPath + fileName, fileName, (err) => {
+  res.sendFile(directoryPath + fileName, fileName, (err) => {
     if (err) {
       res.status(500).send({
-        message: "Could not download the file. " + err,
+        message: "Nie można otworzyć pliku, błąd: " + err,
       });
     }
   });
 };
 
 module.exports = {
-  upload,
+  uploadFiles,
   getListFiles,
-  download,
+  openFile
 };

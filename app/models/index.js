@@ -2,6 +2,7 @@ const dbConfig = require("../config/db.config.js");
 const Ksiazka = require("../models/ksiazka.model.js")
 const Dzial = require("../models/dzial.model.js")
 const Stanowisko = require("../models/stanowisko.model.js")
+const Pliki = ("../models/file.model.js")
 
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD,
@@ -30,6 +31,7 @@ db.user = require("./user.model.js")(sequelize, Sequelize);
 db.role = require("./role.model.js")(sequelize, Sequelize);
 db.dzial = require("./dzial.model.js")(sequelize, Sequelize);
 db.stanowisko = require("./stanowisko.model.js")(sequelize, Sequelize);
+db.file = require("./file.model.js")(sequelize, Sequelize);
 
 
 //Relacje roles,
