@@ -37,7 +37,11 @@
 }
     
 .form-group {
-    width:90%;
+    width: 70%;
+	margin: 0 auto;
+}
+.asd{
+  
 }
 
 .frodo {
@@ -132,3 +136,10 @@
 .custom-file-input:lang(en)~.custom-file-label::after {
     content: "Dodaj plik";
 }
+
+.margin-250{
+    margin-top: 50%;
+    margin-left: -100px;
+    align-items: center;
+}
+

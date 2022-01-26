@@ -10,11 +10,16 @@ import AuthService from "../../services/auth.service.js";
 import Table from "../../views/TableList.js";
 import UserProfile from "../../views/UserProfile.js";
 import AddFile from "../../views/AddFile";
+import Register from "../../components/Register.js";
+
+const API_URL = "http://localhost:8080/api/auth/signup";
 
 const AdminNavbar = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
+
+  
   const [showModal, setShowModal] = React.useState(false);
   const location = useLocation();
 
@@ -132,17 +137,18 @@ const AdminNavbar = (props) => {
         </Navbar.Brand>
       </div>
       <div>
-        <div>
-          <div className="navbar-nav mr-auto">
-          </div>
-          <div className="container mt-3">
-            <Switch>
+       
+          {/* <div className="navbar-nav mr-auto">
+          </div> */}
+           <Switch>
               <Route exact path="/" component={Table} />
               <Route exact path="/add" component={UserProfile} />
               <Route exact path="/upload_file" component={AddFile} />
+              <Route exact path="/u/register" component={Register} />
             </Switch>
-          </div>
-        </div>
+           
+          
+       
       </div>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="nav mr-auto" navbar>
@@ -191,14 +197,15 @@ const AdminNavbar = (props) => {
         </Nav>
       </Navbar.Collapse>
 
-
       <Modal
         className="modal-mini modal-primary"
         show={showModal}
         onHide={() => setShowModal(false)}>
         <Modal.Header className="justify-content-center">
+        <Link to={"/u/register"} className="nav-link">
           <img src={require("assets/img/logokmclear.png").default}
             width="62px" height="38px" />
+          </Link>
           <h3 className="modal-title">Zaloguj się</h3>
         </Modal.Header>
         <Modal.Body>
@@ -219,6 +226,7 @@ const AdminNavbar = (props) => {
               <div className="left">
                 <label htmlFor="password">Hasło:</label>
               </div>
+              
               <Input
                 placeholder="********"
                 name="password"
@@ -250,10 +258,13 @@ const AdminNavbar = (props) => {
               Zamknij
             </Button>
           </div>
+          
         </Modal.Body>
       </Modal>
     </Navbar >
+    
   );
+  
 }
 
 export default AdminNavbar;

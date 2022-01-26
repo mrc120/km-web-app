@@ -3,8 +3,15 @@ const { title } = require("process");
 const request = require('request');
 
 const db = require("../models");
+
 const File = db.file;
+const File_pol = db.file_pole;
+const File_zarz = db.file_zarz;
+
+
 const baseUrl = "http://localhost:8080/api/files"
+const baseUrl_zarz = "http://localhost:8080/api/zarzadzenia"
+const baseUrl_pole = "http://localhost:8080/api/polecenia_sluzb"
 
 const uploadFiles = async (req, res) => {
   try {

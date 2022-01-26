@@ -9,7 +9,7 @@ class Footer extends Component {
           <nav>
             <ul className="footer-menu">
               <li>
-              <a href = "mailto: piotr.lewandowski@kmplock.eu">
+              <a href = "mailto: krzysztof.mikolajczyk@kmplock.eu">
                   Zgłoś błąd
                 </a>
               </li>

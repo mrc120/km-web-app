@@ -4,7 +4,7 @@ const pdfFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('application/pdf')) {
     cb(null, true);
   } else {
-    cb("Tylko pliki PDF sa przyjmowane ", false);
+    cb("Tylko pliki PDF są przyjmowane ", false);
   }
 };
 

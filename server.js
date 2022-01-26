@@ -1,11 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-//const initRoutes = require("./app/routes/web");
 
 const db = require("./app/models");
 const Role = db.role;
-
 
 const path = __dirname+ '/app/views/';;
 const app = express();
@@ -38,9 +36,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({extended: true}))
 initRoutes(app);
 
-
-
-
 //wyrzuca baze
 // db.sequelize.sync({force: true}).then(() => {
 //   console.log('Drop and Resync Db');
@@ -69,9 +64,8 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/dzial.routes')(app);
 require('./app/routes/stanowisko.routes')(app);
-//require('./app/routes/web')(app);
 
-// set port, listen for requests
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Serwer działa na porcie ${PORT}.`);
