@@ -31,7 +31,7 @@ const ShowList = () => {
     const bLength = bString.length;
     const bytes = new Uint8Array(bLength);
     for (let i = 0; i < bLength; i++) {
-        bytes[i] = bString.charCodeAt(i);
+      bytes[i] = bString.charCodeAt(i);
     }
     return bytes;
   }
@@ -39,8 +39,8 @@ const ShowList = () => {
     const bufferArray = base64ToArrayBuffer(base64EncodedData);
     const blobStore = new Blob([bufferArray], { type: 'application/pdf' });
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(blobStore);
-        return;
+      window.navigator.msSaveOrOpenBlob(blobStore);
+      return;
     }
     const data = window.URL.createObjectURL(blobStore);
     const link = document.createElement('a');
@@ -55,43 +55,36 @@ const ShowList = () => {
   return (
     <>
       <div className="mainpanel">
-        <Container fluid>
-          <Row>
-            <Col md="12">
-              <Card>
-                <Card.Body>
-                  <ul>
-                    <Row >
-                      {entries.data.map((poz, index) => {
-                        console.log(poz);
-                        return (
-                          <Col
-                            md={{ span: 4 }}>
-                            <Card className="ojej">
-                              <div>
-                                <div class="row">
-                                  <div class="col-sm-10 tekst">
-                                    <td>{poz.title}</td>
-                                  </div>
-                                  <div class="col-sm-1">
-                                    <Button className="btn-show" target= "_blank" onChange={open} href={URL + poz.name} >
-                                      <i class="nc-icon nc-cloud-download-93  size-up-down" ></i>
-                                    </Button>
-                                  </div>
-                                </div>
-                              </div>
-                            </Card>
-                          </Col>
-                        )
-                      })}
-                    </Row>
-                  </ul>
-                  <div className="clearfix"></div>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
+        <div class="content">
+          <Container fluid>
+            <div class="row">
+              {entries.data.map((poz, index) => {
+                console.log(poz);
+                return (
+                  <div class="col-md-4">
+                    <div class="card">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-sm">
+                            <div class="h4u">{poz.title}</div>
+                            <hr class="solid"></hr>
+                            <div class="h5u">{poz.description}</div>
+                          </div>
+                          <div class="col-sm-">
+                            <Button className="btn-show" target="_blank" onChange={open} href={URL + poz.name} >
+                              <i class="nc-icon nc-cloud-download-93  size-up-down" ></i>
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+          </Container>
+        </div>
       </div>
     </>
   );

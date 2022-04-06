@@ -17,6 +17,8 @@ ReactDOM.render(
       <Route path="/u" render={(props) => <AdminLayout {...props} />} />
       <Redirect from="/" to="/u/table" />
     </Switch>
+
+   
   </BrowserRouter>,
   document.getElementById("root")
 );

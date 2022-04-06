@@ -10,7 +10,7 @@ module.exports = app => {
 
   router.put("/:id", Ksiazka.update);
 
- router.delete("/:id", Ksiazka.delete);
+  router.delete("/:id", Ksiazka.delete);
 
   app.use("/api/ksiazka", router);
 }

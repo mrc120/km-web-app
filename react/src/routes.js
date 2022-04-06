@@ -5,6 +5,11 @@ import Legend from "views/Legend.js";
 import Helpdesk from "views/Helpdesk.js";
 import ShowList from "views/ShowList.js";
 import AddFile from "views/AddFile.js";
+import ShowList_zarz from "views/ShowList_zarz.js";
+import ShowList_podst from "views/ShowList_podst.js";
+import AdminPanel from "views/AdminPanel.js";
+
+
 
 const navbarRoutes = [
   {
@@ -13,7 +18,6 @@ const navbarRoutes = [
     icon: "nc-icon nc-circle-09",
     component: UserProfile,
     layout: "/u",
-    invisible: true,
 
   },
   {
@@ -22,13 +26,12 @@ const navbarRoutes = [
     icon: "nc-icon nc-single-copy-04",
     component: AddFile,
     layout: "/u",
-    invisible: true,
   },
 
   {
     path: "/table",
     name: "Książka",
-    icon: "nc-icon nc-notes",
+    icon: "nc-icon nc-badge",
     component: TableList,
     layout: "/u",
 
@@ -48,11 +51,36 @@ const navbarRoutes = [
     layout: "/u",
   },
 
+  //Plikownia - files
   {
     path: "/uchwaly",
     name: "Uchwały",
     icon: "nc-icon nc-single-copy-04",
     component: ShowList,
+    layout: "/u",
+  },
+
+  {
+    path: "/podstawy_prawne",
+    name: "Podstawy prawne",
+    icon: "nc-icon nc-tag-content",
+    component: ShowList_podst,
+    layout: "/u",
+  },
+
+  {
+    path: "/zarzadzenia",
+    name: "Zarządzenia",
+    icon: "nc-icon nc-notes",
+    component: ShowList_zarz,
+    layout: "/u",
+  },
+
+  {
+    path: "/panel_administracyjny",
+    name: "Panel Administracyjny",
+    icon: "nc-icon nc-settings-gear-64",
+    component: AdminPanel,
     layout: "/u",
   },
 ];

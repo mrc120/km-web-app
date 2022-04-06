@@ -54,16 +54,23 @@ function initial() {
   });
 }
 
-// simple routes
+// simple 
 app.get("/", function (req, res)  {
   res.sendFile(path + "index.html");
 });
 
+//ROUTES dla zakładek
 require("./app/routes/ksiazka.routes")(app);
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/dzial.routes')(app);
 require('./app/routes/stanowisko.routes')(app);
+
+//ROUTES dla - uchwaly, zarzadzenia, podstawy prawne 
+require('./app/routes/files.routes')(app);
+require('./app/routes/files_zarz.routes')(app);
+require('./app/routes/files_podst.routes')(app);
+
 
 
 const PORT = process.env.PORT || 8080;

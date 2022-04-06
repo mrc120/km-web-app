@@ -41,8 +41,47 @@ isAdmin = (req, res, next) => {
     });
 };
 
+isFile = (req, res, next) => {
+    User.findByPk(req.userId).then(user => {
+        user.getRoles().then(roles => {
+            for (let i = 0; i < roles.length; i++) {
+                if (roles[i].name === "add_file") {
+                    next();
+                    return;
+                }
+            }
+
+            res.status(403).send({
+                message: "Wymagana rola do dodawania plików!"
+            });
+            return;
+        });
+    });
+};
+
+isUser = (req, res, next) => {
+    User.findByPk(req.userId).then(user => {
+        user.getRoles().then(roles => {
+            for (let i = 0; i < roles.length; i++) {
+                if (roles[i].name === "add_user") {
+                    next();
+                    return;
+                }
+            }
+
+            res.status(403).send({
+                message: "Wymagana rola do dodawania użytkowników!"
+            });
+            return;
+        });
+    });
+};
+
+
 const authJwt = {
     verifyToken: verifyToken,
-    isAdmin: isAdmin
+    isAdmin: isAdmin,
+    isUser: isUser,
+    isFile: isFile
 }
 module.exports = authJwt;

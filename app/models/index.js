@@ -28,7 +28,7 @@ db.stanowisko = require("./stanowisko.model.js")(sequelize, Sequelize);
 //plikownia
 db.file = require("./file.model.js")(sequelize, Sequelize);
 db.file_zarz = require("./file_zarz.model.js")(sequelize, Sequelize);
-db.file_pole = require("./file_pol.model.js")(sequelize, Sequelize);
+db.file_podst = require("./file_podst.model.js")(sequelize, Sequelize);
 
 //Relacje roles,
 db.role.belongsToMany(db.user, {

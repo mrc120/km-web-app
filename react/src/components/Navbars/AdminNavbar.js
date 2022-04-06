@@ -1,25 +1,21 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { useLocation, Switch, Route, Link } from "react-router-dom";
-import { Navbar, Container, Nav, Button, Modal, } from "react-bootstrap";
+import { Navbar, Row, Nav, Button, Modal, } from "react-bootstrap";
 import routes from "routes.js";
+
 import Input from "react-validation/build/input";
 import Form from "react-validation/build/form";
 import CheckButton from "react-validation/build/button";
-import AuthService from "../../services/auth.service.js";
-import Table from "../../views/TableList.js";
-import UserProfile from "../../views/UserProfile.js";
-import AddFile from "../../views/AddFile";
-import Register from "../../components/Register.js";
 
-const API_URL = "http://localhost:8080/api/auth/signup";
+import AuthService from "../../services/auth.service.js";
+
+
 
 const AdminNavbar = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
-
-  
   const [showModal, setShowModal] = React.useState(false);
   const location = useLocation();
 
@@ -27,31 +23,52 @@ const AdminNavbar = (props) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-
   const [showAdminBoard, setShowAdminBoard] = useState(false);
-
+  const [showFileUploadBoard, setFileUploadBoard] = useState(false);
+  const [showAddUserBoard, setAddUserBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
+
+
+  const twoCalls = user => {
+    showAdminBoard
+    showFileUploadBoard
+  }
   useEffect(() => {
     loggedUser();
+    activeRole();
+    
+    
   }, []);
 
   const logOut = () => {
     AuthService.logout();
   };
 
+
   const loggedUser = () => {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+      setFileUploadBoard(user.roles.includes("ROLE_ADD_FILE"));
+      setAddUserBoard(user.roles.includes("ROLE_ADD_USER"));
+      
     }
+
+   
+  }
+  const activeRole = () => {
+    const user = AuthService.getCurrentUser();
+    
+   
+
   }
 
   const required = (value) => {
     if (!value) {
       return (
         <div className="alert alert-danger" role="alert">
-          Te pole jest wymagane!
+          Wszystkie pola są wymagane!
         </div>
       );
     }
@@ -72,7 +89,6 @@ const AdminNavbar = (props) => {
     setMessage("");
     setLoading(true);
     form.current.validateAll();
-
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(email, password).then(
         () => {
@@ -125,37 +141,36 @@ const AdminNavbar = (props) => {
         <Button
           variant="dark"
           className="d-lg-none btn-fill d-flex justify-content-center align-items-center rounded-circle p-2"
-          onClick={mobileSidebarToggle}
-        >
+          onClick={mobileSidebarToggle} >
           <i className="fas fa-ellipsis-v"></i>
         </Button>
         <Navbar.Brand
-          href="#home"
           onClick={(e) => e.preventDefault()}
           className="mr-2">
           {getBrandText()}
         </Navbar.Brand>
       </div>
-      <div>
-       
-          {/* <div className="navbar-nav mr-auto">
-          </div> */}
-           <Switch>
-              <Route exact path="/" component={Table} />
-              <Route exact path="/add" component={UserProfile} />
-              <Route exact path="/upload_file" component={AddFile} />
-              <Route exact path="/u/register" component={Register} />
-            </Switch>
-           
-          
-       
-      </div>
+    
+
+
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="nav mr-auto" navbar>
         </Nav>
         <Nav navbar>
+        <Nav.Item>
+       {  showAdminBoard &&
+              <Button
+                title="Admin"
+                className="btn-nav"
+                variant="info"
+                href="/u/panel_administracyjny">
+                <i class="nc-icon nc-settings-gear-64 size-up"></i>
+              </Button>
+       }
+          </Nav.Item>
           <Nav.Item>
-            {showAdminBoard && (
+
+            { ( showFileUploadBoard || showAdminBoard ) &&
               <Button
                 title="Dodaj nowy plik"
                 className="btn-nav"
@@ -163,18 +178,22 @@ const AdminNavbar = (props) => {
                 href="/u/upload_file">
                 <i class="nc-icon nc-cloud-upload-94  size-up"></i>
               </Button>
-            )}
+
+            }
           </Nav.Item>
           <Nav.Item>
-            {showAdminBoard && (
+             { (showAdminBoard || showAddUserBoard) &&
               <Button
                 title="Dodaj nowego pracownika"
                 className="btn-nav"
                 variant="success"
                 href="/u/add">
-                <i className="nc-icon nc-circle-09 size-up"></i>
+                 
+               
+                <div className="nc-icon nc-circle-09 size-up"></div>
+              
               </Button>
-            )}
+          }
           </Nav.Item>
           <Nav.Item>
             {currentUser ? (
@@ -187,26 +206,25 @@ const AdminNavbar = (props) => {
               </Button>
             ) : (
               <Button
-                className=""
-                href="#login" className="btn-wd-l"
+                className="btn-wd-l"
+                href="#login"
                 onClick={() => setShowModal(true)}>
-                <span className="no-icon">Logowanie</span>
+                <span className="no-icon">Zaloguj</span>
               </Button>
             )}
           </Nav.Item>
         </Nav>
       </Navbar.Collapse>
 
+      {/* //MODAL Login page */}
       <Modal
         className="modal-mini modal-primary"
         show={showModal}
         onHide={() => setShowModal(false)}>
         <Modal.Header className="justify-content-center">
-        <Link to={"/u/register"} className="nav-link">
-          <img src={require("assets/img/logokmclear.png").default}
-            width="62px" height="38px" />
-          </Link>
-          <h3 className="modal-title">Zaloguj się</h3>
+          <img className="mt-2" src={require("assets/img/logokmclear.png").default}
+            width="100px" height="60px" />
+          <h2 className="mt-3 ml-3">Zaloguj się</h2>
         </Modal.Header>
         <Modal.Body>
           <div className="autocenter">
@@ -215,7 +233,7 @@ const AdminNavbar = (props) => {
                 <label className="email">E-mail:</label>
               </div>
               <Input
-                type="text"
+                type="string"
                 className="marbot borderidea"
                 value={email}
                 name="email"
@@ -226,7 +244,7 @@ const AdminNavbar = (props) => {
               <div className="left">
                 <label htmlFor="password">Hasło:</label>
               </div>
-              
+
               <Input
                 placeholder="********"
                 name="password"
@@ -235,6 +253,11 @@ const AdminNavbar = (props) => {
                 onChange={onChangePassword}
                 validations={[required]}
               />
+              {message && (
+                <div className="alert alert-danger " role="alert">
+                  {message}
+                </div>
+              )}
               <div className="btn-wd-2 form-group ">
                 <button className="btn-fill btn btn-info btn-group btn-modal-login" disabled={loading}>
                   {loading && (
@@ -243,28 +266,22 @@ const AdminNavbar = (props) => {
                   <span>Zaloguj</span>
                 </button>
               </div>
-              {message && (
-                <div className="alert alert-danger" role="alert">
-                  {message}
-                </div>
-              )}
-              <CheckButton style={{ display: "none" }} ref={checkBtn} />
+              <CheckButton className="mt-2" style={{ display: "none" }} ref={checkBtn} />
             </Form>
             <Button
-              className="btn-simple2"
+              className="btn-simple2 mt-3"
               type="button"
               variant="link"
               onClick={() => setShowModal(false)}>
               Zamknij
             </Button>
           </div>
-          
         </Modal.Body>
       </Modal>
     </Navbar >
-    
+
   );
-  
+
 }
 
 export default AdminNavbar;

@@ -33,6 +33,8 @@ const UserProfile = () => {
   const [getDzial, setDzial] = useState({ data: [] });
   const [getStan, setStan] = useState({ data2: [] });
 
+
+  //byly dwa useeffecty i dwa getty
   useEffect(() => {
     axios.get(URLd)
       .then(res => {
@@ -40,9 +42,7 @@ const UserProfile = () => {
         setDzial({ data: data })
         console.log(res.data)
       }).catch(err => { console.log(err) })
-  }, []);
 
-  useEffect(() => {
     axios.get(URLdstan)
       .then(res => {
         let data2 = res.data
@@ -173,136 +173,128 @@ const UserProfile = () => {
   return (
     <>
       <div className="mainpanel">
-        <NotificationAlert ref={notificationAlertRef} />
-        <Container fluid>
-          <Row>
-            <Col md="8">
-              <Card>
-                <Card.Header>
-                  <Card.Title as="h3">Dodaj nowego pracownika</Card.Title>
-                </Card.Header>
-                <Card.Body>
-                  <Form>
-                    <Row>
-                      <Col className="pr-2" md="6">
-                        <Form.Group>
-                          <label>Nazwa</label>
-                          <Form.Control className="form"
-                            type="text"
-                            id="nazwa"
-                            placeholder="Imię i nazwisko pracownika"
-                            value={ksiazka.nazwa}
-                            onChange={handleInputChange}
-                            name="nazwa"
-                          ></Form.Control>
-                        </Form.Group>
-                      </Col>
-                      <Col className="pr-1" md="6">
-                        <Form.Group>
-                          <label>
-                            Adres e-mail
-                          </label>
-                          <Form.Control
-                            placeholder="Adres E-mail"
-                            type="email"
-                            id="adres_email"
-                            value={ksiazka.adres_email}
-                            onChange={handleInputChange}
-                            name="adres_email"
-                          ></Form.Control>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="pr-1" md="6">
-                        <Form.Group>
-                          <label>Numer telefonu komórkowego</label>
-                          <Form.Control
-                            placeholder="Przykład. xxx xxx xxx"
-                            id="numer_stacj"
-                            onChange={handleInputChange}
-                            value={ksiazka.numer_stacj}
-                            name="numer_stacj"
-                            type="text"
-                          ></Form.Control>
-                        </Form.Group>
-                      </Col>
-                      <Col className="pr-1" md="6">
-                        <Form.Group>
-                          <label>Numer telefonu stacjonarnego</label>
-                          <Form.Control
-                            placeholder="Przykład. xxx-xx-xx"
-                            id="numer_tel"
-                            value={ksiazka.numer_tel}
-                            onChange={handleInputChange}
-                            name="numer_tel"
-                            type="text"
-                          ></Form.Control>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="pr-1" md="6">
-                        <label>Nazwa działu</label>
-                        <select
-                          value={ksiazka.dzialIdDzialu}
-                          onChange={handleInputChange}
-                          className="Dropdown-c"
-                          name="dzialIdDzialu"
-                          id="dzialIdDzialu"
-                          variant="primary">
-                          {dzial.map(({ value, label }, index) =>
-                            <option value={value}>{label}</option>)}
-                        </select>
-                      </Col>
-                      <Col className="pr-1" md="3">
-                        <Form.Group>
-                          <label>Numer pokoju</label>
-                          <Form.Control
-                            placeholder="Przykład. 210"
-                            id="numer_pokoju"
-                            value={ksiazka.numer_pokoju}
-                            onChange={handleInputChange}
-                            name="numer_pokoju"
-                            type="text"
-                          ></Form.Control>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="pr-1" md="6">
-                      
-                        <label>Nazwa stanowiska</label>
-                        <select
-                          value={ksiazka.stanowiskoIdStan}
-                          onChange={handleInputChange}
-                          className="Dropdown-c"
-                          name="stanowiskoIdStan"
-                          id="stanowiskoIdStan"
-                          variant="primary">
-                          {stanowisko.map(({ value, label }, index) =>
-                            <option value={value}>{label}</option>)}
-                        </select>
-                        
-                      </Col>
-                      
-                    </Row>
-                    <Button
-                      onClick={() => {
-                        notify();
-                        saveEmployee();
-                      }}
-                      className="btn-fill btn-padding btn-fix"
-                      variant="info">
-                      Dodaj
-                    </Button>
-                    <div className="clearfix"></div>
-                  </Form>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
+        <div className=" container flex-row p-4 w-50 border bg-white justify-content-center">
+          <NotificationAlert ref={notificationAlertRef} />
+
+
+          <Form>
+            <Row>
+              <Col className="pr-2" md="6">
+                <Form.Group className="Row-fix">
+                  <label>Nazwa</label>
+                  <Form.Control className="form"
+                    type="text"
+                    id="nazwa"
+                    placeholder="Imię i nazwisko pracownika"
+                    value={ksiazka.nazwa}
+                    onChange={handleInputChange}
+                    name="nazwa"
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+              <Col className="pr-1" md="6">
+                <Form.Group className="Row-fix">
+                  <label>
+                    Adres e-mail
+                  </label>
+                  <Form.Control
+                    placeholder="Adres E-mail"
+                    type="email"
+                    id="adres_email"
+                    value={ksiazka.adres_email}
+                    onChange={handleInputChange}
+                    name="adres_email"
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="6">
+                <Form.Group className="Row-fix">
+                  <label>Numer telefonu komórkowego</label>
+                  <Form.Control
+                    placeholder="Przykład. xxx xxx xxx"
+                    id="numer_stacj"
+                    onChange={handleInputChange}
+                    value={ksiazka.numer_stacj}
+                    name="numer_stacj"
+                    type="text"
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+              <Col className="pr-1" md="6">
+                <Form.Group className="Row-fix">
+                  <label>Numer telefonu stacjonarnego</label>
+                  <Form.Control
+                    placeholder="Przykład. xxx-xx-xx"
+                    id="numer_tel"
+                    value={ksiazka.numer_tel}
+                    onChange={handleInputChange}
+                    name="numer_tel"
+                    type="text"
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="6"> 
+              <Form.Group className="Row-fix">
+                <label>Nazwa działu</label>
+                <select
+                  value={ksiazka.dzialIdDzialu}
+                  onChange={handleInputChange}
+                  className="Dropdown-c"
+                  name="dzialIdDzialu"
+                  id="dzialIdDzialu"
+                  variant="primary">
+                  {dzial.map(({ value, label }, index) =>
+                    <option value={value}>{label}</option>)}
+                </select>
+                </Form.Group>
+              </Col>
+              <Col className="pr-1 mr-4 flex-sm-row" md="4">
+                <Form.Group className="Row-fix">
+                  <label>Numer pokoju</label>
+                  <Form.Control
+                    placeholder="Przykład. 210"
+                    id="numer_pokoju"
+                    value={ksiazka.numer_pokoju}
+                    onChange={handleInputChange}
+                    name="numer_pokoju"
+                    type="text"
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+            <Col className="pr-1" md="6"> 
+              <Form.Group className="Row-fix">
+                <label>Nazwa stanowiska</label>
+                <select
+                  value={ksiazka.stanowiskoIdStan}
+                  onChange={handleInputChange}
+                  className="Dropdown-c"
+                  name="stanowiskoIdStan"
+                  id="stanowiskoIdStan"
+                  variant="primary">
+                  {stanowisko.map(({ value, label }, index) =>
+                    <option value={value}>{label}</option>)}
+                </select>
+                </Form.Group>
+              </Col>
+              </Row>
+            <Button
+              onClick={() => {
+                notify();
+                saveEmployee();
+              }}
+              className="btn-fill btn-padding btn-fix"
+              variant="info">
+              Dodaj
+            </Button>
+            <div className="clearfix"></div>
+          </Form>
+        </div>
       </div>
     </>
   );

@@ -10,11 +10,26 @@ module.exports = function(app) {
     next();
   });
 
-  app.get("/api/test/all", controller.allAccess);
+  app.get("/api/user/all", controller.allAccess);
 
   app.get(
-    "/api/test/admin",
+    "/u/panel_administracyjny",
     [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
+    controller.adminBoard, 
   );
+
+  app.get(
+    "/u/upload_user",
+    [authJwt.verifyToken,  authJwt.isAdmin],
+     controller.adminBoard,  
+  );
+
+  app.get(
+    "/u/upload_file",
+    [authJwt.verifyToken, authJwt.isFile, authJwt.isAdmin],
+    controller.upload_file, controller.adminBoard, 
+  );
+
+
+  
 };
