@@ -24,14 +24,14 @@ exports.signup = (req, res) => {
                     }
                 }).then(roles => {
                     user.setRoles(roles).then(() => {
-                        res.send({ message: "Pomyślnie zarejestrowano" });
+                        res.status(400).send({ message: "Pomyślnie zarejestrowano" });
                     });
                 });
 
 
             } else {
                 user.setRoles([1]).then(() => {
-                    res.send({ message: "Zarejestrowano" });
+                    res.status(400).send({ message: "Zarejestrowano pomyślnie nowego użytkownika" });
                 });
             }
         })
@@ -64,7 +64,7 @@ exports.signin = (req, res) => {
             }
 
             var token = jwt.sign({ id: user.id }, config.secret, {
-                expiresIn: 86400 // 24 hours
+                expiresIn: 25200 // 24 hours
             });
 
             var authorises = [];

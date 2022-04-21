@@ -66,9 +66,9 @@ const AddFile = () => {
   }
   return (
     <div className="mainpanel">
-      <div className=" container flex-row p-4 w-50 border bg-white justify-content-center">
-        {message ? <Message msg={message} /> : null}
+      <div className="ml-1  row p-4 w-100 border bg-white justify-content-center">
         <div className="Md-5">
+        {message ? <Message msg={message} /> : null}
           <Row md="1" className="Row-fix">
             <label >Umieść do:</label>
             <form>
@@ -120,7 +120,7 @@ const AddFile = () => {
               id="title"
             ></Form.Control>
           </Row>
-          <p class="text-muted ml-4 p-1">Dopuszczalna ilość znaków: {characterCount}/100</p>
+          <p class="text-muted ml-4 p-1">Dopuszczalna ilość znaków: {characterCount}/200</p>
           {/* //dolacz plik */}
           <Row md="1" className="Row-fix2">
             <label>Dołącz plik:</label>

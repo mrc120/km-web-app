@@ -5,15 +5,13 @@ import 'react-dropdown/style.css';
 import axios from "axios";
 import {
   Button,
-  Card,
   Form,
-  Container,
   Row,
   Col,
 } from "react-bootstrap";
 
 const UserProfile = () => {
-  const initialTutorialState = {
+  const UserAction = {
     id: null,
     nazwa: "",
     adres_email: "",
@@ -28,7 +26,7 @@ const UserProfile = () => {
   const URLd = "http://localhost:8080/api/dzial"
   const URLdstan = "http://localhost:8080/api/stanowisko"
 
-  const [ksiazka, setEmployee] = useState(initialTutorialState);
+  const [ksiazka, setEmployee] = useState(UserAction);
   const notificationAlertRef = React.useRef(null);
   const [getDzial, setDzial] = useState({ data: [] });
   const [getStan, setStan] = useState({ data2: [] });
@@ -57,7 +55,7 @@ const UserProfile = () => {
       type: 'info',
       place: 'tc',
       message: (
-        <div><b>Dodano pomyślnie nowego pracownika!</b></div>
+        <div><b>Dodano nowego pracownika!</b></div>
       ),
       icon: "nc-icon nc-bell-55",
       autoDismiss: 55,
@@ -168,15 +166,14 @@ const UserProfile = () => {
   const handleInputChange = event => {
     const { name, value } = event.target;
     setEmployee({ ...ksiazka, [name]: value });
-
   };
+
   return (
     <>
       <div className="mainpanel">
-        <div className=" container flex-row p-4 w-50 border bg-white justify-content-center">
+      <div className="ml-1  row p-4 w-100 border bg-white align-items-center  d-flex justify-content-center">
+        <div className="Md-5">
           <NotificationAlert ref={notificationAlertRef} />
-
-
           <Form>
             <Row>
               <Col className="pr-2" md="6">
@@ -296,6 +293,7 @@ const UserProfile = () => {
           </Form>
         </div>
       </div>
+    </div>
     </>
   );
 }

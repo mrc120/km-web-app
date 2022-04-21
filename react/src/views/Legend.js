@@ -11,9 +11,10 @@ import {
 function Legend() {
   return (
     <>
+
       <div className="mainpanel">
         <Container fluid>
-          <Row>
+          <Row className="d-flex justify-content-center">
             <Col md="5">
               <Card>
                 <Card.Header>
@@ -37,10 +38,9 @@ function Legend() {
                         <tr>
                           <td>
                             <i className="nc-icon nc-stre-right" />
-
                           </td>
                           <td>
-                            <b>Nowa Hala</b> jest oznaczony za pomocą numeru <b>2.x</b>
+                            <b>Nowa Hala</b> jest oznaczona za pomocą numeru <b>2.x</b>
                           </td>
                         </tr>
                         <tr>
@@ -48,7 +48,7 @@ function Legend() {
                             <i className="nc-icon nc-stre-right" />
                           </td>
                           <td>
-                            <b>Stara Hala</b> jest oznaczony za pomocą numeru <b>3.x</b>
+                            <b>Stara Hala</b> jest oznaczona za pomocą numeru <b>3.x</b>
                           </td>
                         </tr>
                         <tr>
@@ -72,7 +72,7 @@ function Legend() {
                   <p className="card-category">Sposób działania funkcji szukania w tabeli</p>
                 </Card.Header>
                 <Card.Body>
-                  <div className="table-full-width">
+                  <div className="row">
                     <Table>
                       <tbody>
                         <tr>
@@ -81,7 +81,7 @@ function Legend() {
                           </td>
                           <td>
                             Klikamy na pole <b>Wyszukaj</b> i wpisujemy szukaną treść
-                        </td>
+                          </td>
                           <td className="td-actions text-right">
                           </td>
                         </tr>
@@ -90,22 +90,90 @@ function Legend() {
                             <i className="nc-icon nc-stre-right" />
                           </td>
                           <td>
-                            Możliwość wyszukania po każdej kolumnie czyli: nazwie, adresie e-mail, numerze telefonu stacjonarnego, numerze komórkowym,
+                            Możliwość wyszukania po wszystkich kolumnach: nazwie, adresie e-mail, numerze telefonu stacjonarnego, numerze komórkowym,
                             nazwie działu, za pomocą symbolu, za pomocą numeru pokoju
-                        </td>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <i className="nc-icon nc-stre-right" />
+                          </td>
+                          <td>
+                            W przypadku błędu <b>prosimy o kontakt</b>
+                          </td>
+                          <td className="td-actions text-right">
+                          </td>
                         </tr>
                       </tbody>
                     </Table>
                   </div>
                 </Card.Body>
-                <Card.Footer>
-                  <hr></hr>
-                  <div className="stats">
-                    Zaktualizowano 22.04.2021r.
-                </div>
-                </Card.Footer>
+
               </Card>
             </Col>
+            <Card className="card-tasks">
+              <Card.Header>
+                <Card.Title as="h4">Sekcja plików: Uchwały, Podstawy prawne, Zarządzenia</Card.Title>
+                <p className="card-category">Sposób wyświetlania oraz możliwości</p>
+              </Card.Header>
+              <Card.Body>
+                <div className="row">
+                  <Table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <i className="nc-icon nc-stre-right" />
+                        </td>
+                        <td>
+                          Sekcję podzielono na trzy części: <b>Uchwały, Podstawy Prawne, Zarządzenia</b>
+                        </td>
+                        <td className="td-actions text-right">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <i className="nc-icon nc-stre-right" />
+                        </td>
+                        <td>
+                          W podanych sekcjach udostepniane są pliki-dokumenty, których jest możliwość swobodnego podglądu
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <i className="nc-icon nc-stre-right" />
+                        </td>
+                        <td>
+                          Aby <b>wyświetlić</b> interesujący nas plik należy <b>nacisnąć po prawej stronie ikonkę strzałki z chmurką</b>
+                        </td>
+                        <td className="td-actions text-right">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <i className="nc-icon nc-stre-right" />
+                        </td>
+                        <td>
+                          Dokument zostanie wyświetlony domyślnie w oknie przeglądarki. Ponadto jest <b>możliwość pobrania oraz wydruku dokumentu</b>
+                        </td>
+                        <td className="td-actions text-right">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <i className="nc-icon nc-stre-right" />
+                        </td>
+                        <td>
+                          Obsługiwane są zaszyfrowane pliki. Jeśli plik posiada hasło to przed wyświetleniem użytkownik zostanie poproszony o hasło
+                        </td>
+                        <td className="td-actions text-right">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </div>
+              </Card.Body>
+
+            </Card>
           </Row>
         </Container>
       </div>

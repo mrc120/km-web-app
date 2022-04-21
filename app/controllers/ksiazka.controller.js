@@ -79,28 +79,6 @@ Ksiazka.update(req.body, {
         message: "Błąd aktualizacji=" + id
       });
     });
-
-  Ksiazka.update(req.body, {
-    where: {
-      id: id,
-    },
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Pozycja została zaaktualilzowana"
-        });
-      } else {
-        res.send({
-          message: `Cannot update with id=${id}. Maybe was not found or req.body is empty!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Błąd aktualizacji=" + id
-      });
-    });
 };
 
 

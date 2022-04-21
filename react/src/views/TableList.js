@@ -170,6 +170,7 @@ function KsiazkaTable() {
             Toolbar: props => (
               <div style={{
                 position: "absolute",
+              
               }}>
                 <MTableToolbar {...props} />
               </div>)

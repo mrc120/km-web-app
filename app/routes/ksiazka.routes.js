@@ -1,6 +1,7 @@
+const Ksiazka = require("../controllers/ksiazka.controller.js");
+var router = require("express").Router();
+
 module.exports = app => {
-  const Ksiazka = require("../controllers/ksiazka.controller.js");
-  var router = require("express").Router();
 
   router.post("/", Ksiazka.create);
   

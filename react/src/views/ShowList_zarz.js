@@ -65,12 +65,12 @@ const ShowList = () => {
                     <div class="card">
                       <div class="container">
                         <div class="row">
-                          <div class="col-sm">
+                          <div class="col">
                             <div class="h4u">{poz.title}</div>
                             <hr class="solid"></hr>
                             <div class="h5u">{poz.description}</div>
                           </div>
-                          <div class="col-sm-">
+                          <div class="">
                             <Button className="btn-show" target="_blank" onChange={open} href={URL + poz.name} >
                               <i class="nc-icon nc-cloud-download-93  size-up-down" ></i>
                             </Button>

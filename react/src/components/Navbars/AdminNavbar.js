@@ -12,6 +12,7 @@ import AuthService from "../../services/auth.service.js";
 
 
 
+
 const AdminNavbar = (props) => {
   const form = useRef();
   const checkBtn = useRef();
@@ -29,15 +30,15 @@ const AdminNavbar = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
 
 
-  const twoCalls = user => {
-    showAdminBoard
-    showFileUploadBoard
-  }
+  // const twoCalls = user => {
+  //   showAdminBoard
+  //   showFileUploadBoard
+  // }
   useEffect(() => {
     loggedUser();
     activeRole();
-    
-    
+
+
   }, []);
 
   const logOut = () => {
@@ -52,16 +53,10 @@ const AdminNavbar = (props) => {
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
       setFileUploadBoard(user.roles.includes("ROLE_ADD_FILE"));
       setAddUserBoard(user.roles.includes("ROLE_ADD_USER"));
-      
     }
-
-   
   }
   const activeRole = () => {
     const user = AuthService.getCurrentUser();
-    
-   
-
   }
 
   const required = (value) => {
@@ -92,7 +87,7 @@ const AdminNavbar = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(email, password).then(
         () => {
-          //props.history.push("/profile");
+   
           window.location.reload();
         },
         (error) => {
@@ -150,50 +145,48 @@ const AdminNavbar = (props) => {
           {getBrandText()}
         </Navbar.Brand>
       </div>
-    
-
-
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="nav mr-auto" navbar>
+        <div className="out-box"></div>
+        <Nav className="nav mr-auto " navbar>
         </Nav>
-        <Nav navbar>
-        <Nav.Item>
-       {  showAdminBoard &&
+        <Nav nav className="static-hold">
+         
+          <Nav.Item>
+            {showAdminBoard &&
               <Button
                 title="Admin"
-                className="btn-nav"
+                className="btn-nav d-flex "
                 variant="info"
                 href="/u/panel_administracyjny">
                 <i class="nc-icon nc-settings-gear-64 size-up"></i>
               </Button>
-       }
+            }
           </Nav.Item>
           <Nav.Item>
-
-            { ( showFileUploadBoard || showAdminBoard ) &&
+            {(showFileUploadBoard || showAdminBoard) &&
               <Button
                 title="Dodaj nowy plik"
-                className="btn-nav"
+                className="btn-nav d-inline-flex"
                 variant="danger"
                 href="/u/upload_file">
-                <i class="nc-icon nc-cloud-upload-94  size-up"></i>
+                 <div className="mr-1">Dodaj plik</div>
+                <i class="nc-icon nc-cloud-upload-94 size-up"></i>
               </Button>
 
             }
           </Nav.Item>
           <Nav.Item>
-             { (showAdminBoard || showAddUserBoard) &&
+            {(showAdminBoard || showAddUserBoard) &&
               <Button
                 title="Dodaj nowego pracownika"
-                className="btn-nav"
+                className="btn-nav d-inline-flex"
                 variant="success"
                 href="/u/add">
-                 
-               
+                <div className="mr-1 ">Dodaj +</div>
                 <div className="nc-icon nc-circle-09 size-up"></div>
-              
+
               </Button>
-          }
+            }
           </Nav.Item>
           <Nav.Item>
             {currentUser ? (
@@ -209,10 +202,11 @@ const AdminNavbar = (props) => {
                 className="btn-wd-l"
                 href="#login"
                 onClick={() => setShowModal(true)}>
-                <span className="no-icon">Zaloguj</span>
+                <span className="no-icon">Logowanie</span>
               </Button>
             )}
           </Nav.Item>
+          
         </Nav>
       </Navbar.Collapse>
 
@@ -263,7 +257,7 @@ const AdminNavbar = (props) => {
                   {loading && (
                     <span className="spinner-border spinner-border-sm "></span>
                   )}
-                  <span>Zaloguj</span>
+                  <span>Logowanie</span>
                 </button>
               </div>
               <CheckButton className="mt-2" style={{ display: "none" }} ref={checkBtn} />
