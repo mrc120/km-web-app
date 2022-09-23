@@ -1,0 +1,23 @@
+
+//grafika logo KM w sidebarze
+
+.sidebar{
+    &[data-color="black"]:after{
+        @include icon-gradient(#282828, rgba(#111,.7));
+    }
+    .logo-img img {
+      max-width: 70px;
+      max-height: 70px;
+    }
+}
+
+@media (max-width: 911px){
+  .sidebar .nav > li.active.active-pro {
+    position: relative;
+    bottom: unset;
+  }
+}
+
+#bodyClick {
+  position: absolute;
+}
