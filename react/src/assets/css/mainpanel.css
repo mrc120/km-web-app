@@ -1,52 +1,49 @@
-.mainpanel{
-    padding: 10px 10px 10px 10px; 
-    flex-shrink: 0;
-    flex-basis: 35%;
-    flex: 0 0 35%;  
+.mainpanel {
+    padding: 10px 10px 10px 10px;
+    min-height: 792px;
 }
 
 
-.MTableCell-row{
-  padding:12px;
+.MTableCell-row {
+    padding: 12px;
 
 }
-.login{
+
+.login {
     padding-right: 20px;
 }
 
-.modal-title
-{
+.modal-title {
     margin-left: 15px;
     margin-top: -3px;
     font-weight: 600;
 }
-.marbot
-{
+
+.marbot {
     Margin-bottom: 30px;
     width: 260px;
 }
 
-.btn-modal-login{
+.btn-modal-login {
     width: 160px;
     justify-content: center;
 }
-.autocenter{
-   padding-left: "22px";
-   text-align: center;
-   
+
+.autocenter {
+    padding-left: "22px";
+    text-align: center;
+
 }
-    
+
 .form-group {
     width: 70%;
-	margin: 0 auto;
+    margin: 0 auto;
 }
-.asd{
-  
-}
+
 
 .frodo {
     margin-left: 50px;
-    width:50%;
+    width: 50%;
 }
 
 .Dropdown-c {
@@ -59,87 +56,195 @@
     color: #495057;
     cursor: default;
     outline: none;
-    padding: 8px 52px 8px 10px;
+    padding: 8px 0px 8px 10px;
     transition: all 200ms ease;
-    width: 90%
-  }
+    width: 100%
+}
 
-.left{
-     padding-right: 46%
- }
+.left {
+    padding-right: 46%
+}
 
-  .MuiTableCell-root{
-      padding:55px;
-  }
+.MuiTableCell-root {
+    padding: 55px;
+}
 
-  .rna-container{
-    padding:21
-  }
+.rna-container {
+    padding: 21
+}
 
-  .borderidea{
+.borderidea {
     border: 1px solid #3b85ab;
     border-radius: 4px;
     color: #565656;
     padding: 8px 12px;
     height: 40px;
-  }
-
-.btn-fix{
-    width:70%;
-    margin-left:15%;
-    margin-right:15%;
 }
 
-.btn-nav{
+.btn-fix {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.static-hold {
+    white-space: nowrap
+}
+
+.ButtonLink {
+    position: static;
+    white-space: nowrap;
+    text-align: center;
+}
+
+@media only screen and (max-width: 780px) {
+    #fadeshow1 {
+        display: none;
+    }
+}
+
+.btn-nav {
     height: 41px;
-    
+
 }
-.size-up{
+
+.nc-simple-add {
+    margin-top: 5px !important;
+}
+
+.size-up {
     font-size: 20px;
-   }
+}
 
-.size-up-down{
-    margin-left: -8px;
-    margin-top:32px;
-    font-size: 35px;
+.size-up-down {
+    justify-content: center;
+    padding: 0;
+    align-items: center;
+    position: relative;
+    font-size: 30px;
     font-weight: 600;
-   }
+}
 
-.Row-fix{
+.Row-fix {
     margin-left: 30px;
     padding-bottom: 2em;
     margin-right: 30px;
 }
 
-.btn-show{
-    margin-top: -2px;
-    margin-left: -26px;
-    height: 125px;
-    width: 55px;
-    font-weight: 600;
-    border-radius:4px;
+.Row-fix2 {
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
-.tekst{
+.btn-show {
+    height: 50%;
+    width: 55px;
+    font-weight: 600;
+
+}
+
+.border-show {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+
+
+.tekst {
     margin-left: 2px;
     margin-top: 2px;
     width: auto;
-  
 }
-.ojej{
-    height:125px;
-    border: 2px solid #629dbc;
-    width: 325px;
-    background-color: #cde1ec;
 
+.flex-w-r {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    margin-right: -15px;
+    margin-left: -15px;
 }
+
 .custom-file-input:lang(en)~.custom-file-label::after {
     content: "Dodaj plik";
+    width: "220px"
 }
 
-.margin-250{
+.margin-250 {
     margin-top: 50%;
     margin-left: -100px;
     align-items: center;
 }
 
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: rgba(0, 0, 0, 0.468);
+}
+
+.modal-backdrop.fade {
+    opacity: 0.7
+}
+
+.modal-backdrop,
+.modal-backdrop.fade.in {
+    opacity: .8;
+    filter: alpha(opacity=80)
+}
+
+.rounded-bottom-left-1 {
+    border-bottom-left-radius: 0rem;
+}
+
+.heit {
+    min-height: 100%;
+
+}
+
+.toolbar {
+    margin-top: 50px,
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #3b85ab;
+}
+
+.alert-primary {
+    color: #fff;
+    background-color: #3b85ab;
+}
+
+/* .MuiPaginationItem-outlinedPrimary.Mui-selected {
+    color: #f8f9fa;
+    border: 1px solid rgb(0 0 0 / 50%);
+    background-color: #629dbc;
+} */
+
+legend { display:none; }
+
+.km-color {
+    color: #173e6c
+}
+
+
+.post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px 10px;
+    background: #fff;
+  }
+  
+  small {
+    border: 2px solid #777;
+    border-radius: 7px;
+    padding: 5px 12px;
+    color: #777;
+  }

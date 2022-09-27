@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLocation, Route, Switch } from "react-router-dom";
 
 import AdminNavbar from "components/Navbars/AdminNavbar";
@@ -9,13 +9,12 @@ import routes from "routes.js";
 
 import sidebarImage from "assets/img/loglclr.png";
 
-function Admin() {
-  const [image] = React.useState(sidebarImage);
-  const [color] = React.useState("azure");
-  const [hasImage] = React.useState(true);
+function Layout() {
+  const [image] = useState(sidebarImage);
+  const [color] = useState("azure");
+  const [hasImage] = useState(true);
   const location = useLocation();
-  const mainPanel = React.useRef(null);
-
+  const mainPanel = useRef(null);
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
@@ -32,7 +31,8 @@ function Admin() {
       }
     });
   };
-  React.useEffect(() => {
+
+  useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     mainPanel.current.scrollTop = 0;
@@ -51,16 +51,11 @@ function Admin() {
         <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
         <div className="main-panel" ref={mainPanel}>
           <AdminNavbar />
-          <navbarRoutes />
-          <div className="content">
-            <Switch>{getRoutes(routes)}</Switch>
-          </div>
+          <Switch>{getRoutes(routes)}</Switch>
           <Footer />
         </div>
       </div>
-      
     </>
   );
 }
-
-export default Admin;
+export default Layout;

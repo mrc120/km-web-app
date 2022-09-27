@@ -13,7 +13,6 @@ body > .navbar-collapse{
     background-size: cover;
     background-position: center center;
 
-//grafika logo KM w sidebarze
 
 .sidebar{
     &[data-color="black"]:after{
@@ -240,7 +239,7 @@ body > .navbar-collapse{
 
     > .content{
         padding: 0px 0px;
-        min-height: calc(100% - 123px);
+        min-height: calc(100% - 137px);
     }
 
     > .footer{

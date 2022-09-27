@@ -3,6 +3,8 @@ $none:                       0   !default;
 $border-thin:                1px !default;
 $border-thick:               2px !default;
 
+
+
 $white-color:                #FFFFFF !default;
 $white-bg:                   #FFFFFF !default;
 
@@ -83,7 +85,8 @@ $padding-label-vertical:        2px !default;
 $padding-label-horizontal:     12px !default;
 
 $margin-large-vertical:        30px !default;
-$margin-base-vertical:         15px !default;
+$margin-large-vertical1:       15px !default;
+$margin-base-vertical:         -5px !default;
 
 $padding-zero:                   0px !default;
 
@@ -201,8 +204,6 @@ $azure-color-bottom:            	#4091ff;
 $green-color-top: 	                #a1eb3a;
 $green-color-bottom: 	            #6dc030;
 
-$orange-color-top: 	                #ffb33b;
-$orange-color-bottom: 	            #ff5221;
 
 $red-color-top: 	                #ff3b30;
 $red-color-bottom: 	                #bb0502;

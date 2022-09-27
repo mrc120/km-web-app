@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2dc635f7.chunk.css",
+    "main.js": "/static/js/main.a1a4161d.chunk.js",
+    "main.js.map": "/static/js/main.a1a4161d.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.9e9e7cb0.js",
+    "runtime-main.js.map": "/static/js/runtime-main.9e9e7cb0.js.map",
+    "static/css/2.e67e7111.chunk.css": "/static/css/2.e67e7111.chunk.css",
+    "static/js/2.72add3c2.chunk.js": "/static/js/2.72add3c2.chunk.js",
+    "static/js/2.72add3c2.chunk.js.map": "/static/js/2.72add3c2.chunk.js.map",
+    "static/js/3.2b9ab97f.chunk.js": "/static/js/3.2b9ab97f.chunk.js",
+    "static/js/3.2b9ab97f.chunk.js.map": "/static/js/3.2b9ab97f.chunk.js.map",
+    "static/js/4.83b4e09e.chunk.js": "/static/js/4.83b4e09e.chunk.js",
+    "static/js/4.83b4e09e.chunk.js.map": "/static/js/4.83b4e09e.chunk.js.map",
+    "static/js/5.3a7fa942.chunk.js": "/static/js/5.3a7fa942.chunk.js",
+    "static/js/5.3a7fa942.chunk.js.map": "/static/js/5.3a7fa942.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.e67e7111.chunk.css.map": "/static/css/2.e67e7111.chunk.css.map",
+    "static/css/main.2dc635f7.chunk.css.map": "/static/css/main.2dc635f7.chunk.css.map",
+    "static/js/2.72add3c2.chunk.js.LICENSE.txt": "/static/js/2.72add3c2.chunk.js.LICENSE.txt",
+    "static/js/3.2b9ab97f.chunk.js.LICENSE.txt": "/static/js/3.2b9ab97f.chunk.js.LICENSE.txt",
+    "static/js/4.83b4e09e.chunk.js.LICENSE.txt": "/static/js/4.83b4e09e.chunk.js.LICENSE.txt",
+    "static/js/5.3a7fa942.chunk.js.LICENSE.txt": "/static/js/5.3a7fa942.chunk.js.LICENSE.txt",
+    "static/media/all.min.css": "/static/media/fa-solid-900.f4f93856.woff",
+    "static/media/loglclr.5de03e53.png": "/static/media/loglclr.5de03e53.png",
+    "static/media/logo-clear-inverted.png": "/static/media/logo-clear-inverted.329b8549.png",
+    "static/media/logo.5657b06d.png": "/static/media/logo.5657b06d.png",
+    "static/media/logokmclear.png": "/static/media/logokmclear.293a3b23.png",
+    "static/media/light-bootstrap-dashboard-react.scss?v=2.0.0": "/static/media/nucleo-icons.e8827b8a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9e9e7cb0.js",
+    "static/css/2.e67e7111.chunk.css",
+    "static/js/2.72add3c2.chunk.js",
+    "static/css/main.2dc635f7.chunk.css",
+    "static/js/main.a1a4161d.chunk.js"
+  ]
+}
