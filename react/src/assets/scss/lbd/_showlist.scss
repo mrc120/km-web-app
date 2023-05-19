@@ -1,0 +1,70 @@
+.showlist{
+    border-radius: $border-radius-base;
+    background-color: $white-color;
+    margin-bottom: 30px;
+    border: 1px solid rgba(0,0,0,.125);
+    margin-left: 20px;
+
+
+    .showlist-body{
+        padding: 15px 15px 10px 15px;
+    }
+    .showlist-header{
+        padding: 15px 15px 0;
+        background-color: $white-color;
+        border-bottom: none !important;
+    }
+
+
+    label{
+        font-size: 15px;
+        margin-bottom: 5px;
+       
+    }
+
+    .showlist-title{
+        margin: $none;
+        color: $black-color;
+        font-weight: $font-weight-light;
+    }
+
+    .description{
+        font-size: $font-size-base;
+        color: #333;
+    }
+    .showlist-footer{
+        padding-top: 0;
+        background-color: $transparent-bg;
+        //druga zakladka naprawilo
+        line-height: 50px;
+        border-top: none !important;
+        font-size: 14px;
+
+        .legend{
+            padding: 5px 0;
+        }
+
+        hr{
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    }
+    .stats{
+        color: #a9a9a9;
+    }
+    .showlist-footer div{
+        display: inline-block;
+    }
+
+    &.showlist-separator:after{
+        height: 100%;
+        right: -15px;
+        top: 0;
+        width: 1px;
+        background-color: $medium-gray;
+        position: absolute;
+    }
+
+}
+
+
