@@ -2,19 +2,20 @@ const fs = require("fs");
 const { title } = require("process");
 const { Buffer } = require('buffer');
 const db = require("../models");
-const File = db.file;
+const Zarz_pdf = db.zarz_pdf;
+const File_uchwaly = db.file_uchwaly;
 const File_podst = db.file_podst;
 const File_zarz = db.file_zarz;
 const Op = db.Sequelize.Op;
 
-const baseUrl = "http://localhost:8080/api/files"
+const baseUrl = "http://localhost:8080/api/uchwaly"
 const baseUrl_zarz = "http://localhost:8080/api/files_zarz"
 const baseUrl_podst = "http://localhost:8080/api/files_podst"
 
 //PAGINATION 
-
+//Wydzielic
 const getPagination = (page, size) => {
-  const limit = size ? +size : 3;
+  const limit = size ? +size : 16;
   const offset = page ? page * limit : 0;
 
   return { limit, offset };
@@ -29,47 +30,23 @@ const getPagingData = (data, page, limit) => {
   return { totalItems, totalPages, currentPage, entries,};
 };
 
-
+exports.openFile = (req, res) => {
+  const fileName = req.params.name;
+  const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
+  res.sendFile(directoryPath + fileName, fileName, (err) => {
+    if (err) {
+      res.status(500).send({
+        message: "Nie można otworzyć pliku, błąd: " + err,
+      });
+    }
+  });
+}
 //UPLOAD
 exports.uploadFiles = async (req, res) => {
 
+ 
   try {
-    File.create({
-      title: req.body.title,
-      description: req.body.description,
-      name: req.files['file'][0].originalname,
-      nameAtt: req.files['file_attachment'][0].originalname,
-      data: fs.readFileSync(
-        __basedir + "/app/resources/static/assets/uploads/" + req.files['file'][0].filename, 'UTF-8'
-      ),
-
-      attachment: fs.readFileSync(
-        __basedir + "/app/resources/static/assets/uploads/" + req.files['file_attachment'][0].filename, 'UTF-8'
-      ),
-    }).then((file) => {
-      fs.writeFileSync(
-        __basedir + "/app/resources/static/assets/tmp/" + file.name,
-        file.data
-      );
-      fs.writeFileSync(
-        __basedir + "/app/resources/static/assets/tmp/" + file.name,
-        file.attachment
-      );
-
-      // console.log(req.files['file'][0].originalname)
-      // console.log(req.files['file'][0].fieldname)
-      return res.send(`Plik został wysłany.`);
-    });
-  } catch (error) {
-    console.log(error);
-    return res.send(`Błąd podczas wysyłki pliku do serwera: ${error}`);
-  }
-};
-
-exports.uploadFiles_zarz = async (req, res) => {
-
-  try {
-    File_zarz.create({
+    File_uchwaly.create({
       title: req.body.title,
       description: req.body.description,
       name: req.files['file'][0].originalname,
@@ -90,11 +67,56 @@ exports.uploadFiles_zarz = async (req, res) => {
         __basedir + "/app/resources/static/assets/tmp/" + file.nameAtt,
         file.attachment
       );
-
-      // console.log(req.files['file'][0].originalname)
-      // console.log(req.files['file'][0].fieldname)
       return res.send(`Plik został wysłany.`);
     });
+  } catch (error) {
+    console.log(error);
+    return res.send(`Błąd podczas wysyłki pliku do serwera: ${error}`);
+  }
+     
+};
+
+exports.getFile = async(req, res) => {
+  try {
+    const zarz_id= req.params.zarz_id;
+    const name = req.params.name;
+    const findPDF = await Zarz_pdf.findOne({
+      where: { zarz_id, name }
+    });
+    if (!findPDF) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(findPDF);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+exports.uploadFiles_zarz = async (req, res) => {
+  try {
+    File_zarz.create({
+      title: req.body.title,
+      description: req.body.description,
+      name: req.files['file'][0].originalname,
+      nameAtt: req.files['file_attachment'] ? req.files['file_attachment'][0].originalname : null,
+      // nameAtt: req.files['file_attachment'][0].originalname ? req.files['file_attachment'][0] : null,
+
+      data: fs.readFileSync(__basedir + "/app/resources/static/assets/uploads/" +
+       req.files['file'][0].filename),
+       
+      attachment: req.files['file_attachment'] ? fs.readFileSync(__basedir + "/app/resources/static/assets/uploads/" + 
+        req.files['file_attachment'][0].filename) : null,
+    }).then((file) => {
+      fs.writeFileSync(
+        __basedir + "/app/resources/static/assets/tmp/" + file.name,
+        file.data
+        );
+        fs.writeFileSync(
+          __basedir + "/app/resources/static/assets/tmp/" + file.nameAtt,
+          file.attachment
+          );
+          return res.send(`Plik został wysłany.`);
+        });
   } catch (error) {
     console.log(error);
     return res.send(`Błąd podczas wysyłki pliku do serwera: ${error}`);
@@ -102,7 +124,6 @@ exports.uploadFiles_zarz = async (req, res) => {
 };
 
 exports.uploadFiles_podst = async (req, res) => {
- 
   try {
     File_podst.create({
       title: req.body.title,
@@ -118,24 +139,45 @@ exports.uploadFiles_podst = async (req, res) => {
       ),
     }).then((file) => {
       fs.writeFileSync(
-        __basedir + "/app/resources/static/assets/tmp/" + file.name,
+        __basedir + "/app/resources/static/assets/uploads/" + file.name,
         file.data
-      );
-      fs.writeFileSync(
-        __basedir + "/app/resources/static/assets/tmp/" + file.nameAtt,
-        file.attachment
-      );
-      return res.send(`Plik został wysłany.`);
-    });
+        );
+        fs.writeFileSync(
+          __basedir + "/app/resources/static/assets/uploads/" + file.nameAtt,
+          file.attachment
+          );
+          return res.send(`Plik został wysłany.`);
+        });
   } catch (error) {
     console.log(error);
     return res.send(`Błąd podczas wysyłki pliku do serwera: ${error}`);
   }
 };
 
+
+
 //GETLIST
 
-exports.getListFiles = (req, res) => {
+exports.findAll = (req, res) => {
+ //pagination
+ const { page, size, title } = req.query;
+ var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+ const { limit, offset } = getPagination(page, size);
+ 
+ File_uchwaly.findAndCountAll({ where: condition, limit, offset })
+      .then(data => {
+        const response = getPagingData(data, page, limit);  
+          res.send(response);
+      })
+      .catch(err => {
+          res.status(500).send({
+              message:
+                  err.message || "Wystąpił błąd podczas wydobywania danych."
+          });
+      });
+};
+
+exports.getListFiles_zarz = async (req, res) => {
 //pagination
 const { page, size, title } = req.query;
 var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
@@ -150,7 +192,8 @@ fs.readdir(directoryPath, function (err, files) {
     });
   }
 
-  File.findAndCountAll({ where: condition, limit, offset })
+  File_zarz.findAndCountAll({ where: condition, limit, offset,
+              attributes: ['id', 'title', 'description', 'name', 'nameAtt']  })
     .then(data => {
       const response = getPagingData(data, page, limit);
       let fileInfos = [];
@@ -164,46 +207,28 @@ fs.readdir(directoryPath, function (err, files) {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving "
       });
     });
 })
 };
 
-exports.getListFiles_zarz = (req, res) => {
-  //pagination
-  const { page, size, title } = req.query;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-  const { limit, offset } = getPagination(page, size);
 
-  const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
 
-  fs.readdir(directoryPath, function (err, files) {
-    if (err) {
-      res.status(500).send({
-        message: "Błąd w wydobyciu plików!",
-      });
-    }
-
-    File_zarz.findAndCountAll({ where: condition, limit, offset })
-      .then(data => {
-        const response = getPagingData(data, page, limit);
-        let fileInfos = [];
-        files.forEach((file) => {
-          fileInfos.push({
-            url: baseUrl + file,
-          });
-        });
-        res.send(response);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials."
-        });
-      });
+exports.getFileAll = async(req, res) => {
+  Zarz_pdf.findAll({})
+  .then(state => {
+      res.send(state);
   })
+  .catch(err => {
+      res.status(500).send({
+          message:
+              err.message || "Wystąpił błąd podczas wydobywania danych."
+      });
+  });
 };
+
+
 
 exports.getListFiles_podst = (req, res) => {
    //pagination
@@ -219,14 +244,14 @@ exports.getListFiles_podst = (req, res) => {
          message: "Błąd w wydobyciu plików!",
        });
      }
- 
-     File_podst.findAndCountAll({ where: condition, limit, offset })
-       .then(data => {
-         const response = getPagingData(data, page, limit);
+     File_podst.findAndCountAll({ where: condition, limit, offset,
+      attributes: ['id', 'title', 'description', 'name'] })
+       .then(title => {
+         const response = getPagingData(title, page, limit);
          let fileInfos = [];
          files.forEach((file) => {
            fileInfos.push({
-             url: baseUrl + file,
+             url: baseUrl_podst + file,
            });
          });
          res.send(response);
@@ -234,7 +259,7 @@ exports.getListFiles_podst = (req, res) => {
        .catch(err => {
          res.status(500).send({
            message:
-             err.message || "Some error occurred while retrieving tutorials."
+             err.message || "Wystąpił błąd."
          });
        });
    })
@@ -256,17 +281,7 @@ exports.getListFiles_podst = (req, res) => {
 //     });
 // };
 
-exports.openFile = (req, res) => {
-  const fileName = req.params.name;
-  const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
-  res.sendFile(directoryPath + fileName, fileName, (err) => {
-    if (err) {
-      res.status(500).send({
-        message: "Nie można otworzyć pliku, błąd: " + err,
-      });
-    }
-  });
-};
+
 
 //UPDATE 
 exports.update_file = (req, res) => {
@@ -391,3 +406,41 @@ exports.delete_file_podst = (req, res) => {
     });
 };
 
+
+
+
+//
+// exports.getListFiles = async (req, res) => {
+//   //pagination
+//   const { page, size, title } = req.query;
+//   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+//   const { limit, offset } = getPagination(page, size);
+  
+//   const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
+  
+//   fs.readdir(directoryPath, function (err, files) {
+//     if (err) {
+//       res.status(500).send({
+//         message: "Błąd w wydobyciu plików!",
+//       });
+//     }
+  
+//     File.findAndCountAll({ where: condition, limit, offset })
+//       .then(data => {
+//         const response = getPagingData(data, page, limit);
+//         let fileInfos = [];
+//         files.forEach((file) => {
+//           fileInfos.push({
+//             url: baseUrl + file,
+//           });
+//         });
+//         res.send(response);
+//       })
+//       .catch(err => {
+//         res.status(500).send({
+//           message:
+//             err.message || "Some error occurred while retrieving tutorials."
+//         });
+//       });
+//   })
+//   };

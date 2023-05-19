@@ -10,8 +10,6 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/user/all", controller.allAccess);
-
   app.get(
     "/api/user/panel_administracyjny",
     [authJwt.verifyToken, authJwt.isAdmin],
@@ -34,10 +32,7 @@ module.exports = function (app) {
   app.get("/api/auth/users/:id", controller.user);
   app.put("/api/auth/users/:id", controller.updatePassword);
 
+  app.get("/api/auth/user_roles/:userId", controller.user_role);
+  app.put("/api/auth/user_roles/:userId", controller.update_role);
 
- app.get("/api/auth/user_roles/:userId", controller.user_role);
-
- app.put("/api/auth/user_roles/:userId", controller.update_role);
-
-  
 };

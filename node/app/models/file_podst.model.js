@@ -5,10 +5,10 @@ module.exports = (sequelize, DataTypes) => {
                      autoIncrement: true    },
     title:         { type: DataTypes.STRING },
     description:   { type: DataTypes.STRING },
-    name:        { type: DataTypes.STRING },
-    data:        { type: DataTypes.BLOB('long')},
-    nameAtt:     { type: DataTypes.STRING },
-    attachment:  { type: DataTypes.BLOB('long')}
+    name:          { type: DataTypes.STRING },
+    data:          { type: DataTypes.BLOB('medium')},
+    nameAtt:       { type: DataTypes.STRING },
+    attachment:    { type: DataTypes.BLOB('medium')}
   });
 
   return Files_podst;

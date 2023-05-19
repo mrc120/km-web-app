@@ -1,4 +1,3 @@
-
 module.exports = app => {
     const dzial = require("../controllers/dzial.controller.js");
     var router = require("express").Router();
