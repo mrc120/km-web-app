@@ -32,9 +32,9 @@ require('./app/routes/user.routes')(app);
 require('./app/routes/auth.routes')(app);
 require('./app/routes/dzial.routes')(app);
 require('./app/routes/stanowisko.routes')(app);
-require('./app/routes/files.routes')(app);
-require('./app/routes/files_zarz.routes')(app);
-require('./app/routes/files_podst.routes')(app);
+require('./app/routes/files/files.routes')(app);
+require('./app/routes/files/files_zarz.routes')(app);
+require('./app/routes/files/files_podst.routes')(app);
 
 
 app.use(express.static(path.join(__dirname, '/app/views/')));
