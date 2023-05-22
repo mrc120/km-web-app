@@ -40,8 +40,8 @@ exports.uploadFiles_podst = async (req, res) => {
 //GET
 exports.getListFiles_podst = (req, res) => {
 
-  const { page, size, title } = req.query;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  // const { page, size, title } = req.query;
+  // var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
   const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
 
@@ -51,8 +51,8 @@ exports.getListFiles_podst = (req, res) => {
         message: "Błąd w wydobyciu plików!",
       });
     }
-    File_podst.findAndCountAll({
-      where: condition, 
+    File_podst.findAll({
+      // where: condition, 
       attributes: ['id', 'title', 'description', 'name']
     })
       .then(data => {

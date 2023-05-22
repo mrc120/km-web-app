@@ -58,15 +58,21 @@ const Backdrop = styled.div`
 `
 
 const CloseButton = styled.button`
-    display:flex!important;
+margin: 0 auto;
+display: block;
     border: 0;
     font-size: 15px;
     font-weight: 400;
-    color: #888888;
+    color: black;
     background-color: transparent;
     opacity: 0.8;
     margin-top: 5px;
-    justify-content:center
+    &:hover,
+  &:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+  }
 `
 
 export const StyledModal = {

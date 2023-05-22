@@ -1,11 +1,12 @@
-
-import AddUser from "views/AddUser.js";
 import TableList from "views/TableList/TableList";
+import AddUser from "views/Authorized/AddUser.js";
+import AddFile from "views/Authorized/AddFile.js";
+import AdminPanel from "views/Authorized/AdminPanel/AdminPanel.js";
+
 import ShowList_uchw from "views/Showlists/ShowList_uchw.js";
 import ShowList_zarz from "views/Showlists/ShowList_zarz.js";
 import ShowList_podst from "views/Showlists/ShowList_podst.js";
-import AddFile from "views/AddFile.js";
-import AdminPanel from "views/AdminPanel.js";
+
 import Legend from "views/Static/Legend.js";
 import Helpdesk from "views/Static/Helpdesk.js";
 import KnowledgeHelpdesk from "views/Static/KnowledgeHelpdesk";

@@ -1,40 +1,19 @@
 import ReactDOM from 'react-dom'
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 import { useLocation, Switch, Link, Route } from "react-router-dom";
 import { Navbar, Row, Nav, Button, Modal, } from "react-bootstrap";
 import routes from "routes.js";
 
 import LoginModal from "../../components/Modal/Modal.js"
 
-import AuthService from "../../services/Auth/auth.service.js";
+import useToggle from "../../hooks/useToggle.js"
+import useAuth from "../../hooks/useAuth.js"
 
 const AdminNavbar = () => {
-  const [showModal, setShowModal] = useState(false);
-
+  const { showAdminBoard, showAddUserBoard, showFileUploadBoard,
+    currentUser, logOut } = useAuth();
   const location = useLocation();
-
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
-  const [showFileUploadBoard, setFileUploadBoard] = useState(false);
-  const [showAddUserBoard, setAddUserBoard] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
-
-  useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-      setFileUploadBoard(user.roles.includes("ROLE_ADD_FILE"));
-      setAddUserBoard(user.roles.includes("ROLE_ADD_USER"));
-    }
-  }, []);
-
-  const logOut = () => {
-    AuthService.logout();
-  };
-
-  const expandModal = () => {
-    setShowModal(true);
-  }
+  const [showModal, setShowModal] = useToggle(false);
 
   const mobileSidebarToggle = (e) => {
     e.preventDefault();
@@ -56,27 +35,6 @@ const AdminNavbar = () => {
     }
     return "Okno";
   };
-  
-  const authButton = () => {
-    if (currentUser === null) {
-      return (
-        <Button
-        className="btn-wd-l font-weight-normal btn-weight-600"
-        href="/table"
-        variant="info"
-        onClick={logOut}>
-        <span className="no-icon">Wyloguj</span>
-      </Button>
-      )
-    } else {
-      return  <Button
-      className="btn-wd-l"
-      href="#login"
-      onClick={() => setShowModal(true)}>
-      <span className="no-icon">Logowanie</span>
-    </Button>
-    }
-  }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -133,27 +91,28 @@ const AdminNavbar = () => {
             }
           </Nav.Item>
           <Nav.Item>
-          {currentUser ? (
-        <Button
-        className="btn-wd-l font-weight-normal btn-weight-600"
-        href="/table"
-        variant="info"
-        onClick={logOut}>
-        <span className="no-icon">Wyloguj</span>
-      </Button>
-      
-  ) : (
-     <Button
-      className="btn-wd-l"
-      href="#login"
-      onClick={() => setShowModal(true)}>
-      <span className="no-icon">Logowanie</span>
-    </Button>
-  )}
+            {currentUser ? (
+              <Button
+                className="btn-wd-l font-weight-normal btn-weight-600"
+                href="/table"
+                variant="info"
+                onClick={logOut}>
+                <span className="no-icon">Wyloguj</span>
+              </Button>
+            ) : (
+              <Button
+                className="btn-wd-l"
+                href="#login"
+                onClick={() => setShowModal()}>
+                <span className="no-icon">Logowanie</span>
+              </Button>
+            )}
           </Nav.Item>
         </Nav>
       </Navbar.Collapse>
-      <LoginModal showModal={showModal} toggle={setShowModal} />
+      {showModal && (
+        <LoginModal showModal={showModal} toggle={setShowModal} />
+      )}
     </Navbar >
   );
 }

@@ -12,8 +12,7 @@ const login = (login, password) => {
   return http.post("auth/signin/", {
     login,
     password,
-  })
-    .then((response) => {
+  }).then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
@@ -26,6 +25,11 @@ const updatePassword = (password) => {
     id,
     password
   });
+};
+
+const updatePassword2 = (password) => {
+  return http.put(`auth/users/2`, password
+  );
 };
 
 const logout = () => {
@@ -42,4 +46,5 @@ export default {
   logout,
   getCurrentUser,
   updatePassword,
+  updatePassword2
 };
