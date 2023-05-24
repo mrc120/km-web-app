@@ -46,14 +46,10 @@ exports.updatePassword = (req, res) => {
 };
 
 exports.user_role = (req, res) => {
-
     User_Role.findOne({
-        where: {
-            userId: req.params.userId
-        }
+        where: { userId: req.params.userId }
     }).then(state => {
         res.send(state);
-
     }).catch(err => {
         res.status(500).send({
             message:
@@ -63,24 +59,18 @@ exports.user_role = (req, res) => {
 }
 
 exports.update_role = (req, res) => {
-    
     roleId = req.body.roleId;
     User_Role.update({ roleId: roleId },
-        {
-            where: { userId: req.params.userId }
+        { where: { userId: req.params.userId }
         }).then(state => {
             res.send(state);
-
         }).catch(err => {
             res.status(500).send({
                 message:
                     err.message || "Błąd z aktualizacją roli"
             });
         });
-
-
 }
-
 
 
 exports.allAccess = (req, res) => {

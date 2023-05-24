@@ -11,7 +11,7 @@ var bcrypt = require("bcryptjs");
 exports.signup = (req, res) => {
     //Save user to database
     User.create({
-        email: req.body.email,
+        login: req.body.login,
         password: bcrypt.hashSync(req.body.password, 7)
     })
         .then(user => {
@@ -44,42 +44,38 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
     User.findOne({
         where: {
-            email: req.body.email,
+            login: req.body.login,
         }
+    }).then(user => {
+        if (!user) {
+            return res.status(400).send({ message: "Użytkownik nie istnieje" });
+        }
+        var passwordIsValid = bcrypt.compareSync(
+            req.body.password,
+            user.password
+        );
+        if (!passwordIsValid) {
+            return res.status(401).send({
+                accessToken: null,
+                message: "Nieprawidłowe hasło"
+            });
+        }
+        var token = jwt.sign({ id: user.id }, config.secret, {
+            expiresIn: 25200 // 24 hours
+        });
+        var authorises = [];
+        user.getRoles().then(roles => {
+            for (let i = 0; i < roles.length; i++) {
+                authorises.push("ROLE_" + roles[i].name.toUpperCase());
+            }
+            res.status(200).send({
+                id: user.id,
+                login: user.login,
+                roles: authorises,
+                accessToken: token
+            });
+        });
     })
-        .then(user => {
-            if (!user) {
-                return res.status(400).send({ message: "Użytkownik nie istnieje" });
-            }
-            var passwordIsValid = bcrypt.compareSync(
-                req.body.password,
-                user.password
-            );
-
-            if (!passwordIsValid) {
-                return res.status(401).send({
-                    accessToken: null,
-                    message: "Nieprawidłowe hasło"
-                });
-            }
-
-            var token = jwt.sign({ id: user.id }, config.secret, {
-                expiresIn: 25200 // 24 hours
-            });
-
-            var authorises = [];
-            user.getRoles().then(roles => {
-                for (let i = 0; i < roles.length; i++) {
-                    authorises.push("ROLE_" + roles[i].name.toUpperCase());
-                }
-                res.status(200).send({
-                    id: user.id,
-                    email: user.email,
-                    roles: authorises,
-                    accessToken: token
-                });
-            });
-        })
         .catch(err => {
             res.status(500).send({ message: "bład logowania, czegoś mi tu brakuje" });
         });
