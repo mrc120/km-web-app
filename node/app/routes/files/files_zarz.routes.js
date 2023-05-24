@@ -8,7 +8,10 @@ module.exports = app => {
 
     router.get("/files_zarz/:name", openPdf.openFile);
 
-    router.post("/upload_zarz", upload.single("file"), File_zarzadzenia.uploadFiles_zarz);
+    router.post("/upload_zarz", upload.fields([
+        { name: "file", maxCount: 1 },
+        { name: "file_attachment", maxCount: 1 }
+    ]), File_zarzadzenia.uploadFiles_zarz);
 
     app.use("/api", router);
 }

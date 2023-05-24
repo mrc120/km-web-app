@@ -8,7 +8,9 @@ module.exports = app => {
 
     router.get("/files/:name", openPdf.openFile);
 
-    router.post("/upload", upload.single("file"), File_uchwaly.uploadFiles);
+    router.post("/upload", upload.fields([{ name: "file", maxCount: 1 },
+    { name: "file_attachment", maxCount: 1 }
+    ]), File_uchwaly.uploadFiles);
 
     app.use("/api", router);
 }

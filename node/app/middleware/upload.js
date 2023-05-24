@@ -1,12 +1,12 @@
 const multer = require("multer");
 
-const pdfFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('application/pdf')) {
-    cb(null, true);
-  } else {
-    cb("Tylko pliki PDF są przyjmowane ", false);
-  }
-};
+// const pdfFilter = (req, file, cb) => {
+//   if (file.mimetype.startsWith('application/pdf')) {
+//     cb(null, true);
+//   } else {
+//     cb("Tylko pliki PDF są przyjmowane ", false);
+//   }
+// };
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -17,5 +17,6 @@ var storage = multer.diskStorage({
   },
 });
 
-var uploadFile = multer({ storage: storage, fileFilter: pdfFilter });
+var uploadFile = multer({ storage: storage});
+
 module.exports = uploadFile;

@@ -13,8 +13,6 @@ exports.uploadFiles_zarz = async (req, res) => {
             description: req.body.description,
             name: req.files['file'][0].originalname,
             nameAtt: req.files['file_attachment'] ? req.files['file_attachment'][0].originalname : null,
-            // nameAtt: req.files['file_attachment'][0].originalname ? req.files['file_attachment'][0] : null,
-
             data: fs.readFileSync(__basedir + "/app/resources/static/assets/uploads/" +
                 req.files['file'][0].filename),
 
@@ -25,10 +23,10 @@ exports.uploadFiles_zarz = async (req, res) => {
                 __basedir + "/app/resources/static/assets/tmp/" + file.name,
                 file.data
             );
-            fs.writeFileSync(
+            file.attachment ? fs.writeFileSync(
                 __basedir + "/app/resources/static/assets/tmp/" + file.nameAtt,
                 file.attachment
-            );
+            ) : null;
             return res.send(`Plik został wysłany.`);
         });
     } catch (error) {
@@ -52,7 +50,7 @@ exports.getListFiles_zarz = async (req, res) => {
             });
         }
 
-        File_zarz.findAndCountAll({
+        File_zarz.findAll({
             where: condition,
             attributes: ['id', 'title', 'description', 'name', 'nameAtt']
         })

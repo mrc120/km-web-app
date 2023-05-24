@@ -47,37 +47,33 @@ const ShowList_zarz = () => {
 
   const SRV_URL = "http://localhost:8080"
 
-  const sortedEntries = [...entries].sort((a, b) => entries.id > entries.id ? 1 : -1)
+  // const sortedEntries = [...entries].sort((a, b) => entries.id > entries.id ? 1 : -1)
   
-  // const retrieveTutorials = () => {
-  //   const params = getRequestParams(searchText, page, pageSize);
-  //   FilesZarzService.getAll(params)
-  //   .then((response) => {
-  //     const { entries, totalPages } = response.data;
-  //     setEntries(entries);
-  //     console.log(entries);
-  //   }).catch((e) => {
-  //     console.log(e);
-  //   });
-  // }
-
   const retrieveTutorials = () => {
-    const params = getRequestParams(searchText, page, pageSize);
-    axios.get(`${SRV_URL}/api/files_zarz/`, { params })
-      .then(response => {
-        const { entries, totalPages } = response.data;
-        setEntries(entries);
-        setCount(totalPages);
-      }).catch((e) => {
-        console.log(e);
-      });
+    
+    FilesZarzService.getAll()
+    .then((response) => {
+      const entries = response.data;
+      setEntries(entries);
+      console.log(entries);
+    }).catch((e) => {
+      console.log(e);
+    });
   }
 
-  useEffect(() => {
+  // const retrieveTutorials = () => {
+ 
+  //   axios.get("http://localhost:8080/api/files_zarz/")
+  //     .then(response => {
+    
+  //       setEntries(response.data);
+  //     }).catch((e) => {
+  //       console.log(e);
+  //     });
+  // }
 
-  }, []);
-  useEffect(retrieveTutorials, [page, pageSize]);
 
+  
   const updateFile = () => {
     event.preventDefault();
     FilesZarzService.update(selectedItem2.id, selectedItem2)
@@ -87,20 +83,23 @@ const ShowList_zarz = () => {
       }).catch(e => {
         console.log(e);
       })
-  }
-
+    }
+    
   const deleteFile = (id) => {
     FilesZarzService.remove(id)
-      .then(response => {
-        console.log(response.data);
-      }).catch(function (error) {
-        console.log(error);
-      });
+    .then(response => {
+      console.log(response.data);
+    }).catch(function (error) {
+      console.log(error);
+    });
     window.location.reload(true);
   }
 
+    useEffect(() => {
+    retrieveTutorials();
+  }, []);
 
-
+  
   const handleInputChange = event => {
     const { name, value } = event.target;
     setSelectedItem2({ ...selectedItem2, [name]: value });
@@ -109,7 +108,7 @@ const ShowList_zarz = () => {
   const handlePageChange = (e, value) => {
     setPage(value);
   }
-
+  
   function base64ToArrayBuffer(data) {
     const bString = window.atob(data);
     const bLength = bString.length;
@@ -119,7 +118,7 @@ const ShowList_zarz = () => {
     }
     return bytes;
   }
-
+  
   function base64toPDF(base64EncodedData, fileName = 'file') {
     const bufferArray = base64ToArrayBuffer(base64EncodedData);
     const blobStore = new Blob([bufferArray], { type: 'application/pdf' });
@@ -136,7 +135,7 @@ const ShowList_zarz = () => {
     window.URL.revokeObjectURL(data);
     link.remove();
   }
-
+  
   //styles pagination
   const theme = createTheme({
     palette: {
@@ -156,16 +155,13 @@ const ShowList_zarz = () => {
   }));
   const classes = useStyles();
 
+  
   return (
     <>
       <div className="mainpanel mt">
         <div className="content">
           <Container fluid>
-            <Box
-              noValidate
-              sx={{ width: 450 }}
-              component="form"
-              autoComplete="on">
+           
               <TextField
                 className={classes.input}
                 id="standard-basic "
@@ -185,10 +181,10 @@ const ShowList_zarz = () => {
                   ),
                 }}
               />
-            </Box>
+     
             <div className="row">
-              {sortedEntries && sortedEntries
-                .map((poz, index) => {
+              {entries && entries
+                .map((poz) => {
                   return (
                     <div className="col-md-3">
                       <div className="card ">
@@ -203,12 +199,12 @@ const ShowList_zarz = () => {
                               <Button style={{ margin: '-1px -1px -1px 0' }}
                                 className="d-flex align-items-center justify-content-center border-bottom  rounded-top rounded-bottom-left-1 rounded-bottom-0   px-0 "
                                 target="_blank" onChange={open}
-                                href={SRV_URL + "/files_zarz/" + poz.name} >
+                                href={SRV_URL + "/api/files_zarz/" + poz.name} >
                                 <i className="nc-icon nc-cloud-download-93 size-up-down "></i>
                               </Button>
                               <Button style={{ margin: '0 -1px 0px 0' }} className="d-flex align-items-center justify-content-center rounded-top-0  rounded-0 px-0"
                                 target="_blank" onChange={open}
-                                href={process.env.REACT_APP_API_URL + "/api/files_zarz/" + poz.nameAtt} >
+                                href={SRV_URL + "/api/files_zarz/" + poz.nameAtt} >
                                 <i className="nc-icon nc-attach-87 size-up-down"></i>
                               </Button>
                             </div>

@@ -53,7 +53,7 @@ exports.getListFiles_podst = (req, res) => {
     }
     File_podst.findAll({
       // where: condition, 
-      attributes: ['id', 'title', 'description', 'name']
+      attributes: ['id', 'title', 'description', 'name', 'nameAtt']
     })
       .then(data => {
         const response = data;
