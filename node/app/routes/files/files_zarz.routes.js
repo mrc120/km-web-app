@@ -1,6 +1,5 @@
 module.exports = app => {
     var router = require("express").Router();
-    const File_zarzadzenia = require("../../controllers/files/file_zarzadzenia.controller");
     const upload = require("../../middleware/upload");
     const { getAllZarzadzenia, openFile, uploadFileZarz } = require("../../controllers/files/file_uchwaly.controller");
 
