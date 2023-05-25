@@ -4,6 +4,9 @@ module.exports = app => {
     const upload = require("../../middleware/upload");
     const openPdf = require("../../controllers/files/openFile.controller");
 
+    const {getAll, openFile, uploadFileZarz} = require("../../controllers/files/file_uchwaly.controller");
+
+
     router.get("/files_zarz/", File_zarzadzenia.getListFiles_zarz);
 
     router.get("/files_zarz/:name", openPdf.openFile);
@@ -11,7 +14,7 @@ module.exports = app => {
     router.post("/upload_zarz", upload.fields([
         { name: "file", maxCount: 1 },
         { name: "file_attachment", maxCount: 1 }
-    ]), File_zarzadzenia.uploadFiles_zarz);
+    ]), uploadFileZarz);
 
     app.use("/api", router);
 }
