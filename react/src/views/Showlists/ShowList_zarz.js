@@ -4,7 +4,7 @@ import FilesZarzService from '../../services/Files/files_zarz.service'
 import AuthService from "../../services/Auth/auth.service";
 import http from "../../http-common"
 
-import {getRequestParams} from "../../utils/Paginationreq";
+import { getRequestParams } from "../../utils/Paginationreq";
 
 // import Modal from '../components/Modal.js';
 import { Modal, Form, Row } from 'react-bootstrap'
@@ -47,33 +47,41 @@ const ShowList_zarz = () => {
 
   const SRV_URL = "http://localhost:8080"
 
-  // const sortedEntries = [...entries].sort((a, b) => entries.id > entries.id ? 1 : -1)
-  
   const retrieveTutorials = () => {
-    
     FilesZarzService.getAll()
-    .then((response) => {
-      const entries = response.data;
-      setEntries(entries);
-      console.log(entries);
-    }).catch((e) => {
-      console.log(e);
-    });
+      .then((response) => {
+        const entries = response.data;
+        setEntries(entries);
+
+      }).catch((e) => {
+        console.log(e);
+      });
   }
 
   // const retrieveTutorials = () => {
- 
+
   //   axios.get("http://localhost:8080/api/files_zarz/")
   //     .then(response => {
-    
+
   //       setEntries(response.data);
   //     }).catch((e) => {
   //       console.log(e);
   //     });
   // }
 
+  const error = () => {
+    if (Array.isArray(entries)) {
+      // Use the map function here
+      const mappedEntries = entries.map((entry) => {
+        // Map logic for each entry
+        return entry;
+      });
+    } else {
+      // Handle the case when entries is not an array
+      console.error("entries is not an array");
+    }
+  }
 
-  
   const updateFile = () => {
     event.preventDefault();
     FilesZarzService.update(selectedItem2.id, selectedItem2)
@@ -83,23 +91,25 @@ const ShowList_zarz = () => {
       }).catch(e => {
         console.log(e);
       })
-    }
-    
+  }
+
   const deleteFile = (id) => {
     FilesZarzService.remove(id)
-    .then(response => {
-      console.log(response.data);
-    }).catch(function (error) {
-      console.log(error);
-    });
+      .then(response => {
+        console.log(response.data);
+      }).catch(function (error) {
+        console.log(error);
+      });
     window.location.reload(true);
   }
 
-    useEffect(() => {
+  useEffect(() => {
     retrieveTutorials();
+    error()
+    console.log(entries);
   }, []);
 
-  
+
   const handleInputChange = event => {
     const { name, value } = event.target;
     setSelectedItem2({ ...selectedItem2, [name]: value });
@@ -108,7 +118,7 @@ const ShowList_zarz = () => {
   const handlePageChange = (e, value) => {
     setPage(value);
   }
-  
+
   function base64ToArrayBuffer(data) {
     const bString = window.atob(data);
     const bLength = bString.length;
@@ -118,7 +128,7 @@ const ShowList_zarz = () => {
     }
     return bytes;
   }
-  
+
   function base64toPDF(base64EncodedData, fileName = 'file') {
     const bufferArray = base64ToArrayBuffer(base64EncodedData);
     const blobStore = new Blob([bufferArray], { type: 'application/pdf' });
@@ -135,7 +145,7 @@ const ShowList_zarz = () => {
     window.URL.revokeObjectURL(data);
     link.remove();
   }
-  
+
   //styles pagination
   const theme = createTheme({
     palette: {
@@ -155,33 +165,33 @@ const ShowList_zarz = () => {
   }));
   const classes = useStyles();
 
-  
+
   return (
     <>
       <div className="mainpanel mt">
         <div className="content">
           <Container fluid>
-           
-              <TextField
-                className={classes.input}
-                id="standard-basic "
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                type="text"
-                variant="outlined"
-                onKeyUp={retrieveTutorials}
-                placeholder="Wyszukaj..."
-                InputLabelProps={{ shrink: false }}
-                InputProps={{
-                  style: { fontSize: 16, height: 50, width: 450, left: 299, position: "absolute", top: -73 },
-                  startAdornment: (
-                    <InputAdornment position="start" fontSize="small">
-                      <SearchIcon style={{fontSize: 20, color: '#000000' }} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-     
+
+            <TextField
+              className={classes.input}
+              id="standard-basic "
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              type="text"
+              variant="outlined"
+              onKeyUp={retrieveTutorials}
+              placeholder="Wyszukaj..."
+              InputLabelProps={{ shrink: false }}
+              InputProps={{
+                style: { fontSize: 16, height: 50, width: 450, left: 299, position: "absolute", top: -73 },
+                startAdornment: (
+                  <InputAdornment position="start" fontSize="small">
+                    <SearchIcon style={{ fontSize: 20, color: '#000000' }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+
             <div className="row">
               {entries && entries
                 .map((poz) => {
@@ -196,14 +206,20 @@ const ShowList_zarz = () => {
                               <div className="h5u">{poz.description}</div>
                             </div>
                             <div className="col-sm-2 flex-column px-0 btn-group">
-                              <Button style={{ margin: '-1px -1px -1px 0' }}
+                              <Button
+                                style={{ margin: '-1px -1px -1px 0' }}
                                 className="d-flex align-items-center justify-content-center border-bottom  rounded-top rounded-bottom-left-1 rounded-bottom-0   px-0 "
-                                target="_blank" onChange={open}
+                                target="_blank"
+                                onChange={open}
                                 href={SRV_URL + "/api/files_zarz/" + poz.name} >
                                 <i className="nc-icon nc-cloud-download-93 size-up-down "></i>
                               </Button>
-                              <Button style={{ margin: '0 -1px 0px 0' }} className="d-flex align-items-center justify-content-center rounded-top-0  rounded-0 px-0"
-                                target="_blank" onChange={open}
+
+                              <Button
+                                style={{ margin: '0 -1px 0px 0' }} className="d-flex align-items-center justify-content-center rounded-top-0  rounded-0 px-0"
+                                disabled={true}
+                                target="_blank"
+                                onChange={open}
                                 href={SRV_URL + "/api/files_zarz/" + poz.nameAtt} >
                                 <i className="nc-icon nc-attach-87 size-up-down"></i>
                               </Button>
@@ -211,28 +227,28 @@ const ShowList_zarz = () => {
                           </div>
                         </div>
                         {/* {(showAdminBoard || showFileUploadBoard) && */}
-                          <div className="row ">
-                            <div className="col-sm px-0 ml-3 ">
-                              <Link style={{ margin: '-1px 0 -1px 0px' }} className="btn form-control px-0 btn-danger border-right border-bottom border-left rounded-0"
-                                onClick={() => expandModal2(poz)}>
-                                Edytuj
-                              </Link>
-                            </div>
-                            <div className="col-sm px-0 mr-3 ">
-                              <Button style={{ margin: '-1px 0 -1px 0px' }} className="btn col-12 btn-block w-100 form-control pd-5 btn btn-danger border-right border-bottom rounded-0"
-                                onClick={() => expandModal(poz)}>
-                                Usuń
-                              </Button>
-                            </div>
+                        <div className="row ">
+                          <div className="col-sm px-0 ml-3 ">
+                            <Link style={{ margin: '-1px 0 -1px 0px' }} className="btn form-control px-0 btn-danger border-right border-bottom border-left rounded-0"
+                              onClick={() => expandModal2(poz)}>
+                              Edytuj
+                            </Link>
                           </div>
+                          <div className="col-sm px-0 mr-3 ">
+                            <Button style={{ margin: '-1px 0 -1px 0px' }} className="btn col-12 btn-block w-100 form-control pd-5 btn btn-danger border-right border-bottom rounded-0"
+                              onClick={() => expandModal(poz)}>
+                              Usuń
+                            </Button>
+                          </div>
+                        </div>
                         {/* } */}
                       </div>
                     </div>
                   )
                 })}
 
-           
-          
+
+
 
             </div>
             <div className="mt-0">

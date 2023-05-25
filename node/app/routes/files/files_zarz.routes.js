@@ -2,14 +2,11 @@ module.exports = app => {
     var router = require("express").Router();
     const File_zarzadzenia = require("../../controllers/files/file_zarzadzenia.controller");
     const upload = require("../../middleware/upload");
-    const openPdf = require("../../controllers/files/openFile.controller");
+    const { getAllZarzadzenia, openFile, uploadFileZarz } = require("../../controllers/files/file_uchwaly.controller");
 
-    const {getAll, openFile, uploadFileZarz} = require("../../controllers/files/file_uchwaly.controller");
+    router.get("/files_zarz/", getAllZarzadzenia);
 
-
-    router.get("/files_zarz/", File_zarzadzenia.getListFiles_zarz);
-
-    router.get("/files_zarz/:name", openPdf.openFile);
+    router.get("/files_zarz/:name", openFile);
 
     router.post("/upload_zarz", upload.fields([
         { name: "file", maxCount: 1 },

@@ -27,8 +27,10 @@ const FilterData = ({ stories = [] }) => {
                       href={baseURL + poz.name} >
                       <i className="nc-icon nc-cloud-download-93 size-up-down "></i>
                     </Button>
+                    
                     <Button style={{ margin: '0 -1px 0px 0' }} className="d-flex align-items-center justify-content-center rounded-top-0  rounded-0 px-0"
                       target="_blank" onChange={open}
+                      disabled={false}
                       href={baseURL + poz.nameAtt} >
                       <i className="nc-icon nc-attach-87 size-up-down"></i>
                     </Button>

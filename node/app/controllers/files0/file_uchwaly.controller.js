@@ -18,7 +18,7 @@ const uploadFiles = (FileModel) => {
                 title: req.body.title,
                 description: req.body.description,
                 name: req.files['file'][0].originalname,
-                nameAtt: req.files['file_attachment'] ? req.files['file_attachment'][0].originalname : null,
+                nameAtt: req.files['file_attachment'] ? req.files['file_attachment'][0].originalname: null,
                 data: fs.readFileSync(__basedir + "/app/resources/static/assets/uploads/" +
                     req.files['file'][0].filename),
                 attachment: req.files['file_attachment'] ? fs.readFileSync(__basedir + "/app/resources/static/assets/uploads/" +
@@ -41,50 +41,49 @@ const uploadFiles = (FileModel) => {
     };
     // Utworzenie funkcji findOne dla trzech modeli plików
 }
-const uploadFileUchwaly = uploadFiles(File_uchwaly);
-const uploadFileZarz = uploadFiles(File_zarzadzenia);
-const uploadFilePodst = uploadFiles(File_podstawy);
+const uploadFileUchwaly = uploadFiles(db.file_uchwaly);
+const uploadFileZarz = uploadFiles(db.file_zarz);
+const uploadFilePodst = uploadFiles(db.file_podst);
+
+module.exports = { uploadFileUchwaly, uploadFileZarz, uploadFilePodst };
+
+
+
 
 //GET
-const getAll = (FileModel) => async (req, res) => {
-    {
-        //pagination
-        const { page, size, title } = req.query;
-        var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+exports.getAll = async (req, res) => {
+    //pagination
+    const { page, size, title } = req.query;
+    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
 
-        const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
+    const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
 
-        fs.readdir(directoryPath, function (err, files) {
-            if (err) {
-                res.status(500).send({
-                    message: "Błąd w wydobyciu plików!",
-                });
-            }
-            FileModel.findAll({
-                where: condition,
-                attributes: ['id', 'title', 'description', 'name', 'nameAtt']
-            }).then(data => {
-                const response = data;
-          
-                let fileInfos = [];
-                files.forEach((file) => {
-                    fileInfos.push({
-                        url: baseUrl + file,
-                    });
-                });
-                res.send(response);
-            }).catch(err => {
-                res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving "
+    fs.readdir(directoryPath, function (err, files) {
+        if (err) {
+            res.status(500).send({
+                message: "Błąd w wydobyciu plików!",
+            });
+        }
+        File_uchwaly.findAndCountAll({
+            where: condition,
+            attributes: ['id_uchwaly', 'title', 'description', 'name', 'nameAtt']
+        }).then(data => {
+            const response = data;
+            let fileInfos = [];
+            files.forEach((file) => {
+                fileInfos.push({
+                    url: baseUrl + file,
                 });
             });
-        })
-    }
-}
-const getAllUchwaly = getAll(File_uchwaly);
-const getAllZarzadzenia = getAll(File_zarzadzenia);
-const getAllPodstawy = getAll(File_podstawy);
+            res.send(response);
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving "
+            });
+        });
+    })
+};
 
 //UPDATE 
 exports.update_file = async (req, res) => {
@@ -116,21 +115,4 @@ exports.delete_file = async (req, res) => {
                 message: "Nie można usunąć" + id
             });
         });
-};
-
-const openFile = (req, res) => {
-    const fileName = req.params.name;
-    const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
-    res.sendFile(directoryPath + fileName, fileName, (err) => {
-        if (err) {
-            res.status(500).send({
-                message: "Nie można otworzyć pliku, błąd: " + err,
-            });
-        }
-    });
-}
-module.exports = {
-    uploadFileUchwaly, uploadFileZarz, uploadFilePodst,
-    getAllUchwaly, getAllZarzadzenia, getAllPodstawy
-    , openFile
 };

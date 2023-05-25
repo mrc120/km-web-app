@@ -1,5 +1,6 @@
 const fs = require("fs");
-const db = require("../../models");
+const { file_uchwaly } = require("../models");
+const db = require("../models");
 
 const Op = db.Sequelize.Op;
 
@@ -10,9 +11,21 @@ const File_podstawy = db.file_podst
 const baseUrl = "http://localhost:8080/api/uchwaly"
 
 
+const openFile = (req, res) => {
+    const fileName = req.params.name;
+    const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
+    res.sendFile(directoryPath + fileName, fileName, (err) => {
+        if (err) {
+            res.status(500).send({
+                message: "Nie można otworzyć pliku, błąd: " + err,
+            });
+        }
+    });
+}
+
 //UPLOAD
 const uploadFiles = (FileModel) => {
-    return async (req, res) => {
+    async (req, res) => {
         try {
             FileModel.create({
                 title: req.body.title,
@@ -38,22 +51,24 @@ const uploadFiles = (FileModel) => {
             console.log(error);
             return res.send(`Błąd podczas wysyłki pliku do serwera: ${error}`);
         }
-    };
+    }
+
     // Utworzenie funkcji findOne dla trzech modeli plików
+
 }
-const uploadFileUchwaly = uploadFiles(File_uchwaly);
-const uploadFileZarz = uploadFiles(File_zarzadzenia);
-const uploadFilePodst = uploadFiles(File_podstawy);
+const uploadFileUchwaly = uploadFiles(db.file_uchwaly);
+const uploadFileZarz = uploadFiles(db.file_zarz);
+const uploadFilePodst = uploadFiles(db.file_podst);
+
+
 
 //GET
-const getAll = (FileModel) => async (req, res) => {
-    {
-        //pagination
-        const { page, size, title } = req.query;
-        var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+const getAll = (FileModel) => {
+    async (req, res) => {
 
-
+        const { page, size, title } = req.query; //pagination 
         const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
+        var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
         fs.readdir(directoryPath, function (err, files) {
             if (err) {
@@ -61,12 +76,11 @@ const getAll = (FileModel) => async (req, res) => {
                     message: "Błąd w wydobyciu plików!",
                 });
             }
-            FileModel.findAll({
+            FileModel.findAndCountAll({
                 where: condition,
-                attributes: ['id', 'title', 'description', 'name', 'nameAtt']
+                attributes: ['id_uchwaly', 'title', 'description', 'name', 'nameAtt']
             }).then(data => {
                 const response = data;
-          
                 let fileInfos = [];
                 files.forEach((file) => {
                     fileInfos.push({
@@ -80,11 +94,15 @@ const getAll = (FileModel) => async (req, res) => {
                 });
             });
         })
+
     }
+  
+    
 }
-const getAllUchwaly = getAll(File_uchwaly);
-const getAllZarzadzenia = getAll(File_zarzadzenia);
-const getAllPodstawy = getAll(File_podstawy);
+const getAllUchwaly = getAll(db.file_uchwaly)
+const getAllZarzadzenia = getAll(db.file_zarz)
+const getAllPodstawy = getAll(db.file_podst)
+
 
 //UPDATE 
 exports.update_file = async (req, res) => {
@@ -118,19 +136,8 @@ exports.delete_file = async (req, res) => {
         });
 };
 
-const openFile = (req, res) => {
-    const fileName = req.params.name;
-    const directoryPath = __basedir + "/app/resources/static/assets/uploads/";
-    res.sendFile(directoryPath + fileName, fileName, (err) => {
-        if (err) {
-            res.status(500).send({
-                message: "Nie można otworzyć pliku, błąd: " + err,
-            });
-        }
-    });
-}
 module.exports = {
-    uploadFileUchwaly, uploadFileZarz, uploadFilePodst,
-    getAllUchwaly, getAllZarzadzenia, getAllPodstawy
-    , openFile
-};
+    getAll,
+    uploadFiles,
+    openFile
+}
