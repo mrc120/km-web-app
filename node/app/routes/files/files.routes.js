@@ -1,20 +1,23 @@
 module.exports = app => {
     var router = require("express").Router();
-    const {getAll, openFile, uploadFileUchwaly} = require("../../controllers/files/file_uchwaly.controller");
+    const { getAllUchwaly, openFile, uploadFileUchwaly,
+        deleteFileUchwaly, updateFileUchwaly } = require("../../controllers/files/file_uchwaly.controller");
     const upload = require("../../middleware/upload");
-    const openPdf = require("../../controllers/files/openFile.controller")
 
-    // router.get("/files", getAll);
 
-    // router.get("/files/:name", openFile);
+    router.get("/files_uchw", getAllUchwaly);
 
-    // router.post("/upload", upload.fields([{ name: "file", maxCount: 1 },
-    // { name: "file_attachment", maxCount: 1 }
-    // ]), File_uchwaly.uploadFiles);
-    router.post("/upload", upload.fields([{ name: "file", maxCount: 1 },
+    router.get("/files_uchw/:name", openFile);
+
+    router.post("/upload_uchw", upload.fields([{ name: "file", maxCount: 1 },
     { name: "file_attachment", maxCount: 1 }
     ]), uploadFileUchwaly);
-console.log(router.post)
+
+    router.put("/files_uchw/:id", updateFileUchwaly)
+
+    router.delete("/files_uchw/:id", deleteFileUchwaly)
+
+
     app.use("/api", router);
 
 

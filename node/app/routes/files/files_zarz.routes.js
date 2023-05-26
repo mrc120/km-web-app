@@ -1,7 +1,8 @@
 module.exports = app => {
     var router = require("express").Router();
     const upload = require("../../middleware/upload");
-    const { getAllZarzadzenia, openFile, uploadFileZarz } = require("../../controllers/files/file_uchwaly.controller");
+    const { getAllZarzadzenia, openFile, uploadFileZarz,
+        updateFileZarzadzenia, deleteFileZarzadzenia } = require("../../controllers/files/file_uchwaly.controller");
 
     router.get("/files_zarz/", getAllZarzadzenia);
 
@@ -11,6 +12,10 @@ module.exports = app => {
         { name: "file", maxCount: 1 },
         { name: "file_attachment", maxCount: 1 }
     ]), uploadFileZarz);
+
+    router.put("/files_zarz/:id", updateFileZarzadzenia)
+
+    router.delete("/files_zarz/:id", deleteFileZarzadzenia);
 
     app.use("/api", router);
 }
