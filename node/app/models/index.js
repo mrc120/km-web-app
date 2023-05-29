@@ -26,10 +26,11 @@ db.user = require("./user.model.js")(sequelize, Sequelize);
 db.role = require("./role.model.js")(sequelize, Sequelize);
 db.user_role = require("./user_role.model.js")(sequelize, Sequelize);
 
-db.dzial = require("./dzial.model.js")(sequelize, Sequelize);
-db.stanowisko = require("./stanowisko.model.js")(sequelize, Sequelize);
 const User = db.user;
 const Role = db.role;
+
+db.dzial = require("./dzial.model.js")(sequelize, Sequelize);
+db.stanowisko = require("./stanowisko.model.js")(sequelize, Sequelize);
 //plikownia
 db.file_uchwaly = require("../models/files/file_uchwaly.model.js")(sequelize, Sequelize);
 db.file_zarz = require("../models/files/file_zarz.model.js")(sequelize, Sequelize);
@@ -51,9 +52,6 @@ User.belongsToMany(Role, {
   foreignKey: "userId",
   otherKey: "roleId"
 });
-
 db.ROLES = ["user", "admin", "add_file", "add_user"];
-
-
 
 module.exports = db;

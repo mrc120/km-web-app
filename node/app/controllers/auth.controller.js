@@ -9,7 +9,6 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
-    //Save user to database
     User.create({
         login: req.body.login,
         password: bcrypt.hashSync(req.body.password, 7)
@@ -34,12 +33,10 @@ exports.signup = (req, res) => {
                     res.status(400).send({ message: "Zarejestrowano pomyślnie nowego użytkownika" });
                 });
             }
-        })
-        .catch(err => {
+        }).catch(err => {
             res.status(500).send({ message: err.message });
         });
 };
-
 
 exports.signin = (req, res) => {
     User.findOne({
@@ -75,8 +72,7 @@ exports.signin = (req, res) => {
                 accessToken: token
             });
         });
-    })
-        .catch(err => {
-            res.status(500).send({ message: "bład logowania, czegoś mi tu brakuje" });
+    }).catch(err => {
+            res.status(500).send({ message: "Błąd logowania, czegoś mi tu brakuje" });
         });
 };

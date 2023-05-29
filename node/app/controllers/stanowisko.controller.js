@@ -9,8 +9,7 @@ exports.findAll = (req, res) => {
     Stanowisko.findAll({ where: condition })
         .then(state => {
             res.send(state);
-        })
-        .catch(err => {
+        }).catch(err => {
             res.status(500).send({
                 message:
                     err.message || "Wystąpił błąd podczas wydobywania danych."

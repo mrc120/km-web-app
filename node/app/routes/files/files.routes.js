@@ -1,7 +1,7 @@
 module.exports = app => {
     var router = require("express").Router();
     const { getAllUchwaly, openFile, uploadFileUchwaly,
-        deleteFileUchwaly, updateFileUchwaly } = require("../../controllers/files/file_uchwaly.controller");
+        deleteFileUchwaly, updateFileUchwaly } = require("../../controllers/file.controller");
     const upload = require("../../middleware/upload");
 
 

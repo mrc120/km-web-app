@@ -32,7 +32,6 @@ isAdmin = (req, res, next) => {
                     return;
                 }
             }
-
             res.status(403).send({
                 message: "Wymagana rola admina!"
             });
@@ -50,7 +49,6 @@ isFile = (req, res, next) => {
                     return;
                 }
             }
-
             res.status(403).send({
                 message: "Wymagana rola do dodawania plików!"
             });
@@ -68,7 +66,6 @@ isUser = (req, res, next) => {
                     return;
                 }
             }
-
             res.status(403).send({
                 message: "Wymagana rola do dodawania użytkowników!"
             });

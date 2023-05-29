@@ -2,7 +2,7 @@ module.exports = app => {
     var router = require("express").Router();
     const upload = require("../../middleware/upload");
     const { getAllPodstawy, openFile, uploadFilePodst,
-        deleteFilePodstawy, updateFilePodstawy } = require("../../controllers/files/file_uchwaly.controller");
+        deleteFilePodstawy, updateFilePodstawy } = require("../../controllers/file.controller");
 
     router.get("/files_podst", getAllPodstawy);
 

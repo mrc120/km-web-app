@@ -3,26 +3,19 @@ import { Button } from "react-bootstrap";
 
 import { defaults } from "browserslist";
 import Message from '../../../utils/Message';
-const baseURL = "http://localhost:8080/api/files_podst/"
+const baseURL = "http://localhost:8080/api/"
 
 
 
 const FilterData = ({ stories = [] }) => {
   const [message, setMessage] = useState("")
-  const handleButtonClick = () => {
-    console.log(stories.nameAtt)
 
-    if (stories.nameAtt === null) {
-      console.log(stories.nameAtt)
 
-      setMessage("Gówno");
-      open();
-    }
-    console.log(stories.nameAtt)
-    console.log(handleButtonClick)
-    open();
+  const handleButtonClick = (id, nameAtt) => {
+    !nameAtt ? setMessage("Brak załącznika!") : window.location.href = `http://localhost:8080/api/files_uchw/${nameAtt}`
 
   };
+
   return (
     <div className="row">
       <div md="1" className="Row-fix ">
@@ -36,7 +29,7 @@ const FilterData = ({ stories = [] }) => {
               <div className="container">
                 <div className="row px-0">
                   <div className="col-sm-10 ">
-                    <div className="h4u" data-id={poz.id}>{poz.title}</div>
+                    <div className="h4u" key={poz.id}>{poz.title}</div>
                     <hr className="solid"></hr>
                     <div className="h5u">{poz.description}</div>
                   </div>
@@ -47,10 +40,10 @@ const FilterData = ({ stories = [] }) => {
                       href={baseURL + poz.name} >
                       <i className=" "></i>
                     </Button>
-                    <Button style={{ margin: '0 -1px 0px 0' }} className="d-flex align-items-center justify-content-center rounded-top-0  rounded-0 px-0 nc-icon nc-attach-87 size-up-down" disabled={poz.nameAtt === null }
-                      target="_blank" onChange={() => handleButtonClick()}
-                      href={baseURL + poz.nameAtt}>
-                    
+                    <Button style={{ margin: '0 -1px 0px 0' }} className="d-flex align-items-center justify-content-center rounded-top-0  rounded-0 px-0 nc-icon nc-attach-87 size-up-down"
+                      onClick={() => handleButtonClick(poz.id, poz.nameAtt)}
+                      aria-disabled={poz.nameAtt === null}
+                    >
                     </Button>
                   </div>
                 </div>

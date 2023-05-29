@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import AuthService from "../../services/Auth/auth.service";
 import FilesService from "../../services/Files/files.service"
+import FilesZarzService from '../../services/Files/files_zarz.service'
 
 // import Modal from '../components/Modal.js';
 import { Modal, Form, Row } from 'react-bootstrap'
@@ -51,25 +52,16 @@ const ShowList_uchw = () => {
 
   const SRV_URL = "http://localhost:8080"
 
-
-  useEffect(() => {
-  loggedUser();
-    retrieveTutorials();
-  }, [page, pageSize]);
-
-
   const retrieveTutorials = () => {
-    const params = getRequestParams(searchText, page, pageSize);
-    FilesService.getAll(params)
-      .then(response => {
-        const { entries, totalPages } = response.data;
+    FilesService.getAll()
+      .then((response) => {
+        const entries = response.data;
         setEntries(entries);
-        setCount(totalPages);
+
       }).catch((e) => {
         console.log(e);
       });
   }
-
   const updateFile = () => {
     event.preventDefault();
     FilesService.update(selectedItem2.id, selectedItem2)
@@ -89,7 +81,6 @@ const ShowList_uchw = () => {
       });
     window.location.reload(true);
   }
-
 
   const loggedUser = () => {
     const user = AuthService.getCurrentUser();
@@ -144,7 +135,7 @@ const ShowList_uchw = () => {
   const handlePageChange = (e, value) => {
     setPage(value);
   }
- 
+
   function base64ToArrayBuffer(data) {
     const bString = window.atob(data);
     const bLength = bString.length;
@@ -172,17 +163,22 @@ const ShowList_uchw = () => {
     link.remove();
   }
 
+  useEffect(() => {
+    loggedUser();
+    retrieveTutorials();
+  }, [page, pageSize]);
+
 
 
   const useStyles = makeStyles(() => ({
     ul: {
-      "& .MuiPaginationItem-page.Mui-selected":{
+      "& .MuiPaginationItem-page.Mui-selected": {
         color: "#fff",
         backgroundColor: "#3a86bd",
 
       }
     },
-    
+
   }));
   const classes = useStyles();
 
@@ -211,48 +207,47 @@ const ShowList_uchw = () => {
                   style: { fontSize: 16, height: 50, width: 450, left: 299, position: "absolute", top: -73 },
                   startAdornment: (
                     <InputAdornment position="start" fontSize="small">
-                      <SearchIcon style={{fontSize: 20, color: '#000000' }} />
+                      <SearchIcon style={{ fontSize: 20, color: '#000000' }} />
                     </InputAdornment>
                   ),
                 }}
               />
             </Box>
-            <div className
-="row">
-              {sortedEntries &&
-                sortedEntries.map((poz, index) => {
+            <div className="row">
+              {entries &&
+                entries.map((poz, index) => {
                   return (
                     <div className
-="col-md-3">
+                      ="col-md-3">
                       <div className
-="card ">
+                        ="card ">
                         <div className
-="container">
+                          ="container">
                           <div className
-="row px-0">
+                            ="row px-0">
                             <div className
-="col-sm-10 ">
+                              ="col-sm-10 ">
                               <div className
-="h4u" data-id={poz.id}>{poz.title}</div>
+                                ="h4u" data-id={poz.id}>{poz.title}</div>
                               <hr className
-="solid"></hr>
+                                ="solid"></hr>
                               <div className
-="h5u">{poz.description}</div>
+                                ="h5u">{poz.description}</div>
                             </div>
                             <div className
-="col-sm-2 flex-column px-0 btn-group">
+                              ="col-sm-2 flex-column px-0 btn-group">
                               <Button style={{ margin: '-1px -1px -1px 0' }}
                                 className="d-flex align-items-center justify-content-center border-bottom  rounded-top rounded-bottom-left-1 rounded-bottom-0   px-0 "
                                 target="_blank" onChange={open}
                                 href={SRV_URL + "/api/files/" + poz.name} >
                                 <i className
-="nc-icon nc-cloud-download-93 size-up-down "></i>
+                                  ="nc-icon nc-cloud-download-93 size-up-down "></i>
                               </Button>
                               <Button style={{ margin: '0 -1px 0px 0' }} className="d-flex align-items-center justify-content-center rounded-top-0  rounded-0 px-0"
                                 target="_blank" onChange={open}
                                 href={SRV_URL + "/api/files/" + poz.nameAtt} >
                                 <i className
-="nc-icon nc-attach-87 size-up-down"></i>
+                                  ="nc-icon nc-attach-87 size-up-down"></i>
                               </Button>
                             </div>
                           </div>
@@ -260,14 +255,14 @@ const ShowList_uchw = () => {
                         {(showAdminBoard || showFileUploadBoard) &&
                           <div className="row ">
                             <div className
-="col-sm px-0 ml-3 ">
+                              ="col-sm px-0 ml-3 ">
                               <Link style={{ margin: '-1px 0 -1px 0px' }} className="btn form-control px-0 btn-danger border-right border-bottom border-left rounded-0"
                                 onClick={() => expandModal2(poz)}>
                                 Edytuj
                               </Link>
                             </div>
                             <div className
-="col-sm px-0 mr-3 ">
+                              ="col-sm px-0 mr-3 ">
                               <Button style={{ margin: '-1px 0 -1px 0px' }} className="btn col-12 btn-block w-100 form-control pd-5 btn btn-danger border-right border-bottom rounded-0"
                                 onClick={() => expandModal(poz)}>
                                 Usuń
@@ -282,36 +277,36 @@ const ShowList_uchw = () => {
 
               {/* //MODAL  */}
               <Modal className
-="modal-backdrop" show={showModal} onRequestClose={closeModal}>
+                ="modal-backdrop" show={showModal} onRequestClose={closeModal}>
                 <Modal.Body className
-="mt-2 d-flex justify-content-center" closeButton>
+                  ="mt-2 d-flex justify-content-center" closeButton>
                   <ErrorIcon sx={{ color: "#FF4A55", fontSize: "120px !important" }} />
                 </Modal.Body>
                 <Modal.Body className
-="modal-title h2 d-flex justify-content-center ml-0">Jesteś pewien?</Modal.Body>
+                  ="modal-title h2 d-flex justify-content-center ml-0">Jesteś pewien?</Modal.Body>
                 <Modal.Body className
-="h4 d-flex justify-content-center  mt-2 mb-4">Czy na pewno chcesz usunąć tą pozycję? </Modal.Body>
+                  ="h4 d-flex justify-content-center  mt-2 mb-4">Czy na pewno chcesz usunąć tą pozycję? </Modal.Body>
                 <p className
-="d-flex justify-content-center mb-1 ">Próbujesz usunąć pozycję o nazwie:</p>
+                  ="d-flex justify-content-center mb-1 ">Próbujesz usunąć pozycję o nazwie:</p>
                 <p className
-="font-weight-bold d-flex justify-content-center mb-4">{selectedItem && selectedItem.title}</p>
+                  ="font-weight-bold d-flex justify-content-center mb-4">{selectedItem && selectedItem.title}</p>
                 <Modal.Footer className
-="justify-content-center d-flex mb-3">
+                  ="justify-content-center d-flex mb-3">
                   <p className
-="btn btn-secondary btn-fill mr-5"
+                    ="btn btn-secondary btn-fill mr-5"
                     onClick={() => setShowModal(false)}>Anuluj</p>
                   <p className
-="btn btn-danger btn-fill ml-5"
+                    ="btn btn-danger btn-fill ml-5"
                     onClick={() => deleteFile(selectedItem.id)}>Tak, usuń</p>
                 </Modal.Footer>
               </Modal>
 
               {/*MODAL EDIT */}
               <Modal className
-="modal-backdrop" show={showModal2} onRequestClose={closeModal2}>
+                ="modal-backdrop" show={showModal2} onRequestClose={closeModal2}>
 
                 <Modal.Body className
-="modal-title h2 d-flex justify-content-center ml-0">
+                  ="modal-title h2 d-flex justify-content-center ml-0">
                   <Form>
                     <Row md="1" className="mt-4">
                       {message ? <Message msg={message} /> : null}
@@ -347,7 +342,7 @@ const ShowList_uchw = () => {
                       </Form.Control.Feedback>
                     </Row>
                     <p className
-="text-muted ml-4 p-1">Dopuszczalna ilość znaków: {characterCount}/200</p>
+                      ="text-muted ml-4 p-1">Dopuszczalna ilość znaków: {characterCount}/200</p>
 
                     <div className="mt-3 mb-3">
                       <Progress percentage={uploadPercentage} />
@@ -356,9 +351,9 @@ const ShowList_uchw = () => {
                         onClick={updateFile}
                         className='btn btn-fill btn-primary btn-fix' />
                       <div className
-="d-flex justify-content-center mt-1">
+                        ="d-flex justify-content-center mt-1">
                         <p className
-="btn w-25 btn-danger btn-fill "
+                          ="btn w-25 btn-danger btn-fill "
                           onClick={() => setShowModal2(false)}>Anuluj</p>
                       </div>
                     </div>

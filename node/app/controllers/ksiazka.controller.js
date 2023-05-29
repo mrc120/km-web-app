@@ -1,10 +1,9 @@
 const sequelize = require("sequelize");
-const { dzial, stanowisko, osoba } = require("../models");
 const db = require("../models");
 const Ksiazka = db.osoba;
 
 exports.create = (req, res) => {
-const ksiazka = {
+  Ksiazka.create({
     id: req.params.id,
     nazwa: req.body.nazwa,
     stanowisko: req.body.stanowisko,
@@ -15,19 +14,14 @@ const ksiazka = {
     symbol_dzialu: req.body.symbol_dzialu,
     dzialIdDzialu: req.body.dzialIdDzialu,
     stanowiskoIdStan: req.body.stanowiskoIdStan,
-
-};
-//create
-Ksiazka.create(ksiazka)
-.then(data => {
+  }).then(data => {
     res.send(data);
-})
-.catch(err => {
+  }).catch(err => {
     res.status(500).send({
-        message:
-            err.message || "Wystąpił błąd podczas tworzenia."
+      message:
+        err.message || "Wystąpił błąd podczas tworzenia."
     });
-});
+  });
 };
 
 exports.findAll = (req, res) => {
@@ -58,7 +52,7 @@ exports.findAll = (req, res) => {
 
 exports.update = (req, res) => {
   const id = req.params.id;
-Ksiazka.update(req.body, {
+  Ksiazka.update(req.body, {
     where: {
       id: id,
     },
@@ -81,28 +75,23 @@ Ksiazka.update(req.body, {
     });
 };
 
-
-//findone
 exports.findOne = (req, res) => {
   const id = req.params.id;
   Ksiazka.findByPk(id)
     .then(data => {
       res.send(data);
-    })
-    .catch(err => {
+    }).catch(err => {
       res.status(500).send({
         message: "Nie przywrocono danych po id:" + id
       });
     });
 };
 
-//delete
 exports.delete = (req, res) => {
   const id = req.params.id;
   Ksiazka.destroy({
-    where: { id: id}
-  })
-    .then(num => {
+    where: { id: id }
+  }).then(num => {
       if (num == 1) {
         res.send({
           message: "Pozycja usunięta"
@@ -112,8 +101,7 @@ exports.delete = (req, res) => {
           message: 'Nie można usunąć id=${id}'
         });
       }
-    })
-    .catch(err => {
+    }).catch(err => {
       res.status(500).send({
         message: "Nie można usunąć z id=" + id
       });

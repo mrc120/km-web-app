@@ -72,7 +72,6 @@ exports.update_role = (req, res) => {
         });
 }
 
-
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
 };
@@ -86,6 +85,6 @@ exports.upload_file = (req, res) => {
 };
 
 exports.upload_user = (req, res) => {
-    res.status(200).send("Uploader content.");
+    res.status(200).send("Uploader user content.");
 };
 
