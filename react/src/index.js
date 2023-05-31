@@ -9,15 +9,15 @@ import "./assets/scss/light-bootstrap-dashboard-react.scss?v=2.0.0";
 import "./assets/css/demo.css";
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 
-import LayoutPanel from "./layouts/panel";
+import LayoutPanel from "./layouts/layout";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/u"
-        render={(props) =>
-          <LayoutPanel {...props} />} />
-      <Redirect from="/" to="/u/ksiazka" />
+      <Route
+       render={(props) =>
+        <LayoutPanel {...props} />} />
+        <Redirect from="/" to="/ksiazka" />
     </Switch>
   </BrowserRouter>,
 

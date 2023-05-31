@@ -35,7 +35,7 @@ const AddFile = () => {
         <Form.Label>Umieść do:</Form.Label>
         <Form.Control required as="select" type="select" onChange={handleLocaChange}>
           <option value=''>Wybierz lokalizację</option>
-          <option value="http://localhost:8080/api/upload">Uchwały</option>
+          <option value="http://localhost:8080/api/upload_uchw">Uchwały</option>
           <option value="http://localhost:8080/api/upload_zarz">Zarządzenia</option>
           <option value="http://localhost:8080/api/upload_podst">Polecenia służbowe</option>
         </Form.Control>
@@ -79,7 +79,7 @@ const AddFile = () => {
 
         setMessage('Plik został udostępniony na stronie, za chwilę strona zostanie odświeżona...');
 
-        // setTimeout(() => window.location.reload(true), 2000);
+        setTimeout(() => window.location.reload(true), 2000);
 
       } catch (err) {
         if (err.response.status === 500) {

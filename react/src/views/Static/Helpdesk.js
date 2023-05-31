@@ -3,7 +3,7 @@ import 'assets/css/mainpanel.css';
 
 function Helpdesk() {
   useEffect(() => {
-    window.location.href = 'http://111.111.111.144:8081/#/';
+    window.location.href = 'http://111.111.111.122:8082/#/';
   }, []);
 
   return (

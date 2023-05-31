@@ -1,7 +1,6 @@
-import ReactDOM from 'react-dom'
 import React from "react";
-import { useLocation, Switch, Link, Route } from "react-router-dom";
-import { Navbar, Row, Nav, Button, Modal, } from "react-bootstrap";
+import { useLocation,} from "react-router-dom";
+import { Navbar, Nav, Button} from "react-bootstrap";
 import routes from "routes.js";
 
 import LoginModal from "../../components/Modal/Modal.js"
@@ -29,7 +28,7 @@ const AdminNavbar = () => {
 
   const getBrandText = () => {
     for (let i = 0; i < routes.length; i++) {
-      if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
+      if (location.pathname.indexOf(routes[i].path) !== -1) {
         return routes[i].name;
       }
     }
@@ -53,7 +52,7 @@ const AdminNavbar = () => {
       </div>
       <Navbar.Collapse id="basic-navbar-nav">
         <div className="out-box"></div>
-        <Nav className="nav mx-auto" style={{ width: "80px" }} navbar>
+        <Nav className="nav mx-auto" style={{ width: "80px" }} >
         </Nav>
         <Nav nav className="static-hold">
           <Nav.Item>
@@ -62,7 +61,7 @@ const AdminNavbar = () => {
                 title="Dodaj nowy plik"
                 className="btn-nav d-inline-flex"
                 variant="success"
-                href="/u/upload_file">
+                href="/upload_file">
                 <div className="mr-1">Dodaj plik</div>
                 <i className="nc-icon nc-cloud-upload-94 size-up"></i>
               </Button>
@@ -74,7 +73,7 @@ const AdminNavbar = () => {
                 title="Dodaj nowego pracownika"
                 className="btn d-inline-flex"
                 variant="success"
-                href="/u/add">
+                href="/add">
                 <div className="mr-1 ">Dodaj +</div>
                 <div className="nc-icon nc-circle-09 size-up"></div>
               </Button>
@@ -85,7 +84,7 @@ const AdminNavbar = () => {
               <Button
                 title="Admin"
                 className="btn-nav d-flex"
-                href="/u/panel_administracyjny">
+                href="/panel_administracyjny">
                 <i className="nc-icon nc-settings-gear-64 size-up"></i>
               </Button>
             }
@@ -94,7 +93,7 @@ const AdminNavbar = () => {
             {currentUser ? (
               <Button
                 className="btn-wd-l font-weight-normal btn-weight-600"
-                href="/table"
+                href="/ksiazka"
                 variant="info"
                 onClick={logOut}>
                 <span className="no-icon">Wyloguj</span>

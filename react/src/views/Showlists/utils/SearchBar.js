@@ -6,7 +6,7 @@ import { Search } from "@material-ui/icons";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-
+import "./style.css"
 
 const SearchBar = ({keyword, onChange}) => {
 

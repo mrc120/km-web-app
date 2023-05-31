@@ -12,27 +12,24 @@ import Helpdesk from "views/Static/Helpdesk.js";
 import KnowledgeHelpdesk from "views/Static/KnowledgeHelpdesk";
 
 
-const navbarRoutes = [
+const routes = [
   {
     path: "/add",
     name: "Dodaj użytkownika",
     icon: "nc-icon nc-circle-09",
     component: AddUser,
-    layout: "/u",
   },
   {
     path: "/upload_file",
     name: "Dodaj plik",
     icon: "nc-icon nc-single-copy-04",
     component: AddFile,
-    layout: "/u",
   },
   {
     path: "/ksiazka",
     name: "Książka",
     icon: "nc-icon nc-badge",
     component: TableList,
-    layout: "/u",
     visible: true
   },
   {
@@ -40,7 +37,6 @@ const navbarRoutes = [
     name: "Uchwały",
     icon: "nc-icon nc-single-copy-04",
     component: ShowList_uchw,
-    layout: "/u",
     visible: true
   },
   {
@@ -48,7 +44,6 @@ const navbarRoutes = [
     name: "Zarządzenia",
     icon: "nc-icon nc-notes",
     component: ShowList_zarz,
-    layout: "/u",
     visible: true
   },
   {
@@ -56,7 +51,6 @@ const navbarRoutes = [
     name: "Podstawy Prawne",
     icon: "nc-icon nc-tag-content",
     component: ShowList_podst,
-    layout: "/u",
     visible: true
   },
   {
@@ -64,7 +58,6 @@ const navbarRoutes = [
     name: "Panel Administracyjny",
     icon: "nc-icon nc-settings-gear-64",
     component: AdminPanel,
-    layout: "/u",
     visible: false
   },
   {
@@ -72,7 +65,6 @@ const navbarRoutes = [
     name: "Legenda",
     icon: "nc-icon nc-bulb-63",
     component: Legend,
-    layout: "/u",
     visible: true
   },
   {
@@ -80,7 +72,6 @@ const navbarRoutes = [
     name: "Helpdesk",
     icon: "nc-icon nc-support-17",
     component: Helpdesk,
-    layout: "/u",
     visible: true
   },
   {
@@ -88,10 +79,9 @@ const navbarRoutes = [
     name: "Baza wiedzy",
     icon: "nc-icon nc-single-copy-04",
     component: KnowledgeHelpdesk,
-    layout: "/u",
     visible: true
   },
 ];
 
-export default navbarRoutes;
+export default routes;
 

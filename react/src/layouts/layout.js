@@ -5,31 +5,28 @@ import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
 
-import routes from "routes.js";
+import routes from "../routes";
 
 import sidebarImage from "assets/img/loglclr.png";
 
 function Layout() {
   const [image] = useState(sidebarImage);
   const [color] = useState("azure");
-  const [hasImage] = useState(true);
   const location = useLocation();
   const mainPanel = useRef(null);
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/u") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            render={(props) => <prop.component {...props} />}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
+
+      return (
+        <Route
+          path={prop.path}
+          render={(props) => <prop.component {...props} />}
+          key={key} 
+        />
+      );
+
+  });
   };
 
   useEffect(() => {
@@ -48,7 +45,7 @@ function Layout() {
   return (
     <>
       <div className="wrapper">
-        <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
+        <Sidebar color={color} image={image} routes={routes} />
         <div className="main-panel" ref={mainPanel}>
           <AdminNavbar />
           <Switch>{getRoutes(routes)}</Switch>
