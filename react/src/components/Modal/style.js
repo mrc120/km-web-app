@@ -35,6 +35,10 @@ const ModalBody = styled.div`
   margin: auto;
 `
 
+const ModalFooter = styled.div`
+margin:auto;
+`
+
 const ModalOverlay = styled.div`
   position: fixed;
   top: 50%;
@@ -75,12 +79,14 @@ display: block;
   }
 `
 
+
 export const StyledModal = {
   ModalWrapper,
   ModalHeader,
-  ContentB,
   ModalBody,
+  ModalFooter,
   ModalOverlay,
+  ContentB,
   Backdrop,
   CloseButton
 }

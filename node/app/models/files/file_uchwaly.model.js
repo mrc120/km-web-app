@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
                    autoIncrement: true    },
     title:       { type: DataTypes.STRING },
     description: { type: DataTypes.STRING },
-    name:        { type: DataTypes.STRING },
     data:        { type: DataTypes.BLOB('medium')},
+    name:        { type: DataTypes.STRING },
     nameAtt: { type: DataTypes.STRING },
     attachment:    { type: DataTypes.BLOB('medium')}
   });

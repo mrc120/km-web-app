@@ -3,7 +3,7 @@ import { useLocation,} from "react-router-dom";
 import { Navbar, Nav, Button} from "react-bootstrap";
 import routes from "routes.js";
 
-import LoginModal from "../../components/Modal/Modal.js"
+import LoginModal from "../Modal/LoginModal.js"
 
 import useToggle from "../../hooks/useToggle.js"
 import useAuth from "../../hooks/useAuth.js"

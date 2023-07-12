@@ -3,10 +3,15 @@ import { Container } from "react-bootstrap";
 import useAuth from "../../hooks/useAuth"
 import FilterData from './utils/FilterData'
 import SearchBar from './utils/SearchBar'
+import EditFile from "./utils/EditFile";
+import LoginModal from "../../components/Modal/Portal.js"
+import useToggle from "../../hooks/useToggle"
+
+import { Button } from "react-bootstrap";
 
 const ShowList_podst = () => {
   const { showAdminBoard, showAddUserBoard, showFileUploadBoard,
-    currentUser, logOut } = useAuth();
+          currentUser, logOut } = useAuth();
 
   const apiURL = "http://localhost:8080/api/files_podst/"
 
@@ -15,6 +20,9 @@ const ShowList_podst = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [keyword, setKeyword] = useState('');
+
+  const [showModal, setShowModal] = useToggle(false);
+
 
   const fetchStories = async () => {
     try {
@@ -55,9 +63,11 @@ const ShowList_podst = () => {
               <div className="d-flex justify-content-center align-items-center w-100 h-100">{`Problem z załadowaniem - ${error}`}</div>
             ) : stories.length === 0 ? (
               <div>Ups, narazie jest tu pusto.</div>
-            ): null}
+            ) : null}
+
             <SearchBar keyword={keyword} onChange={updateKeyword} />
             <FilterData stories={stories} apiURL={apiURL} />
+
           </Container>
         </div>
       </div>

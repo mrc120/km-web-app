@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { createPortal } from 'react-dom'
+import React from "react";
+import { Portal } from './Portal'
 import { StyledModal } from './style'
-
 import LoginForm from "../../Form/LoginForm"
 
 import km_logo from '../../assets/img/logokmclear.png'
-
-function Portal({ children }) {
-  const modalRoot = document.getElementById('modal-root')
-  const [element] = useState(document.createElement('div'))
-
-  useEffect(() => {
-    modalRoot.appendChild(element)
-
-    return function cleanup() {
-      modalRoot.removeChild(element)
-    }
-  }, [modalRoot, element])
-
-  return createPortal(children, element)
-}
 
 const renderModalHeader = () => {
   return (
@@ -30,7 +14,6 @@ const renderModalHeader = () => {
   )
 }
 
-// A modal component which will be used by other components / pages
 function LoginModal({ children, showModal, toggle }) {
   return (
     <Portal>
@@ -54,4 +37,4 @@ function LoginModal({ children, showModal, toggle }) {
   )
 }
 
-export default LoginModal
+export default LoginModal;

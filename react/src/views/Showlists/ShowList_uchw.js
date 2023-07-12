@@ -217,52 +217,39 @@ const ShowList_uchw = () => {
               {entries &&
                 entries.map((poz, index) => {
                   return (
-                    <div className
-                      ="col-md-3">
-                      <div className
-                        ="card ">
-                        <div className
-                          ="container">
-                          <div className
-                            ="row px-0">
-                            <div className
-                              ="col-sm-10 ">
-                              <div className
-                                ="h4u" data-id={poz.id}>{poz.title}</div>
-                              <hr className
-                                ="solid"></hr>
-                              <div className
-                                ="h5u">{poz.description}</div>
+                    <div className ="col-md-3">
+                      <div className="card ">
+                        <div className="container">
+                          <div className="row px-0">
+                            <div className="col-sm-10 ">
+                              <div className ="h4u" data-id={poz.id}>{poz.title}</div>
+                              <hr className="solid"></hr>
+                              <div className="h5u">{poz.description}</div>
                             </div>
-                            <div className
-                              ="col-sm-2 flex-column px-0 btn-group">
+                            <div className="col-sm-2 flex-column px-0 btn-group">
                               <Button style={{ margin: '-1px -1px -1px 0' }}
                                 className="d-flex align-items-center justify-content-center border-bottom  rounded-top rounded-bottom-left-1 rounded-bottom-0   px-0 "
                                 target="_blank" onChange={open}
                                 href={SRV_URL + "/api/files/" + poz.name} >
-                                <i className
-                                  ="nc-icon nc-cloud-download-93 size-up-down "></i>
+                                <i className="nc-icon nc-cloud-download-93 size-up-down "></i>
                               </Button>
                               <Button style={{ margin: '0 -1px 0px 0' }} className="d-flex align-items-center justify-content-center rounded-top-0  rounded-0 px-0"
                                 target="_blank" onChange={open}
                                 href={SRV_URL + "/api/files/" + poz.nameAtt} >
-                                <i className
-                                  ="nc-icon nc-attach-87 size-up-down"></i>
+                                <i className="nc-icon nc-attach-87 size-up-down"></i>
                               </Button>
                             </div>
                           </div>
                         </div>
                         {(showAdminBoard || showFileUploadBoard) &&
                           <div className="row ">
-                            <div className
-                              ="col-sm px-0 ml-3 ">
+                            <div className="col-sm px-0 ml-3 ">
                               <Link style={{ margin: '-1px 0 -1px 0px' }} className="btn form-control px-0 btn-danger border-right border-bottom border-left rounded-0"
                                 onClick={() => expandModal2(poz)}>
                                 Edytuj
                               </Link>
                             </div>
-                            <div className
-                              ="col-sm px-0 mr-3 ">
+                            <div className="col-sm px-0 mr-3 ">
                               <Button style={{ margin: '-1px 0 -1px 0px' }} className="btn col-12 btn-block w-100 form-control pd-5 btn btn-danger border-right border-bottom rounded-0"
                                 onClick={() => expandModal(poz)}>
                                 Usuń
@@ -276,27 +263,18 @@ const ShowList_uchw = () => {
                 })}
 
               {/* //MODAL  */}
-              <Modal className
-                ="modal-backdrop" show={showModal} onRequestClose={closeModal}>
-                <Modal.Body className
-                  ="mt-2 d-flex justify-content-center" closeButton>
+              <Modal className="modal-backdrop" show={showModal} onRequestClose={closeModal}>
+                <Modal.Body className="mt-2 d-flex justify-content-center" closeButton>
                   <ErrorIcon sx={{ color: "#FF4A55", fontSize: "120px !important" }} />
                 </Modal.Body>
-                <Modal.Body className
-                  ="modal-title h2 d-flex justify-content-center ml-0">Jesteś pewien?</Modal.Body>
-                <Modal.Body className
-                  ="h4 d-flex justify-content-center  mt-2 mb-4">Czy na pewno chcesz usunąć tą pozycję? </Modal.Body>
-                <p className
-                  ="d-flex justify-content-center mb-1 ">Próbujesz usunąć pozycję o nazwie:</p>
-                <p className
-                  ="font-weight-bold d-flex justify-content-center mb-4">{selectedItem && selectedItem.title}</p>
-                <Modal.Footer className
-                  ="justify-content-center d-flex mb-3">
-                  <p className
-                    ="btn btn-secondary btn-fill mr-5"
+                <Modal.Body className="modal-title h2 d-flex justify-content-center ml-0">Jesteś pewien?</Modal.Body>
+                <Modal.Body className="h4 d-flex justify-content-center  mt-2 mb-4">Czy na pewno chcesz usunąć tą pozycję? </Modal.Body>
+                <p className="d-flex justify-content-center mb-1 ">Próbujesz usunąć pozycję o nazwie:</p>
+                <p className="font-weight-bold d-flex justify-content-center mb-4">{selectedItem && selectedItem.title}</p>
+                <Modal.Footer className="justify-content-center d-flex mb-3">
+                  <p className="btn btn-secondary btn-fill mr-5"
                     onClick={() => setShowModal(false)}>Anuluj</p>
-                  <p className
-                    ="btn btn-danger btn-fill ml-5"
+                  <p className="btn btn-danger btn-fill ml-5"
                     onClick={() => deleteFile(selectedItem.id)}>Tak, usuń</p>
                 </Modal.Footer>
               </Modal>

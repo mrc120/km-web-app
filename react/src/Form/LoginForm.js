@@ -36,15 +36,13 @@ const LoginForm = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        setMessage("");
+        setMessage(""); //del
         setLoading(true);
         form.current.validateAll();
         if (checkBtn.current.context._errors.length === 0) {
-            AuthService.login(login, password).then(
-                () => {
-
-                    window.location.reload();
-                },
+            AuthService.login(login, password).then(() => {
+                window.location.reload();
+            },
                 (error) => {
                     const resMessage =
                         (error.response &&
@@ -52,7 +50,6 @@ const LoginForm = () => {
                             error.response.data.message) ||
                         error.message ||
                         error.toString();
-
                     setLoading(false);
                     setMessage(resMessage);
                 }
@@ -90,20 +87,19 @@ const LoginForm = () => {
                         </div>
                     )}
                     <div className="d-flex justify-content-center">
-                        <CheckButton  ref={checkBtn} className="btn-fill btn btn-info btn-group d-flex align-items-center" disabled={loading}>
+                        <CheckButton ref={checkBtn} className="btn-fill btn btn-info btn-group d-flex align-items-center" disabled={loading}>
                             <span>Logowanie</span>
                             {loading && (
                                 <span className="spinner-border spinner-border-sm ml-1 "></span>
                             )}
                         </CheckButton>
                     </div>
-                    {/* <CheckButton className="mt-2" style={{ display: "none" }}  /> */}
-
+                   
                 </Form>
             </div>
         </>
     )
- 
+
 }
 
 export default LoginForm;
