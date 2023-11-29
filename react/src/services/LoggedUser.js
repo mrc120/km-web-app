@@ -1,7 +1,5 @@
 
-import React, { useEffect, useState } from "react";
-
-
+import { useEffect, useState } from "react";
 import AuthService from "../../services/Auth/auth.service.js";
 
 const LoggedUser = (currentUser, showAdminBoard, showFileUploadBoard, showAddUserBoard) => {
@@ -9,7 +7,6 @@ const LoggedUser = (currentUser, showAdminBoard, showFileUploadBoard, showAddUse
     const [showFileUploadBoard, setFileUploadBoard] = useState(false);
     const [showAddUserBoard, setAddUserBoard] = useState(false);
     const [currentUser, setCurrentUser] = useState(undefined);
-
 
     useEffect(() => {
         const user = AuthService.getCurrentUser();
@@ -21,6 +18,6 @@ const LoggedUser = (currentUser, showAdminBoard, showFileUploadBoard, showAddUse
         }
     }, []);
 
-return <div>hello {currentUser}</div>;
+    // return <div>hello {currentUser}</div>;
 }
 export default LoggedUser

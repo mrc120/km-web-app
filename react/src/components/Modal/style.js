@@ -10,7 +10,6 @@ const ModalWrapper = styled.div`
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
- 
 `
 const ContentB = styled.div`
 border: 1px solid rgba(0,0,0,.2);
@@ -20,8 +19,6 @@ display: fixed;
 left: 50%
 width: 250px;
 align-content:center;
-
-
 `
 
 const ModalHeader = styled.div`
@@ -48,8 +45,7 @@ const ModalOverlay = styled.div`
   z-index: 9999;
   padding: 2rem;
   border-radius: 1rem;
- 
-`;
+`
 
 const Backdrop = styled.div`
   position: absolute;
@@ -78,7 +74,6 @@ display: block;
     cursor: pointer;
   }
 `
-
 
 export const StyledModal = {
   ModalWrapper,

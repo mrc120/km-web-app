@@ -15,13 +15,9 @@ const LoadUsers = () => {
                 console.log(error)
             }
         };
-
         fetchData();
     }, []);
 
-    return {
-        data,
-    }
-
+    return { data }
 }
 export default LoadUsers;    

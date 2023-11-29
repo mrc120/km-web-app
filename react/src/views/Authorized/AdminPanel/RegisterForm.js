@@ -18,9 +18,7 @@ const RegisterForm = () => {
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
   
- 
-  
-    const onChangeUsername = (e) => {
+     const onChangeUsername = (e) => {
       const username = e.target.value;
       setUsername(username);
     };
@@ -29,15 +27,9 @@ const RegisterForm = () => {
       setPassword(password);
     };
 
-  
-    //USER FORM 
-    // WYDZIELIC DO 
     const handleRegister = (e) => {
       e.preventDefault();
-  
       // setSuccessful(false);
-  
-      // co to jest?
       form.current.validateAll();
       if (checkBtn.current.context._errors.length === 0) {
         AuthService.register(username, password).then(
@@ -53,7 +45,7 @@ const RegisterForm = () => {
                 error.response.data.message) ||
               error.message ||
               error.toString();
-              //wydzielic to 
+   
             setMessage("Sukces");
             setSuccessful(true)
             setTimeout(() => window.location.reload(true), 2000);
@@ -101,7 +93,6 @@ const RegisterForm = () => {
         <CheckButton style={{ display: "none" }} ref={checkBtn} />
       </Form>
     )
-
 }
   
   export default RegisterForm;

@@ -1,5 +1,5 @@
-import MaterialTable, {MTableToolbar} from 'material-table';
-import { createTheme} from "@material-ui/core/styles";
+import { MTableToolbar } from 'material-table';
+import { createTheme } from "@material-ui/core/styles";
 
 
 const customSearchField = {
@@ -32,6 +32,7 @@ const tableStyle = {
     pageSize: 20,
     pageSizeOptions: [10, 20, 30, 40, 50],
     searchFieldStyle: customSearchField,
+    
 }
 
 const tableRowPadding = createTheme({

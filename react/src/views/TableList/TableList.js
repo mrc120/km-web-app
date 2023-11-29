@@ -1,42 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from "material-table";
-
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import style from "./style"
 import KsiazkaService from "../../services/ksiazka.service.js"
-
 import { localization, tableIcons } from "./localization"
-import {columns} from "./columns"
-
+import { columns } from "./columns"
 
 function KsiazkaTable() {
-
   const [entries, setEntries] = useState([])
-  const [data] = React.useState({ columns })
+  const [getStan, setStan] = useState({ data: [] })
+  const [selectedRowIndex, setSelectedRowIndex] = useState('')
 
   useEffect(() => {
-    KsiazkaService.getAll()
-      .then(response => {
-        let data = response.data
+    const fetchData = async () => {
+      try {
+        const response = await KsiazkaService.getAll();
+        const data = response.data;
         setEntries({ data: data });
-      }).catch(function (error) {
+      } catch (error) {
         console.log(error);
-      });
-  }, []);
+      }
+    };
 
+    fetchData();
+  }, [])
 
   return (
     <div className="main-ov">
       <MuiThemeProvider theme={style.tableRowPadding}>
         <MaterialTable
-          columns={data.columns}
+          columns={columns}
           data={entries.data}
           icons={tableIcons}
-          // doubleHorizontalScroll={false}
+          localization={localization}
           title={""}
           components={style.toolbarPlacement}
           options={style.tableStyle}
-          localization={localization}
           editable={
             {
               onRowUpdate: (newData, oldData) =>
@@ -56,7 +55,7 @@ function KsiazkaTable() {
                     resolve();
                     const data = [...entries.data];
                     data.splice(data.indexOf(oldData), 1);
-                    KsiazkaService.remove(+oldData.id, {
+                    KsiazkaService.remove(oldData.id, {
                     }).then(res => console.log(res.data));
                     setEntries({ ...entries, data });
                   }, 600);
@@ -64,7 +63,6 @@ function KsiazkaTable() {
             }
           }
         />
-
       </MuiThemeProvider>
     </div>
   );

@@ -9,12 +9,12 @@ import { StyledModal } from './style'
 
 const deleteFile = (id) => {
   FilesService_podst.remove(id)
-    .then(response => {
-      console.log(response.data);
+    .then(() => {
+      window.location.reload(true);
     }).catch(function (error) {
       console.log(error);
     });
-  window.location.reload(true);
+ 
 }
 
 const renderModalHeader = () => {
@@ -49,8 +49,8 @@ function DeleteModal({ showModal, toggle, id, title }) {
   return (
     <Portal>
       {showModal && (
-        <StyledModal.Backdrop >
-          <StyledModal.ModalOverlay onClick={toggle} >
+        <StyledModal.Backdrop onClick={toggle}>
+          <StyledModal.ModalOverlay  >
             <StyledModal.ModalHeader>
               {(renderModalHeader())}
             </StyledModal.ModalHeader>

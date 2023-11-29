@@ -47,7 +47,9 @@ export const localization = {
     firstTooltip: 'Pierwsza strona',
     previousTooltip: 'Poprzednia strona',
     nextTooltip: 'Kolejna strona',
-    lastTooltip: 'Ostatnia strona'
+    lastTooltip: 'Ostatnia strona',
+    onChangeRowsPerPage: "asd",
+    onPageChange: "asd"
   },
   body: {
     editTooltip: "Edytuj",

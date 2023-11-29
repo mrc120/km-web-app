@@ -2,12 +2,6 @@
   "name": "km-address-book-app",
   "version": "1.1.0",
   "description": "km",
-  "main": "server.js",
-  "scripts": {
-    "server": "node server.js",
-    "react": "cd .. && cd react && npm start",
-    "dev": "concurrently \"nodemon server.js\" \"npm run react\""
-  },
   "author": "Krzysztof Mikołajczyk",
   "license": "ISC",
   "repository": {
@@ -18,6 +12,12 @@
     "url": "https://github.com/mrc120/km-bookadd-webapp/issues"
   },
   "homepage": "https://github.com/mrc120/km-bookadd-webapp#readme",
+  "main": "server.js",
+  "scripts": {
+    "server": "node server.js",
+    "react": "cd .. && cd react && npm start",
+    "dev": "concurrently \"nodemon server.js\" \"npm run react\""
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

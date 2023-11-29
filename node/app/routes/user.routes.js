@@ -30,13 +30,13 @@ module.exports = function (app) {
     controller.upload_file
   );
 
+//users and password
   app.get("/api/auth/users", controller.userAll);
   app.get("/api/auth/users/:id", controller.user);
   app.put("/api/auth/users/:id", controller.updatePassword);
 
-
+//role
  app.get("/api/auth/user_roles/:userId", controller.user_role);
-
  app.put("/api/auth/user_roles/:userId", controller.update_role);
 
 

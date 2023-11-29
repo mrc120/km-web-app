@@ -19,11 +19,11 @@ function LoginModal({ children, showModal, toggle }) {
     <Portal>
       {showModal && (
         <StyledModal.Backdrop >
-          <StyledModal.ModalOverlay onClick={toggle} >
+          <StyledModal.ModalOverlay onClick={event => event.stopPropagation()} >
             <StyledModal.ModalHeader>
               {(renderModalHeader())}
             </StyledModal.ModalHeader>
-            <StyledModal.ModalBody onClick={event => event.stopPropagation()}>
+            <StyledModal.ModalBody>
               <LoginForm />
               <StyledModal.CloseButton onClick={toggle}>
                 Zamknij

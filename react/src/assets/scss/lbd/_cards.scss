@@ -1,39 +1,10 @@
 .card{
     border-radius: $border-radius-base;
     background-color: $white-color;
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
 
 
-    .card-image{
-        width: 100%;
-        overflow: hidden;
-        height: 260px;
-        border-radius: $border-radius-base $border-radius-base 0 0;
-        position: relative;
-        -webkit-transform-style: preserve-3d;
-        -moz-transform-style: preserve-3d;
-        transform-style: preserve-3d;
-
-        img {
-            width: 100%;
-        }
-    }
-    .filter{
-        position: absolute;
-        z-index: 2;
-        background-color: rgba(0,0,0,.68);
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-
-        @include opacity(0);
-
-        .btn{
-            @include vertical-align();
-        }
-    }
+ 
     &:hover .filter{
         @include opacity(1);
     }
@@ -104,9 +75,7 @@
             margin-bottom: 5px;
         }
     }
-    .stats{
-        color: #a9a9a9;
-    }
+    
     .card-footer div{
         display: inline-block;
     }
@@ -129,18 +98,10 @@
         top: 0;
         width: 1px;
         background-color: $medium-gray;
-        card-body: "";
         position: absolute;
     }
 
-    .ct-chart{
-        margin: 30px 0 30px;
-        height: 245px;
-    }
-
-    .ct-label{
-        font-size: 1rem !important;
-    }
+    
 
     .table{
         tbody td:first-child,
@@ -166,93 +127,5 @@
 
 
 
-.card-stats{
-    .card-body{
-        padding: 15px 15px 0px;
-
-        .numbers{
-            font-size: 1.8rem;
-            text-align: right;
-
-            p{
-                margin-bottom: 0;
-            }
-        }
-    }
-    .card-footer{
-        padding: 0px 15px 10px 15px;
 
 
-    }
-    .icon-big {
-        font-size: 3em;
-        min-height: 64px;
-
-        i{
-            font-weight: 700;
-            line-height: 59px;
-        }
-    }
-
-
-}
-
-.card-user{
-    .card-image{
-        height: 110px;
-    }
-    .card-image-plain{
-        height: 0;
-        margin-top: 110px;
-    }
-    .author{
-        text-align: center;
-        text-transform: none;
-        margin-top: -70px;
-    }
-    .avatar{
-        width: 124px;
-        height: 124px;
-        border: 5px solid #FFFFFF;
-        position: relative;
-        margin-bottom: 15px;
-
-        &.border-gray{
-            border-color: #EEEEEE;
-        }
-    }
-    .title{
-        line-height: 24px;
-    }
-    .card-body{
-        min-height: 240px;
-    }
-}
-
-.card-user,
-.card-price{
-    .card-footer{
-        padding: 5px 15px 10px;
-    }
-    hr{
-        margin: 5px 15px;
-    }
-}
-.card-plain{
-    background-color: transparent;
-    box-shadow: none;
-    border-radius: 0;
-
-    .card-image{
-        border-radius: 4px;
-    }
-}
-
-.card.card-plain{
-    border: none !important;
-
-    .card-header{
-        background-color: transparent !important;
-
-    }
-}

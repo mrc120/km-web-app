@@ -14,10 +14,9 @@ import LayoutPanel from "./layouts/layout";
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route
-       render={(props) =>
-        <LayoutPanel {...props} />} />
-        <Redirect from="/" to="/ksiazka" />
+      <Route render={(props) =>
+          <LayoutPanel {...props} />} />
+      <Redirect from="/" to="/ksiazka" />
     </Switch>
   </BrowserRouter>,
 

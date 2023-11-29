@@ -1,5 +1,4 @@
 import http from "../../http-common"
-import axios from "axios";
 
 const register = (login, password) => {
   return http.post("auth/signup/", {
@@ -20,17 +19,19 @@ const login = (login, password) => {
     });
 };
 
-const updatePassword = (password) => {
-  return http.put("auth/users/", {
+const updatePassword = (id, password) => {
+  return http.put(`auth/users/${id}`, {
     id,
     password
   });
 };
 
-const updatePassword2 = (password) => {
-  return http.put(`auth/users/2`, password
-  );
-};
+const updateRole = (userId, roleId) => {
+  return http.put(`auth/user_roles/${userId}`, {
+    userId,
+    roleId 
+  })
+}
 
 const logout = () => {
   localStorage.removeItem("user");
@@ -40,11 +41,12 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
+
 export default {
   register,
   login,
   logout,
   getCurrentUser,
   updatePassword,
-  updatePassword2
+  updateRole
 };

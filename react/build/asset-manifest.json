@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.0e8268a4.css",
-    "main.js": "/static/js/main.76496fd7.js",
-    "static/js/498.20ecf653.chunk.js": "/static/js/498.20ecf653.chunk.js",
+    "main.css": "/static/css/main.bdbed7ba.css",
+    "main.js": "/static/js/main.ede936a9.js",
+    "static/js/498.b165df2d.chunk.js": "/static/js/498.b165df2d.chunk.js",
     "static/js/703.573e408b.chunk.js": "/static/js/703.573e408b.chunk.js",
-    "static/js/478.3eebc5a8.chunk.js": "/static/js/478.3eebc5a8.chunk.js",
+    "static/js/478.b1f12f62.chunk.js": "/static/js/478.b1f12f62.chunk.js",
     "static/media/nucleo-icons.svg": "/static/media/nucleo-icons.e8827b8a8e3df089befd.svg",
     "static/media/logokmclear.png": "/static/media/logokmclear.293a3b2323d9122c3a28.png",
     "static/media/logo-clear-inverted.png": "/static/media/logo-clear-inverted.329b85496573a5cfb0f7.png",
@@ -14,14 +14,14 @@
     "static/media/nucleo-icons.woff": "/static/media/nucleo-icons.141e0c4652975b501bab.woff",
     "static/media/nucleo-icons.woff2": "/static/media/nucleo-icons.69d4ebfdc94eab6fdb6e.woff2",
     "index.html": "/index.html",
-    "main.0e8268a4.css.map": "/static/css/main.0e8268a4.css.map",
-    "main.76496fd7.js.map": "/static/js/main.76496fd7.js.map",
-    "498.20ecf653.chunk.js.map": "/static/js/498.20ecf653.chunk.js.map",
+    "main.bdbed7ba.css.map": "/static/css/main.bdbed7ba.css.map",
+    "main.ede936a9.js.map": "/static/js/main.ede936a9.js.map",
+    "498.b165df2d.chunk.js.map": "/static/js/498.b165df2d.chunk.js.map",
     "703.573e408b.chunk.js.map": "/static/js/703.573e408b.chunk.js.map",
-    "478.3eebc5a8.chunk.js.map": "/static/js/478.3eebc5a8.chunk.js.map"
+    "478.b1f12f62.chunk.js.map": "/static/js/478.b1f12f62.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0e8268a4.css",
-    "static/js/main.76496fd7.js"
+    "static/css/main.bdbed7ba.css",
+    "static/js/main.ede936a9.js"
   ]
 }

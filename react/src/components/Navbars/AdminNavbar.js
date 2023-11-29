@@ -12,6 +12,7 @@ const AdminNavbar = () => {
   const { showAdminBoard, showAddUserBoard, showFileUploadBoard,
     currentUser, logOut } = useAuth();
   const location = useLocation();
+  
   const [showModal, setShowModal] = useToggle(false);
 
   const mobileSidebarToggle = (e) => {
